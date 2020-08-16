@@ -264,6 +264,11 @@ x-sprite canvas {
   top: 267px;
   transform: rotateX(-60deg);
 }
+.castle_path {
+  border-bottom: 200px solid grey;
+  border-left: 150px solid transparent;
+  border-right: 150px solid transparent;
+}
 .actor {
   width: 100%;
   height: 100%;
