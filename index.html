@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Case of the Missing Page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="Game.css">
+  </head>
+  <body>
+    <div id="msg">Click to start</div>
+    <div id="wrap">
+      <div id="overlay"></div>
+
+      <div id="status">The Case of the Missing Page</div>
+
+      <div id="screen">
+      </div>
+
+      <div id="sentence">Walk to</div>
+
+      <div id="controls">
+	      <div id="commands">
+          <span data-name="Walk to">🚶</span>
+          <span data-name="Look at">👁</span>
+          <span data-name="Pick up">🤏🏼</span>
+          <span data-name="Talk to">💬</span>
+          <span data-name="Push">🤚🏼</span>
+        </div>
+        <div class="arrows"><span id="up">&#9665;</span></div>
+        <div id="items" class="metal">
+          <div id="itemlist"></div>
+        </div>
+        <div class="arrows"><span id="down">&#9655;</span></div>
+      </div>
+
+    </div>
+
+    <template id="person">
+      <div class="actor">
+        <div class="head"></div>
+        <div class="body"></div>
+        <div class="pack"></div>
+        <div class="feet"></div>
+      </div>
+    </template>
+
+    <script src="Logic.js"></script>
+    <script src="Util.js"></script>
+    <script src="UserInput.js"></script>
+    <script src="Sprite.js"></script>
+    <script src="Actor.js"></script>
+    <script src="Ego.js"></script>
+    <script src="ZzFX.micro.js"></script>
+    <script src="player-small.js"></script>
+    <script src="Sound.js"></script>
+    <script src="Game.js"></script>
+
+    <script>onload = () => new Game();</script>
+  </body>
+</html>
