@@ -300,6 +300,7 @@ class Game {
         this.userInput = new UserInput(this, screen);
         this.logic = new Logic(this);
         this.sound = new Sound();
+        this.emojiMap = new Map();
         this.start();
     }
 
@@ -335,7 +336,7 @@ class Game {
 
         // Initalise the mouse cursor.
         // TODO: Build the hour glass emoji for wait moments.
-        let cursorImgUrl = Util.renderEmoji('➕', 20, 20).toDataURL();
+        let cursorImgUrl = Util.renderEmoji('➕', 20, 20)[0].toDataURL();
         document.body.style.cursor = `url(${cursorImgUrl}) 10 10, auto`;
 
         this.gameOver();
@@ -681,7 +682,8 @@ class Game {
      * @param {Array} prop 
      */
     addPropToRoom(prop) {
-        
+        console.time('addProp_'+prop[2]);
+
         // Room type, room width, left crossing, left path, centre crossing, right path, right crossing
 
         // We only add the wall if the room type says there is one.
@@ -743,6 +745,8 @@ class Game {
         }
 
         this.add(obj);
+
+        console.timeEnd('addProp_'+prop[2]);
     }
 
     /**

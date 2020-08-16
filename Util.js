@@ -37,7 +37,7 @@ class Util {
             0, 0, width, height,
         );
 
-        return emojiCanvas;
+        return [ emojiCanvas, emojiCtx.getImageData(0, 0, width, height) ];
     }
 
     /**

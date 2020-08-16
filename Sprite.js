@@ -36,7 +36,19 @@ class Sprite extends HTMLElement {
 
         // If we were given content then add it.
         if (content) {
-            this.canvas = Util.renderEmoji(content, this.width, this.height);
+            let emojiKey = `${content}_${width}_${height}`;
+            let emojiData = game.emojiMap.get(emojiKey);
+            if (emojiData) {
+                let canvas = document.createElement('canvas');
+                canvas.width = emojiData.width;
+                canvas.height = emojiData.height;
+                canvas.getContext('2d').putImageData(emojiData, 0, 0);
+                this.canvas = canvas;
+            } else {
+                let [canvas, imgData] = Util.renderEmoji(content, this.width, this.height);
+                this.canvas = canvas;
+                game.emojiMap.set(emojiKey, imgData);
+            }
             this.appendChild(this.canvas);
         }
 
