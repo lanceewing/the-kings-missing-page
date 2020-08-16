@@ -1,0 +1,418 @@
+/*
+  IMPORTANT: The font must be reference in an active CSS font-family declaration in order for canvas to use it.
+  * This works because it forces the browser to pre-load the font. If the canvas tries to use it before it has
+    been used elsewhere, it falls back on the default font. It is possible to listen for a font loaded event and
+    use that instead (see xem's sample code and:  document.fonts.load("12px MyFont", "ß").then(…);  )
+
+  Twemoji Mozilla, Segoe UI Emoji, and EmojiOne are all vector based (no Unicode 13 support)
+  Twemoji Mozilla and Segoe UI Emoji use the Microsoft COLR format that works in all browsers.
+  EmojiOne uses OpenType SVG, which will apparently never be supported by Chrome (Unicode 8/9?)
+  NotoColorEmoji is bitmap based, so doesn't scale well at bigger sizes (supports Unicode 13 though)
+  AppleColorEmoji is also bitmap based, so doesn't scale well at bigger sizes.
+  Segoe UI Emoji should work in all. Supports Unicode 12.
+*/
+/* Twemoji COLR vector format. Works on Windows Chrome, Firefox and Edge. */
+@font-face { 
+  font-family: "twemoji"; 
+  src: url('./fonts/TwemojiMozilla.ttf') format("truetype");
+}
+/* EmojiOne works in Firefox but not Chrome or Edge. Seems out of date.
+@font-face{
+  font-family:"emojione";
+  src:url("./fonts/emojione-svg.woff") format("woff"),
+  url("./fonts/emojione-svg.otf") format("opentype");
+}
+*/
+/* NotoColorEmoji works in Chrome and Edge, but not Firefox 
+@font-face {
+  font-family: "NotoColorEmoji";
+  src:url("./fonts/NotoColorEmoji.ttf") format("truetype");
+}
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  user-select: none;
+}
+body {
+  background: #000;
+  color: #B2CDDE;
+  font-size: 20px;
+  /*font-family: courier new;*/
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+  position: relative;
+}
+#msg {
+  z-index: 1500;
+  height: 33px;
+  font-size: 50px;
+  margin-top: -25px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  animation: blinker 1.5s linear infinite;
+  color: white;
+}
+span {
+  display: inline-block;
+}
+#overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1000;
+  display: none;
+}
+#status {
+	background-color: #fff;
+	color: #000;
+	font-weight: bold;
+  height: 27px;
+  text-align: center;
+}
+#sentence {
+  width: 960px;
+  height: 33px;
+  text-align: center;
+  line-height: 33px;
+  color: white;
+  background-color: black;
+}
+#controls {
+  background-color: black;
+  width: 960px;
+  height: 82px;
+  z-index: 1;
+}
+#controls span:hover, #itemlist div:hover {
+  color: hsl(210, 100%, 40%);
+  text-shadow: hsla(210,100%,20%,.3) 0 -1px 0, hsl(210,100%,85%) 0 2px 1px, hsla(200,100%,80%,1) 0 0 5px, hsla(210,100%,50%,.6) 0 0 20px;
+}
+#controls div {
+  float: left;
+}
+.arrows {
+  width: 42px;
+}
+.arrows span {
+  font-size: 40px;
+  height: 80px;
+  width: 40px;
+  line-height: 90px;
+  text-align: center;
+  background-color: #2d2022;
+  margin: 1px;
+}
+#items {
+  width: 463px;
+  height: 82px;
+  background-color: #2d2022;;
+  margin: 1px;
+  overflow: hidden;
+  position: relative;
+}
+#itemlist {
+  position: absolute;
+  left: 0px;
+  padding: 5px 4px 2px 0px;
+  width: 2000px;
+  transition: left 100ms ease-in-out;
+}
+#itemlist span {
+  background-color: #2d2022;
+  width: 75px;
+  margin: 1px;
+  height: 80px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 40px;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+}
+#commands {
+  width: 410px;
+  font-size: 0px;
+  /* Noto Color Emoji requires installation, so not suitable for js13kgames */
+  /* Segoe UI Emoji is Windows font used for emojis */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", Times, Symbola, Aegyptus, Code2000, Code2001, Code2002, Musica, serif, LastResort;
+  /* font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; */
+  /* font-family: "Segoe UI Emoji"; */
+}
+#commands span {
+  background-color: #2d2022;
+  width: 80px;
+  margin: 1px;
+  height: 80px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 40px;
+}
+#wrap {
+  background-color: #31da81;
+  /*
+  background: linear-gradient(
+    #265D96, 
+    #B2CDDE, 
+    #B2CDDE 25% 25%, 
+    #31da81 25% 60%,
+    grey 60% 67%,
+    #31da81 67% 72%,
+    grey 72% 73%,
+    #464646 73% 75%,
+    #252525 75% 100%);
+*/
+
+  background: linear-gradient( 
+    #265D96, 
+    #B2CDDE, 
+    #B2CDDE 25% 30%, 
+    #252525 30% 35%,
+    #31da81 35% 60%, 
+    grey 60% 67%, 
+    #31da81 67% 72%, 
+    grey 72% 73%, 
+    #464646 73% 75%, 
+    #252525 75% 100%);
+
+  top: 50vh;
+  left: 50vw;
+  width: 960px;
+  height: 627px;
+  position: absolute;
+  overflow: hidden;
+  transform: scale3d(var(--scale-x), var(--scale-y), 1)  translate(-50%, -50%);
+  transform-origin: 0 0;
+  opacity: 0;
+}
+#screen {
+  position: relative;
+  height: 485px;
+  z-index: -2;
+  width: var(--screen-width);
+  will-change: transform;
+  transform: translateX(var(--screen-left));
+}
+#screen * {
+  position: absolute;
+}
+x-ego {
+  transform: rotateY(0deg) translate(var(--sprite-left), var(--sprite-top)) translateZ(0);
+  will-change: transform;
+}
+x-shadow {
+  --shadow-width: var(--sprite-width);
+  --shadow-height: calc(var(--sprite-width)/2/3);
+  position: absolute;
+  bottom: calc(var(--shadow-height)/-2);
+  left: 0px;
+  width: var(--shadow-width);
+  height: var(--shadow-height);
+  background: #000;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(1.2px);
+  z-index: 0;
+}
+x-sprite canvas {
+  width: 100%;
+  height: 100%;
+}
+.dark {
+  filter: brightness(0.4) saturate(3);
+}
+.light {
+  filter: brightness(1.3) saturate(1.5);
+}
+.wall {
+  background-color: silver;
+  background-image: 
+    linear-gradient(335deg, #b00 23px, transparent 23px),
+    linear-gradient(155deg, #b00 23px, transparent 23px),
+    linear-gradient(335deg, #b00 23px, transparent 23px),
+    linear-gradient(155deg, #b00 23px, transparent 23px);
+  background-size: 58px 56px;
+  background-position: 0px 0px, 4px 31px, 29px 28px, 33px 3px;
+}
+.left_path, .right_path {
+  top: 110px;
+  background: linear-gradient(
+    230deg, 
+    #31da81 0% 24%, 
+    grey 25% 54%, 
+    #31da81 55% 70%, 
+    grey 71% 72%, 
+    #464646 73% 77%, 
+    #252525 78% 100%);
+  background-color: #31da81;
+}
+.left_path {
+  left: 0px;
+  transform: scaleY(-1) rotateX(-60deg);
+}
+.right_path {
+  right: 0px;
+  transform: scaleY(-1) scaleX(-1) rotateX(-60deg);
+}
+.left_path.down {
+  top: 267px;
+  transform: scaleX(-1) rotateX(-60deg);
+}
+.right_path.down {
+  top: 267px;
+  transform: rotateX(-60deg);
+}
+.actor {
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+}
+.head {
+  border-radius: 50%;
+  background: linear-gradient(grey 16px, black 16px 19px, white 19px);
+  width: 42px;
+  height: 42px;
+  top: 7px;
+  left: 4px;
+  border: solid 3px black;
+}
+.head:after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: grey;
+  position: absolute;
+  border-radius: 50%;
+  border: solid 3px black;
+  top: -9px;
+  left: 12px;
+  z-index: -1;
+}
+.body {
+  position: relative;
+  border-bottom: 86px solid black;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  height: 0;
+  width: 50px;
+  top: 47px;
+}
+.body:after {
+  content: "";
+  position: absolute;
+  border-bottom: 81px solid grey;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  height: 0;
+  width: 42px;
+  top: 3px;
+  left: -11px;
+}
+.facing1 .body {
+  width: 35px;
+  border-right-width: 0px;
+}
+.facing1 .body:after {
+  width: 27.5px;
+  border-right-width: 0px;
+}
+.facing2 .body {
+  width: 35px;
+  left: 15px;
+  border-left-width: 0px;
+}
+.facing2 .body:after {
+  width: 27.5px;
+  left: 3.5px;
+  border-left-width: 0px;
+}
+.feet {
+  top: 114px;
+  height: 20px;
+  z-index: -1;
+}
+.feet:before {
+  content: "";
+  width: 3.5px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+  bottom: -5px;
+  left: 15px;
+  animation: feet 0.3s ease-out infinite alternate-reverse;
+  animation-play-state: paused;
+}
+.feet:after {
+  content: "";
+  width: 3.5px;
+  height: 20px;
+  background-color: black;
+  position: absolute;
+  bottom: -5px;
+  left: 31.5px;
+  animation: feet 0.3s ease-out infinite alternate;
+  animation-play-state: paused;
+}
+.walking .feet:before, .walking .feet:after {
+  animation-play-state: running;
+}
+@keyframes feet {
+  0% {
+    bottom: -5px;
+  }
+  90% {
+    bottom: -15px;
+  }
+  100% {
+    bottom: -15px;
+  }
+}
+.pack {
+  width: 40px;
+  height: 44px;
+  background-color: red;
+  top: 51px;
+  left: 5px;
+  border: solid 3px black;
+  z-index: -1;
+}
+.facing2 .pack {
+  width: 20px;
+} 
+.facing1 .pack {
+  width: 20px;
+  left: 25px;
+}
+.facing3 .pack {
+  z-index: 0;
+}
+
+.bubble {
+  font-size: smaller;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-weight: bold;
+  padding: 15px;
+  color: black;
+  background: white;
+  border-radius: 20px;
+  bottom: 170px;
+  border: 2px solid black;
+  box-shadow: 6px 3px black;
+}
+.speech:before {
+  z-index: 1;
+  content: "";
+  display: block;
+  position: absolute;
+  top: -29px;
+  left: 9px;
+  width: 15px;
+  height: 15px;
+  transform: rotate(45deg);
+  background-color: white;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  box-shadow: 5px 1px black;
+}
