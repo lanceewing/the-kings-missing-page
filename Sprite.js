@@ -45,7 +45,7 @@ class Sprite extends HTMLElement {
                 canvas.getContext('2d').putImageData(emojiData, 0, 0);
                 this.canvas = canvas;
             } else {
-                let [canvas, imgData] = Util.renderEmoji(content, this.width, this.height);
+                let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height);
                 this.canvas = canvas;
                 game.emojiMap.set(emojiKey, imgData);
             }

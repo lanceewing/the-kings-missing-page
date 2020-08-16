@@ -29,15 +29,19 @@ class Util {
         emojiCanvas.width = width;
         emojiCanvas.height = height;
         let emojiCtx = emojiCanvas.getContext('2d');
-        emojiCtx.shadowColor = "black";
-        emojiCtx.shadowBlur = 3;
-        emojiCtx.drawImage(
-            canvas,
-            minX-1, minY-1, newWidth, newHeight,
-            0, 0, width, height,
-        );
+        let exists = false;
+        if (newWidth > 0 && newHeight > 0) {
+            emojiCtx.shadowColor = "black";
+            emojiCtx.shadowBlur = 3;
+            emojiCtx.drawImage(
+                canvas,
+                minX-1, minY-1, newWidth, newHeight,
+                0, 0, width, height,
+            );
+            exists = true;
+        }
 
-        return [ emojiCanvas, emojiCtx.getImageData(0, 0, width, height) ];
+        return [ emojiCanvas, emojiCtx.getImageData(0, 0, width, height), exists ];
     }
 
     /**
