@@ -218,6 +218,7 @@ x-shadow {
 x-sprite canvas {
   width: 100%;
   height: 100%;
+  transform: rotateY(0deg); 
 }
 .dark {
   filter: brightness(0.4) saturate(3);
