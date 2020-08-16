@@ -546,7 +546,7 @@ class Game {
         // than what it was previously in, then we trigger entry in to the new room.
         if (this.ego.room != this.room) {
             this.room = this.ego.room;
-            this.fadeOut(this.screen);
+            this.fadeOut(this.wrap);
             setTimeout(() => this.newRoom(), 200);
         }
 
@@ -632,6 +632,8 @@ class Game {
      * Invoked when Ego is entering a room.  
      */
     newRoom() {
+        console.time('newRoom');
+
         // Remove the previous room's Objs from the screen.
         this.objs.forEach(obj => obj.remove());
         this.objs = [];
@@ -642,10 +644,12 @@ class Game {
         this.screen.style.setProperty('--screen-width', `${this.roomData[1]}px`);
 
         // Add props
+        console.time("addProps");
         this.props.forEach(prop => {
             // If prop is in the current room, or in room 0 (i.e. all rooms)...
             if ((prop[0] == this.room) || (prop[0] == 0)) this.addPropToRoom(prop);
         });
+        console.timeEnd("addProps");
 
         // Add event listeners for objects in the room.
         [...this.screen.children].forEach(obj => this.addObjEventListeners(obj));
@@ -659,9 +663,11 @@ class Game {
         //    i+=(s*=-1)*n++;
         //}
 
-        this.fadeIn(this.screen);
+        this.fadeIn(this.wrap);
         this.ego.show();
         this.fadeIn(this.ego);
+
+        console.timeEnd('newRoom');
     }
 
     /**
