@@ -1,11 +1,6 @@
 class Util {
 
     /**
-     * Cache of emojis already created.
-     */
-    //static emojiCache = {};
-
-    /**
      * Renders the given emoji text at that given font size on a canvas. Returns that canvas.
      * 
      * @param {string} emojiText The emoji text to render.
@@ -15,53 +10,32 @@ class Util {
      * @returns The created canvas with the rendered emoji text at the given font size.
      */
     static renderEmoji(emojiText, width, height) {
-        //let emojiKey = `${emojiText}_${width}_${height}`;
-        //let emojiCanvas = Util.emojiCache[emojiKey];
+        let size = Math.max(width, height);
+        let canvas = document.createElement('canvas');
+        canvas.height = size + (size / 8) + 20;
+        canvas.width = size * 1.4 + 10;
+        let ctx = canvas.getContext('2d');
+        ctx.font = `${size}px Segoe UI Emoji`;
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(emojiText, 5, canvas.height - 5);
 
-        //if (!emojiCanvas) {
-            let size = Math.max(width, height);
-            let canvas = document.createElement('canvas');
-            canvas.height = size + (size / 8) + 20;
-            canvas.width = size * 1.4 * + 10;
-            let ctx = canvas.getContext('2d');
-            ctx.font = `${size}px Segoe UI Emoji`;
-            //ctx.font = `${size}px Apple Color Emoji`;
-            //ctx.font = `${size}px twemoji`;
-            //ctx.font = `${size}px emojione`;
-            //ctx.font = `${size}px NotoColorEmoji`;
-            ctx.textBaseline = 'bottom';
-            ctx.fillText(emojiText, 5, canvas.height - 5);
-
-            // On Windows, this reduces the thick black edges.
-            let [minX, minY, maxX, maxY] = Util.reduceEdges(ctx, 0, 0);
-
-            // Redraw the canvas, so that we can remove white space and add a shadow.
-            let emojiCanvas = document.createElement('canvas');
-            let newWidth = ((maxX - minX) + 3);
-            let newHeight = ((maxY - minY) + 3);
-            emojiCanvas.width = width;
-            emojiCanvas.height = height;
-            let emojiCtx = emojiCanvas.getContext('2d');
-            emojiCtx.shadowColor = "black";
-            emojiCtx.shadowBlur = 3;
-            emojiCtx.drawImage(
-                canvas, 
-                minX-1, minY-1, newWidth, newHeight,
-                0, 0, width, height, 
-            );
-
-            // Cache emoji canvas in case we create the same emoji of this size again.
-            //Util.emojiCache[emojiKey] = emojiCanvas;
-
-        //} else {
-        //    // Copy canvas. This is to speed things up.
-        //    let newCanvas = document.createElement('canvas');
-        //    let context = newCanvas.getContext('2d');
-        //    newCanvas.width = emojiCanvas.width;
-        //    newCanvas.height = emojiCanvas.height;
-        //    context.drawImage(emojiCanvas, 0, 0);
-        //    emojiCanvas = newCanvas;
-        //}
+        // On Windows, this reduces the thick black edges.
+        let [minX, minY, maxX, maxY] = Util.reduceEdges(ctx, 0, 0);
+        
+        // Redraw the canvas, so that we can remove white space and add a shadow.
+        let emojiCanvas = document.createElement('canvas');
+        let newWidth = ((maxX - minX) + 3);
+        let newHeight = ((maxY - minY) + 3);
+        emojiCanvas.width = width;
+        emojiCanvas.height = height;
+        let emojiCtx = emojiCanvas.getContext('2d');
+        emojiCtx.shadowColor = "black";
+        emojiCtx.shadowBlur = 3;
+        emojiCtx.drawImage(
+            canvas,
+            minX-1, minY-1, newWidth, newHeight,
+            0, 0, width, height,
+        );
 
         return emojiCanvas;
     }
