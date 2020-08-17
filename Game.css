@@ -214,6 +214,7 @@ x-shadow {
   opacity: 0.5;
   filter: blur(1.2px);
   z-index: 0;
+  transform: rotateY(0deg); 
 }
 x-sprite canvas {
   width: 100%;

@@ -139,6 +139,7 @@ class Game {
         // room 9 = special room for country side, but used in multiple places.
         // Room types:
         //  bit 0: 1 = has wall, 0 = no wall
+        //  bit 1: 1 = tree row, 0 = no tree row
         // Negative value for room applies to left/right path only. Negative means down, Position means up.
 
         // Main street north.
@@ -151,7 +152,7 @@ class Game {
         [1, 4800,  0, 1, 4, 1, 0],
 
         // Park, school, farm
-        [0, 6720,  0, -5, 3, -6, 0],
+        [2, 6720,  0, -5, 3, -6, 0],
 
         // Church
         [1, 2880,  0, 0, 0, 4, 1],
@@ -225,7 +226,7 @@ class Game {
         //[ 4, /* 00000110 */ 2, 'ambulance',     '🚑', 200, 200,   1500, 950 ],
         [ 4, /* 00000110 */ 14, 'circus',       '🎪', 400, 400,   1240, 650 ],
         [ 4, /* 00000110 */ 14, 'fountain',       '⛲' , 200, 200,   2200, 650 ],
-        [ 4, 14, 'castle_path', null, 350, 300, 3160, 700 ],
+        [ 4, 14, 'castle_path', null, 350, 300, 3160, 700, , 100 ],
         [ 4, /* 00000110 */ 2, 'bus',              '🚌',  250, 250,   4900, 950 ],
         [ 4, /* 00000010 */ 2, 'bus_stop',         '🚏', 50, 200,   4800, 825 ],
         [ 4, /* 00000110 */ 14, 'moai_statue',    '🗿',  200, 200,   4120, 650 ],
@@ -267,9 +268,10 @@ class Game {
         // Room 0 - All rooms
         //[ 0, 7, 'road', null, 11520, 90, 0, 900, null ],
 
-        [ 0, 14, 'wall', null, 11520, 114, 0, 620 ],
-        [ 0, 14, 'left_path', null, 200, 318, null, 866 ],
-        [ 0, 14, 'right_path', null, 200, 318, null, 866 ],
+        [ 0, 14, 'wall', null, 11520, 114, 0, 620, , 500 ],
+        [ 0, 14, 'road', null, 11520, 50, 0, 985, , 100 ],
+        [ 0, 14, 'left_path', null, 200, 318, null, 866, , 501 ],
+        [ 0, 14, 'right_path', null, 200, 318, null, 866, , 501 ],
         [ 0, /* 00000110 */ 14, 'cloud', '☁', 200, 50, 50, 130 ],
         [ 0, /* 00000110 */ 14, 'cloud', '☁', 200, 50, 450, 130 ],
 
@@ -342,7 +344,8 @@ class Game {
         });
 
         // The sound generation might be a bit time consuming on slower machines.
-        setTimeout(() => this.sound.init(), 1000);
+        // TODO: Fix how sound is initialised.
+        setTimeout(() => this.sound.init(), 1);
 
         // Initalise the mouse cursor.
         // TODO: Build the hour glass emoji for wait moments.
@@ -390,7 +393,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 6; //1;
+        this.room = 4; //6; //1;
         
         // Starting inventory.
         // this.getItem('microscope');
@@ -667,6 +670,17 @@ class Game {
         });
         console.timeEnd("addProps");
 
+        // Add tree row, if required.
+        // TODO: Do we need to create the Sprite every time?
+        if (this.roomData[0] & 2) {
+            for (let x=0; x < this.roomData[1]; x += 200) {
+                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', 180, 180, x, 400 ]);
+            }
+            for (let x=100; x < this.roomData[1]; x += 200) {
+                this.addPropToRoom([ 0, 2, 'trees', '🌲', 180, 180, x, 450 ]);
+            }
+        }
+
         // Add event listeners for objects in the room.
         [...this.screen.children].forEach(obj => this.addObjEventListeners(obj));
 
@@ -704,7 +718,7 @@ class Game {
         }
 
         // We cache the obj when it isn't in the dom rather than recreate. It might remember it's state.
-        let obj = prop[9];
+        let obj = prop[10];
 
         // Room#, type, name, content, width, height, x, y, element reference
         // bit 0-1:  00 = actor, 01 = item, 10 = prop, 11 = ?
@@ -713,7 +727,7 @@ class Game {
         // TODO: Need a block shift, to baseline and up. 
         // TODO: Need a smaller blocker, e.g. for trees.
         // bit 5-6:  00 = normal, 01 = light, 10 = dark
-        // bit 7:
+        // bit 7:   
 
         if (!obj) {
             obj = new Sprite();
@@ -737,13 +751,15 @@ class Game {
             if (prop[1] & 8) {
                 // Ignore objs
                 obj.ignore = true;
-                obj.style.zIndex = prop[7] - 400;
             }
             if (prop[8]) {
                 obj.radius = prop[8];
             }
+            if (prop[9]) {
+                obj.style.zIndex = prop[9];
+            }
 
-            prop[9] = obj;
+            prop[10] = obj;
         }
 
         // For the paths, update down class for if path is going down (instead of up).

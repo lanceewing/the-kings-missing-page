@@ -34,7 +34,7 @@ class Logic {
               let left = thing.includes('left');
               // TODO: This is a bit hacky. Would be nice if this method had the actual target sprite.
               let down = document.querySelectorAll('.down').length > 0; 
-              let endY = (down? 990 : 490);
+              let endY = (down? 1000 : 490);
               let endX = (left? (down? 20 : 200) : this.game.roomData[1] - (down? 70 : 200));
               let firstX = (left? (down? 150 : 20) : this.game.roomData[1] - (down? 200 : 70));              
 
