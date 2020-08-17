@@ -24,7 +24,7 @@ class Sprite extends HTMLElement {
      * @param {string} content
      * @param {boolean} shadow 
      */
-    init(game, width, height, content, shadow=true) {
+    init(game, width, height, content, shadow=true, flip=false) {
         this.game = game;
 
         this.width = width;
@@ -36,7 +36,7 @@ class Sprite extends HTMLElement {
 
         // If we were given content then add it.
         if (content) {
-            let emojiKey = `${content}_${width}_${height}`;
+            let emojiKey = `${content}_${width}_${height}_${flip}`;
             let emojiData = game.emojiMap.get(emojiKey);
             if (emojiData) {
                 let canvas = document.createElement('canvas');
@@ -45,7 +45,7 @@ class Sprite extends HTMLElement {
                 canvas.getContext('2d').putImageData(emojiData, 0, 0);
                 this.canvas = canvas;
             } else {
-                let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height);
+                let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height, flip);
                 this.canvas = canvas;
                 game.emojiMap.set(emojiKey, imgData);
             }
@@ -54,6 +54,8 @@ class Sprite extends HTMLElement {
 
         if (shadow) {
             this.shadow = document.createElement('x-shadow');
+            // TODO: Experimental emoji text shadow.
+            //this.shadow.innerText = content;
             this.appendChild(this.shadow);
         }
 

@@ -158,7 +158,7 @@ class Game {
         [1, 2880,  0, 0, 0, 4, 1],
 
         // Petrol station
-        [1, 2880,  1, 4, 0, 0, 0], 
+        [7, 2880,  1, 4, 0, 0, 0], 
 
         // Castle gates
         [0, 960,   0, 0, 4, 0, 0],
@@ -245,11 +245,13 @@ class Game {
         //[ 4, /* 00000010 */ 2, 'tree',          '🌴', 300, 300,   3690, 825, 30 ],
         //[ 4, /* 00000110 */ 2, 'ambulance',     '🚑', 200, 200,   1500, 950 ],
         [ 4, /* 00000110 */ 14, 'circus',       '🎪', 400, 400,   1240, 650 ],
-        [ 4, /* 00000110 */ 14, 'fountain',       '⛲' , 200, 200,   2200, 650 ],
-        [ 4, 14,                'castle_path', null, 350, 300, 3160, 700, , 100 ],
+        [ 4, /* 00000110 */ 2, 'fountain',       '⛲' , 200, 200,   2200, 650 ],
+        [ 4, 14,                'mountain',       '⛰', 350, 350, 3160, 350, , 99 ],
+        [ 4, 14,                'castle_path', null, 300, 300, 3160, 700, , 100 ],
         [ 4, /* 00000110 */ 2, 'bus',              '🚌',  250, 250,   4900, 950 ],
         [ 4, /* 00000010 */ 2, 'bus_stop',         '🚏', 50, 200,   4800, 825 ],
-        [ 4, /* 00000110 */ 14, 'moai_statue',    '🗿',  200, 200,   4120, 650 ],
+        [ 4, /* 00000110 */ 2, 'moai_statue',    '🗿',  100, 200,   3500, 650 ],
+        [ 4, /* 00000110 */ 130, 'moai_statue',    '🗿',  100, 200,   3000, 650 ],
         [ 4, /* 00000110 */ 14, 'school',         '🏫',  400, 400,   5080, 700 ],
         [ 4, /* 00000110 */ 2, 'tractor',         '🚜',  200, 200,   5900, 950 ],
         [ 4, /* 00000110 */ 14, 'barn',            '🏚',  400, 400,   6100, 540 ],
@@ -272,12 +274,14 @@ class Game {
         [ 6, /* 00000010 */ 2, 'pump',          '⛽', 120, 120,   150, 825 ],
         [ 6, /* 00000010 */ 2, 'pump',          '⛽', 120, 120,   620, 825 ],
         [ 6, /* 00000010 */ 2, 'pump',          '⛽', 120, 120,   1090, 825 ],
+        [ 6, /* 00000110 */ 14, 'factory',      '🏭', 350, 350,   350, 600, , 499 ],
+        [ 6, /* 00000110 */ 14, 'factory',      '🏭', 350, 350,   800, 600, , 499 ],
         [ 6, /* 00000010 */ 6, 'oil_drum',      '🛢', 100, 100,   600, 680 ],
         [ 6, /* 00000010 */ 6, 'oil_drum',      '🛢', 100, 100,   710, 680 ],
         [ 6, /* 00000010 */ 6, 'oil_drum',      '🛢', 100, 100,   820, 680 ],
         [ 6, /* 00000010 */ 6, 'oil_drum',      '🛢', 100, 100,   930, 680 ],
         [ 6, /* 00000110 */ 2, 'car',           '🚙', 200, 200,   350, 950 ],
-        [ 6, /* 00000110 */ 14, 'factory',      '🏭' , 400, 400,   1240, 700 ],
+        [ 6, /* 00000110 */ 14, 'derelict_house','🏚' , 400, 400,   1240, 700 ],
 
         // Room 7 - Castle gates
 
@@ -411,7 +415,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 1; // 4; //6; //1;
+        this.room = 6;//1; // 4; //6; //1;
         
         // Starting inventory.
         // this.getItem('microscope');
@@ -691,12 +695,15 @@ class Game {
         // Add tree row, if required.
         // TODO: Do we need to create the Sprite every time?
         if (this.roomData[0] & 2) {
-            for (let x=0; x < this.roomData[1]; x += 200) {
-                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', 180, 180, x, 400 ]);
+            console.time('buildTrees');
+            let treeSize = this.roomData[0] & 4? 100 : 200;
+            for (let x=0; x < this.roomData[1]; x += treeSize) {
+                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', treeSize, treeSize, x, 400 ]);
             }
-            for (let x=100; x < this.roomData[1]; x += 200) {
-                this.addPropToRoom([ 0, 2, 'trees', '🌲', 180, 180, x, 450 ]);
+            for (let x=-treeSize/2; x < this.roomData[1]; x += treeSize) {
+                this.addPropToRoom([ 0, 2, 'trees', '🌲', treeSize, treeSize, x, 450 ]);
             }
+            console.timeEnd('buildTrees');
         }
 
         // Add event listeners for objects in the room.
@@ -745,11 +752,11 @@ class Game {
         // TODO: Need a block shift, to baseline and up. 
         // TODO: Need a smaller blocker, e.g. for trees.
         // bit 5-6:  00 = normal, 01 = light, 10 = dark
-        // bit 7:   
+        // bit 7:    0 = normal, 1 = horizontal flip.
 
         if (!obj) {
             obj = new Sprite();
-            obj.init(this, prop[4], prop[5], prop[3], !(prop[1] & 4));
+            obj.init(this, prop[4], prop[5], prop[3], !(prop[1] & 4), (prop[1] & 128));
 
             // If this is not a unique object, then we set a class.
             obj.classList.add(obj.dataset.name = prop[2]);

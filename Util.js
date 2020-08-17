@@ -6,10 +6,11 @@ class Util {
      * @param {string} emojiText The emoji text to render.
      * @param {number} width The desired width of the canvas.
      * @param {number} height The desired height of the canvas.
+     * @param {boolean} flip True to horizontally flip the image; otherwise false.
      * 
      * @returns The created canvas with the rendered emoji text at the given font size.
      */
-    static renderEmoji(emojiText, width, height) {
+    static renderEmoji(emojiText, width, height, flip=false) {
         let size = Math.max(width, height);
         let canvas = document.createElement('canvas');
         canvas.height = size + (size / 8) + 20;
@@ -33,6 +34,10 @@ class Util {
         if (newWidth > 0 && newHeight > 0) {
             emojiCtx.shadowColor = "black";
             emojiCtx.shadowBlur = 3;
+            if (flip) {
+                emojiCtx.translate(width, 0);
+                emojiCtx.scale(-1, 1);
+            }
             emojiCtx.drawImage(
                 canvas,
                 minX-1, minY-1, newWidth, newHeight,
