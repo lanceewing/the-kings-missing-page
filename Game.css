@@ -244,7 +244,7 @@ x-sprite canvas {
   background-position: 0px 0px, 4px 31px, 29px 28px, 33px 3px;
 }
 .left_path, .right_path {
-  top: 110px;
+  top: 120px;
   background: linear-gradient(
     230deg, 
     #31da81 0% 24%, 
