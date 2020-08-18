@@ -283,15 +283,10 @@ class Sprite extends HTMLElement {
                     if ((z < 710) || (z > 850)) edge = 10;
 
                 } else {
-                    // When walking down left and right paths, we disable user input. So given this,
-                    // we know that we don't need to check for left and right edges, but only horizon
-                    // and bottom edges.
-                    
-                    // Handle curb jump in each direction.
-                    // TODO: Determine z values for curb
-                    //if ((z > 680) && (z < 740)) {
-                    //    z = (this.direction == Sprite.OUT? 740 : 680);
-                    //}
+                    // Walking out left side with under program control.
+                    if ((z < 710) && (x < 0))  {
+                        edge = 1;
+                    }
 
                     // Bottom and horizon edges.
                     if ((z > 985) || (z < 500)) {

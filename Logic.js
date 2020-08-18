@@ -49,12 +49,20 @@ class Logic {
             }
             break;
 
+          case 'woods':
+            this.game.inputEnabled = false;
+            this.game.ego.stop();
+            this.game.ego.moveTo(210, 740);
+            this.game.ego.moveTo(210, 640);
+            this.game.ego.moveTo(70, 550);
+            this.game.ego.moveTo(-50, 550);
+            break;
+
           case 'road':
             // TODO: Walk sideways first to avoid trees and cars.
             this.game.inputEnabled = false;
             this.game.ego.stop();
             this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 850);
-            //this.game.ego.moveTo(this.game.ego.x, 1000);
             this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 1000);
             break;
 
