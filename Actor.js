@@ -175,8 +175,17 @@ class Actor extends Sprite {
    * @param obj The Sprite that the Actor has hit.
    */
   hit(obj) {
+    // Adjust to avoid this object.
+    let i=0, n=0, s=1;
+    while (this.touching(obj)) {
+       this.setPosition(this.x + i, 0, this.z + i);
+       i+=(s*=-1)*n++;
+    }
+
     // Reset the position to the last one that isn't touching another Sprite. Resetting
     // the position prevents the Actor from walking through obstacles. 
-    for (; this.reset() && this.touching(obj););
+    //for (; this.reset() && this.touching(obj););
+
+    //this.stop(true);
   }
 }
