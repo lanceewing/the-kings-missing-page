@@ -264,6 +264,7 @@ class Sprite extends HTMLElement {
                 // 3 = centre crossing
                 // 4 = right path
                 // 5 = right crossing
+                // 6 = up
                 // 10 = simply block ego from moving further
 
                 if (this.game.inputEnabled) {
@@ -294,16 +295,7 @@ class Sprite extends HTMLElement {
 
                     // Bottom and horizon edges.
                     if ((z > 985) || (z < 500)) {
-                        edge = (x < 250? 2 : x > (rightX - 250)? 4 : 3);
-
-                        // TODO: Remove
-                        //if (x < 100) {
-                        //    edge = 2;   // Left path down
-                        //} else if (x > (rightX - 100)) {
-                        //    edge = 4;   // Right path down
-                        //} else {
-                        //    edge = 3;   // Pedestrian crossing down
-                        //}
+                        edge = (this.room == 7? 7 : x < 250? 2 : x > (rightX - 250)? 4 : (z < 500)? 6 : 3);
                     }
                 }
 

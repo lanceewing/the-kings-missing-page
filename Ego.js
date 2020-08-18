@@ -19,7 +19,7 @@ class Ego extends Actor {
             this.cell = 0;
 
             // Now check if there is a room on this edge.
-            if (edge < 6) {
+            if (edge < 8) {
                 let edgeData = this.game.rooms[this.room - 1][edge + 1];
                 if (edgeData) {
                     this.game.inputEnabled = false;
@@ -60,6 +60,7 @@ class Ego extends Actor {
                             this.moveTo(newRoomWidth - 70, 740, () => this.game.inputEnabled = true);
                             break;
 
+                        case 6:
                         case 3: // From the bottom edge of screen, i.e. across road.
                             this.setPosition(reverseX, this.y, 980);
                             this.setDirection(Sprite.IN);
@@ -76,6 +77,12 @@ class Ego extends Actor {
                             this.setPosition(-50, this.y, this.z);
                             this.setDirection(Sprite.RIGHT);
                             this.moveTo(70, 740, () => this.game.inputEnabled = true);
+                            break;
+
+                        case 7: // Back from the castle.
+                            this.setPosition(3300, this.y, 500);
+                            this.setDirection(Sprite.OUT);
+                            this.moveTo(3300, 740, () => this.game.inputEnabled = true);
                             break;
                     }
                     

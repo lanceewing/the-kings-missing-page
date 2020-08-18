@@ -58,6 +58,14 @@ class Logic {
             this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 1000);
             break;
 
+          case 'castle path':
+          case 'mountain':
+            this.game.inputEnabled = false;
+            this.game.ego.stop();
+            this.game.ego.moveTo(3280, 740);
+            this.game.ego.moveTo(3280, 400);
+            break;
+
           default:
             this.game.ego.stop(true);
 
