@@ -143,13 +143,13 @@ class Game {
         // Negative value for room applies to left/right path only. Negative means down, Position means up.
 
         // Main street north.
-        [1, 4800,  5, 3, 2, 3, 6],
+        [7, 4800,  5, 3, 2, 3, 6],
 
         // Main street south (12 screen widths)
         [3, 11520, 9, 0, 1, 0, 9],
 
         // House row
-        [1, 4800,  0, 1, 4, 1, 0],
+        [7, 4800,  0, 1, 4, 1, 0],
 
         // Park, school, farm
         [2, 6720,  8, -5, 3, -6, 0, 7],
@@ -247,7 +247,8 @@ class Game {
         [ 4, 14,                'castle_path', null, 300, 300, 3160, 700, , 100 ],
         [ 4, /* 00000110 */ 2, 'bus',              '🚌',  250, 250,   4900, 950 ],
         [ 4, /* 00000010 */ 2, 'bus_stop',         '🚏', 50, 200,   4800, 825 ],
-        [ 4, /* 00000010 */ 2, 'bicyle',          '🚲', 100, 100,   4400, 650 ],
+        [ 4, /* 00000010 */ 2, 'bicyle',          '🚲', 100, 100,   4450, 600 ],
+        [ 4, /* 00000010 */ 2, 'bicyle',          '🚲', 100, 100,   4500, 650 ],
         [ 4, /* 00000010 */ 2, 'goal_net',        '🥅', 100, 100,  4200, 500 ],
         [ 4, /* 00000110 */ 2, 'moai_statue',     '🗿',  100, 200,   3500, 650 ],
         [ 4, /* 00000110 */ 130, 'moai_statue',    '🗿',  100, 200,   3025, 650 ],
@@ -302,8 +303,8 @@ class Game {
 
         [ 0, 14, 'wall', null, 11520, 114, 0, 620, , 500 ],
         [ 0, 14, 'road', null, 11520, 50, 0, 985, , 100 ],
-        [ 0, 14, 'left_path', null, 200, 318, null, 866, , 501 ],
-        [ 0, 14, 'right_path', null, 200, 318, null, 866, , 501 ],
+        [ 0, 14, 'left_path', null, 200, 305, null, 866, , 501 ],
+        [ 0, 14, 'right_path', null, 200, 305, null, 866, , 501 ],
         [ 0, /* 00000110 */ 14, 'cloud', '☁', 200, 50, 50, 130 ],
         [ 0, /* 00000110 */ 14, 'cloud', '☁', 200, 50, 450, 130 ],
 
@@ -423,7 +424,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 4; //7; //6;//1; // 4; //6; //1;
+        this.room = 1; //4; //7; //6;//1; // 4; //6; //1;
         
         // Starting inventory.
         // this.getItem('microscope');
