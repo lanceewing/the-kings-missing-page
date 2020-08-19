@@ -64,7 +64,7 @@ class Ego extends Actor {
 
                         case 6:
                         case 3: // From the bottom edge of screen, i.e. across road.
-                            this.setPosition(reverseX, this.y, 980);
+                            this.setPosition(reverseX, this.y, 970);
                             this.setDirection(Sprite.IN);
                             this.moveTo(reverseX, 740, () => this.game.inputEnabled = true);
                             break;

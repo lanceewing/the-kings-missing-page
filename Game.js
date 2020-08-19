@@ -609,7 +609,7 @@ class Game {
         // If after updating all objects, the room that Ego says it is in is different
         // than what it was previously in, then we trigger entry in to the new room.
         if (this.ego.edge) {
-            this.ego.edge = 0;
+            this.edge = this.ego.edge;
             if (this.room == this.ego.room) {
                 // No room change.
                 this.ego.say("I didn't find much in that direction.", 200);
@@ -618,6 +618,7 @@ class Game {
                 this.fadeOut(this.wrap);
                 setTimeout(() => this.newRoom(), 200);
             }
+            this.ego.edge = 0;
         }
 
         // Update cursor and overlay based on user input state.
@@ -749,11 +750,23 @@ class Game {
         // TODO: Remove this, as it isn't really required for this game.
         // It is possible that ego has walked into the position of another object when
         // entering the room, so we scan to find a new position.
-        //let i=0, n=0, s=1, {edge, x, z} = this.ego;
-        //while (edge < 5 && this.objs.some(o => this.ego.touching(o))) {
-        //    this.ego.setPosition(x + (edge > 2? i : 0), 0, z + (edge < 3? i : 0));
+        //let i=0, n=0, s=1, {edge, x, z} = this.ego, bo;
+        //while (edge == 3 && (bo = this.objs.find(o => this.ego.touching(o)))) {
+        //    this.ego.setPosition(x + i, 0, z);
         //    i+=(s*=-1)*n++;
         //}
+        if (this.edge == 3) {
+            let e = this.ego;
+            let bo = this.objs.find(o => e.touching(o));
+            if (bo) {
+                // Ego is touching a car...
+                // TODO: We could make this a death scenario, e.g. car just started moving.
+                // Move Ego to either the left or right, depending on which is closer.
+                e.setPosition(e.cx < bo.cx? bo.x - e.width - 10 : bo.x + bo.width + 10, 0, e.z);
+                // Adjust the destination to match the new X position.
+                e.dests[0].x = e.x;
+            }
+        }
 
         this.fadeIn(this.wrap);
         this.ego.show();

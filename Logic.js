@@ -59,7 +59,6 @@ class Logic {
             break;
 
           case 'road':
-            // TODO: Walk sideways first to avoid trees and cars.
             this.game.inputEnabled = false;
             this.game.ego.stop();
             this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 850);
