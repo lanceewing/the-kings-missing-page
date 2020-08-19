@@ -288,9 +288,20 @@ class Sprite extends HTMLElement {
                         edge = 1;
                     }
 
-                    // Bottom and horizon edges.
-                    if ((z > 985) || (z < 500)) {
-                        edge = (this.room == 7? 7 : x < 250? 2 : x > (rightX - 250)? 4 : (z < 500)? 6 : 3);
+                    // Horizon edge
+                    if (z < 500) {
+                        edge = (x < 250? 2 : x > (rightX - 250)? 4 : 6);
+                    }
+
+                    // Bottom edge
+                    if (z > 985) {
+                        if (this.room == 7) {
+                            // Coming back from the castle.
+                            edge = 7;
+                        } else {
+                            // If left path is negative, then check paths(2/4); otherwise its simply downwards(3).
+                            edge = this.game.roomData[3] >= 0? 3 : x < 250? 2 : x > (rightX - 250)? 4 : 3;  
+                        }
                     }
                 }
 

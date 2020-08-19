@@ -37,9 +37,6 @@ class Ego extends Actor {
                     let pathStartAddX = (newRoomDown? 0 : 200);
                     let reverseX = newRoomWidth - ((this.x / this.game.roomData[1]) * newRoomWidth);
 
-                    // 1000 - 20 = 980
-                    // 1000 - 980 = 20
-
                     // 1 = left crossing
                     // 2 = left path
                     // 3 = centre crossing
