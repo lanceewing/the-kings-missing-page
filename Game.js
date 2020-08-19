@@ -608,10 +608,16 @@ class Game {
 
         // If after updating all objects, the room that Ego says it is in is different
         // than what it was previously in, then we trigger entry in to the new room.
-        if (this.ego.room != this.room) {
-            this.room = this.ego.room;
-            this.fadeOut(this.wrap);
-            setTimeout(() => this.newRoom(), 200);
+        if (this.ego.edge) {
+            this.ego.edge = 0;
+            if (this.room == this.ego.room) {
+                // No room change.
+                this.ego.say("I didn't find much in that direction.", 200);
+            } else {
+                this.room = this.ego.room;
+                this.fadeOut(this.wrap);
+                setTimeout(() => this.newRoom(), 200);
+            }
         }
 
         // Update cursor and overlay based on user input state.
