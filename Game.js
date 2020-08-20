@@ -762,7 +762,7 @@ class Game {
                 // Ego is touching a car...
                 // TODO: We could make this a death scenario, e.g. car just started moving.
                 // Move Ego to either the left or right, depending on which is closer.
-                e.setPosition(e.cx < bo.cx? bo.x - e.width - 10 : bo.x + bo.width + 10, 0, e.z);
+                e.setPosition(e.cx < bo.cx? bo.x - e.width - 20 : bo.x + bo.width + 20, 0, e.z);
                 // Adjust the destination to match the new X position.
                 e.dests[0].x = e.x;
             }
