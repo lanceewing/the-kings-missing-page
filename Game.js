@@ -16,119 +16,38 @@ class Game {
 
     // TODO: Decide whether we need this, or whether everything will be in emojis.
     itemIcons = {
-        // Scientist?
-        'microscope'    : '🔬',
-        'petri dish'    : '🧫',
+        'tulip'         : '🌷',
+        'rose'          : '🌹',
+        'bouquet'       : '💐',
+        'lipstick'      : '💄',
+        'ticket'        : '🎟',
+        'coconut'       : '🥥',
+        'peanut'        : '🥜',
+        'mask'          : '👹',
+        'water pistol'  : '🔫',
+        'candy'         : '🍬',
+        'amulet'        : '🧿',
+        'cheese'        : '🧀',
+        'bank card'     : '💳',
+        'cash'          : '💵',
+        'map'           : '🗺',
+        'compass'       : '🧭',
+        'waste basket'  : '🗑',
+        'explosive'     : '🧨',
         'test tube'     : '🧪',
-        'alembic'       : '⚗',
-        'lab coat'      : '🥼',
-        'goggles'       : '🥽',
-
-        // Singer?
-        'microphone'    : '🎤',
-        'headphone'     : '🎧',
-        'saxophone'     : '🎷',
-        'guitar'        : '🎸',
-        'trumpet'       : '🎺',
-        'violin'        : '🎻',
-        'banjo'         : '🪕',
-        'drum'          : '🥁',
-        
-        // Artist
-        'paint brush'   : '🖌',
-        'palette'       : '🎨',
-        'picture'       : '🖼',
-        
-        // Technologist?
-        'floppy disk'   : '💾',
-        'laptop'        : '💻',
-        'printer'       : '🖨',
-
-        // Pilot? - No items yet.
-
-        // Astronaut? - No items yet.
-
-        // Firefighter
         'axe'           : '🪓',
-        'extinguisher'  : '🧯',
-
-        // Health worker
-        'thermometer'   : '🌡',
         'pill'          : '💊',
         'syringe'       : '💉',
-        'plaster'       : '🩹',
-        'stethoscope'   : '🩺',
-
-        // 9. Vampire
-        'coffin'        : '⚰',
         'blood'         : '🩸',
-
-        // 10. Office worker
-        'card index'    : '📇', 
         'briefcase'     : '💼', 
-        'memo'          : '📝',
-        'fountain pen'  : '🖋',
-
-        // 11. Police officer
-        'megaphone'     : '📣',
-        'pager'         : '📟',
-        'white cane'    : '🦯',
-
-        // 12. Detective
-        'magnifying glass'  : '🔍',
-        'camera'        : '📷',
-
-        // 13. Castle guard
-        'shield'        : '🛡', 
-        'dagger'        : '🗡',
-        'crown'         : '👑',
-        'gemstone'      : '💎', 
-
-        // 14. Construction worker
         'bricks'        : '🧱',
-        'safety vest'   : '🦺',
         'barrier'       : '🚧',
-        'hammer'        : '🔨',
-
-        // 15. Mechanic
-        'wrench'         : '🔧',
-        'bolt'           : '🔩',
-        'gear'           : '⚙',
-        'clamp'          : '🗜',
-
-        // 16. Factory worker
-        'toolbox'        : '🧰',
-
-        // 17. Bride
-        'gift'           : '🎁',
-
-        // 18. Student
-        'pencil'         : '✏',
-        'ruler'          : '📏',
-        'graduation cap' : '🎓',
-        'books'          : '📚',
-
-        // 19. Teacher
-        'pushpin'       : '📌',
-        'paperclips'    : '🖇',
-
-        // 20. Hotel clerk (tuxedo man)
+        'paperclip'      : '📎',
+        'envelope'       : '✉',
+        'letter'         : '📄',
         'bellhop'       : '🛎',
-        'luggage'       : '🧳',
-
-        // 21. Cook
-
-        // 22. Farmer
-        'pick'          : '⛏',
-
-        // 23. Judge
-
-        // 24. Mage?
+        'broom'          : '🧹',
         'crystal ball'  : '🔮',
-
-        // 25. Store worker
-
-
     };
 
     /**
