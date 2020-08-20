@@ -18,8 +18,6 @@ class Actor extends Sprite {
   init(game, width, height, content) {
     super.init(game, width, height, content);
 
-    this.hitCount = 0;
-
     // An HTML template is used for the structure of the actor.
     this.appendChild(document.importNode(document.getElementById('person').content, true));
   }
@@ -177,30 +175,16 @@ class Actor extends Sprite {
    * @param obj The Sprite that the Actor has hit.
    */
   hit(obj) {
-    //if (!this.inputEnabled && this.hitCount++ < 20) {
-    if (!this.inputEnabled) {
-      // And hits when input is disabled will be up and down, so we 
-      // Adjust to avoid this object.
-      //let i=0, n=0, s=1;
-      //while (this.touching(obj)) {
-      //  this.setPosition(this.x + i, 0, this.z + i);
-      //  i+=(s*=-1)*n++;
-      //}
-      // Put current destination back on queue. 
-      //this.dests.unshift({x: this.destX, z: this.destZ});
-
+    // TODO: The input disabled case could be used for all if it can detect horizontal vs vertical adjustments.
+    if (!this.game.inputEnabled) {
+      // Reset to last position where we weren't touching the other Sprite.
       for (;this.reset() && this.touching(obj););
 
       // Adjust the current X position to avoid the object.
+      if (!this.dests[0]) this.dests.unshift({x: this.destX, z: this.destZ});
       this.destX = this.cx < obj.cx? obj.cx - obj.radius - 50 : obj.cx + obj.radius + 50;
-      if (this.dests[0]) this.dests[0].x = this.destX;
       this.dests.unshift({x: this.destX, z: this.destZ});
-      //this.dests.unshift({x: this.destX, z: (this.z + this.destZ) / 2});
       this.destZ = this.z;
-
-      //e.setPosition(e.cx < bo.cx? bo.x - e.width - 10 : bo.x + bo.width + 10, 0, e.z);
-                // Adjust the destination to match the new X position.
-      //          e.dests[0].x = e.x;
 
     } else {
       // Reset the position to the last one that isn't touching another Sprite. Resetting
@@ -208,7 +192,6 @@ class Actor extends Sprite {
       for (;this.reset() && this.touching(obj););
       this.stop(true);
       this.inputEnabled = true;
-      this.hitCount = 0;
     }
   }
 }
