@@ -267,8 +267,9 @@ class Game {
     ];
 
     // 1 = mailbox open
-    // 2 = letter not in mailbox
-    // 
+    // 2 = envelope not in mailbox
+    // 3 = envelope empty
+    // 4 = letter without paperclip
     flags = [];
 
     _gameOver = true;

@@ -27,6 +27,9 @@ class Logic {
 
     // If thing is in the current room, then obj will reference it.
     let obj = this.game.objs.find(i => i.dataset['name'] == thing);
+    if (obj) {
+      // TODO: Walk to 740 then to object.
+    }
 
     switch (verb) {
 
@@ -116,6 +119,34 @@ class Logic {
           }
         }
         break;
+
+      case 'Look at':
+        switch (thing) {
+          case 'envelope':
+            if (flags[3]) {
+              this.game.ego.say("It's empty.", 200);
+            } else {
+              this.game.ego.say("Letter inside.", 200);
+              this.game.getItem('letter');
+              flags[3] = 1;
+            }
+            break;
+          case 'letter':
+            if (flags[4]) {
+              this.game.ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
+            } else {
+              this.game.ego.say("Has paper clip.", 200);
+              this.game.getItem('paperclip');
+              flags[4] = 1;
+            }
+            break;
+          default:
+            if (thing != "") {
+              this.game.ego.say("It's just a " + thing + ".", 250);
+            }
+            break;
+        }
+        break;
       
       case 'Use':
         if (cmd == verb) {
@@ -148,11 +179,22 @@ class Logic {
         } else {
           // If verb doesn't equal cmd, it means that it is a scenario where an item
           // is being used with something.
-          let thing2 = cmd.substring(4, cmd.indexOf(' with '));
-          switch (thing2) {
+          let things = [thing, cmd.substring(4, cmd.indexOf(' with '))].sort().join();
+          switch (things) {
+            case 'rose,tulip':
+              if (this.game.hasItem('rose') && this.game.hasItem('tulip')) {
+                this.game.getItem('bouquet');
+                this.game.dropItem('tulip');
+                this.game.dropItem('rose');
+              } else {
+                this.game.ego.say("I should pick them both up first.", 200);
+              }
+              break;
             default:
               break;
           }
+
+          newCommand = verb;
         }
         break;
 
