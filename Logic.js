@@ -23,7 +23,10 @@ class Logic {
    */
   process(verb, cmd, thing, e) {
     let newCommand = cmd;
-    let thingId = thing.replace(' ', '_');
+    let flags = this.game.flags;
+
+    // If thing is in the current room, then obj will reference it.
+    let obj = this.game.objs.find(i => i.dataset['name'] == thing);
 
     switch (verb) {
 
@@ -86,6 +89,70 @@ class Logic {
               this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 740);
             }
             break;
+        }
+        break;
+
+      case 'Pick up':
+        if (this.game.hasItem(thing)) {
+          this.game.ego.say("I already have that.", 140);
+        } else {
+          switch (thing) {
+            default:
+              // Is item in the current room?
+              if (obj && obj.propData[1] & 1) {
+                this.game.ego.moveTo(this.game.ego.cx, 740, function() {
+                  this.game.ego.moveTo(obj.x, 740, function() {
+                    this.game.getItem(thing);
+                    this.game.remove(obj);
+                    obj.propData[0] = -1;  // Clears the room number for the item.
+                    // TODO: this.game.addToScore(15);
+                  });
+                });
+              }
+              else {
+                this.game.ego.say("I can't get that.", 220);
+              }
+              break;
+          }
+        }
+        break;
+      
+      case 'Use':
+        if (cmd == verb) {
+          // Using items will add the ' with ' word to the sentence.
+          if (this.game.hasItem(thing)) {
+            newCommand = 'Use ' + thing + ' with ';
+          } else {
+            switch (thing) {
+              case 'mailbox':
+                if (flags[1]) {
+                  // Mailbox open.
+                  if (flags[2]) {
+                    // No letter inside, so close it.
+                    obj.render('📪');
+                    flags[1] = 0;
+                  } else {
+                    // Letter inside, so take it.
+                    obj.render('📭');
+                    flags[2] = 1;
+                    this.game.getItem('envelope');
+                  }
+                } else {
+                  // Mailbox closed. Use will open it.
+                  obj.render(flags[2]? '📭' : '📬');
+                  flags[1] = 1;
+                }
+                break;
+            }
+          }
+        } else {
+          // If verb doesn't equal cmd, it means that it is a scenario where an item
+          // is being used with something.
+          let thing2 = cmd.substring(4, cmd.indexOf(' with '));
+          switch (thing2) {
+            default:
+              break;
+          }
         }
         break;
 

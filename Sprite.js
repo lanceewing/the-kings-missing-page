@@ -36,20 +36,7 @@ class Sprite extends HTMLElement {
 
         // If we were given content then add it.
         if (content) {
-            let emojiKey = `${content}_${width}_${height}_${flip}`;
-            let emojiData = game.emojiMap.get(emojiKey);
-            if (emojiData) {
-                let canvas = document.createElement('canvas');
-                canvas.width = emojiData.width;
-                canvas.height = emojiData.height;
-                canvas.getContext('2d').putImageData(emojiData, 0, 0);
-                this.canvas = canvas;
-            } else {
-                let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height, flip);
-                this.canvas = canvas;
-                game.emojiMap.set(emojiKey, imgData);
-            }
-            this.appendChild(this.canvas);
+           this.render(content, flip);
         }
 
         if (shadow) {
@@ -85,7 +72,28 @@ class Sprite extends HTMLElement {
 
         this.room = this.game.room;
     }
- 
+    
+    /**
+     * 
+     */
+    render(content, flip=false) {
+        let emojiKey = `${content}_${this.width}_${this.height}_${flip}`;
+        let emojiData = this.game.emojiMap.get(emojiKey);
+        if (this.canvas) this.removeChild(this.canvas);
+        if (emojiData) {
+            let canvas = document.createElement('canvas');
+            canvas.width = emojiData.width;
+            canvas.height = emojiData.height;
+            canvas.getContext('2d').putImageData(emojiData, 0, 0);
+            this.canvas = canvas;
+        } else {
+            let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height, flip);
+            this.canvas = canvas;
+            this.game.emojiMap.set(emojiKey, imgData);
+        }
+        this.appendChild(this.canvas);
+    }
+
     /**
      * Tests if this Sprite is touching another Sprite.
      * 
