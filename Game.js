@@ -116,16 +116,13 @@ class Game {
     };
 
     props = [
-        // Room#, type, name, content, width, height, x, y, radius overide, element reference
-        // Other potential settings (no currently used): zindex, colour
-        // types: 
-        // 
-        // bit 0-1:  00 = actor, 01 = item, 10 = prop, 11 = ?
-        // bit 2:    0 = shadow, 1 = no shadow
-        // bit 3:    0 = observe objs, 1 = ignore objs
-        // bit 4-5:  00 = normal, 01 = light, 10 = dark, 11 = ?
-        // bit 6:
-        // bit 7:
+        // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
+        // bit 0-1:  00 = actor, 01 = item, 10 = prop, 11 = not used.
+        // bit 2:    0  = shadow, 1 = no shadow
+        // bit 3:    0  = observe objs, 1 = ignore objs
+        // bit 4:    0  = not building, 1 = building
+        // bit 5-6:  00 = normal, 01 = light, 10 = dark
+        // bit 7:    0 = normal, 1 = horizontal flip
 
         // Room 1 - Main street north
         [ 1,  14, 'office',            '🏢', 400, 400,   280,  700 ],
@@ -652,7 +649,7 @@ class Game {
     addPropToRoom(prop) {
         console.time('addProp_'+prop[2]);
 
-        // Room type, room width, left crossing, left path, centre crossing, right path, right crossing
+        // Room type, room width, left, left path, road crossing, right path, right
 
         // We only add the wall if the room type says there is one.
         if (((prop[2] == 'wall') && !(this.roomData[0] & 0x01)) || 
@@ -664,14 +661,13 @@ class Game {
         // We cache the obj when it isn't in the dom rather than recreate. It might remember it's state.
         let obj = prop[10];
 
-        // Room#, type, name, content, width, height, x, y, element reference
-        // bit 0-1:  00 = actor, 01 = item, 10 = prop, 11 = ?
+        // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
+        // bit 0-1:  00 = actor, 01 = item, 10 = prop, 11 = not used.
         // bit 2:    0  = shadow, 1 = no shadow
         // bit 3:    0  = observe objs, 1 = ignore objs
-        // TODO: Need a block shift, to baseline and up. 
-        // TODO: Need a smaller blocker, e.g. for trees.
+        // bit 4:    0  = not building, 1 = building
         // bit 5-6:  00 = normal, 01 = light, 10 = dark
-        // bit 7:    0 = normal, 1 = horizontal flip.
+        // bit 7:    0 = normal, 1 = horizontal flip
 
         if (!obj) {
             obj = new Sprite();
