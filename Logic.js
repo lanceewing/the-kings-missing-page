@@ -179,6 +179,16 @@ class Logic {
                   flags[1] = 1;
                 }
                 break;
+              default:
+                // TODO: Change this to check buildings map
+                if (obj && obj.propData && obj.propData[1] & 16) { // Building
+                  // Add "outside" background
+
+
+                } else {
+                  this.game.ego.say("I can't use that.", 250);
+                }
+                break;
             }
           }
         } else {
