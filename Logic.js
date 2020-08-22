@@ -123,21 +123,27 @@ class Logic {
       case 'Look at':
         switch (thing) {
           case 'envelope':
-            if (flags[3]) {
+            if (this.game.hasItem('letter')) {
               this.game.ego.say("It's empty.", 200);
             } else {
               this.game.ego.say("Letter inside.", 200);
               this.game.getItem('letter');
-              flags[3] = 1;
             }
             break;
           case 'letter':
-            if (flags[4]) {
+            if (this.game.hasItem('paperclip')) {
               this.game.ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
             } else {
               this.game.ego.say("Has paper clip.", 200);
               this.game.getItem('paperclip');
-              flags[4] = 1;
+            }
+            break;
+          case 'shopping cart':
+            if (this.game.hasItem('water pistol')) {
+              this.game.ego.say("Nothing in there.", 250);
+            } else {
+              this.game.ego.say("I found a water pistol.", 300);
+              this.game.getItem('water pistol');
             }
             break;
           default:
@@ -158,14 +164,13 @@ class Logic {
               case 'mailbox':
                 if (flags[1]) {
                   // Mailbox open.
-                  if (flags[2]) {
+                  if (this.game.hasItem('envelope')) {
                     // No letter inside, so close it.
                     obj.render('📪');
                     flags[1] = 0;
                   } else {
                     // Letter inside, so take it.
                     obj.render('📭');
-                    flags[2] = 1;
                     this.game.getItem('envelope');
                   }
                 } else {
@@ -188,6 +193,14 @@ class Logic {
                 this.game.dropItem('rose');
               } else {
                 this.game.ego.say("I should pick them both up first.", 200);
+              }
+              break;
+            case 'fountain,water pistol':
+              if (flags[2]) {
+                this.game.ego.say("It's already full.", 200);
+              } else {
+                this.game.ego.say("OK");
+                flags[2] = 1;
               }
               break;
             default:

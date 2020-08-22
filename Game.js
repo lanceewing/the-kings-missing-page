@@ -151,6 +151,7 @@ class Game {
         [ 2,  2, 'tree',               '🌴', 300, 300,   2730,  825, 30 ],
         [ 2,  2, 'tree',               '🌴', 300, 300,   3690,  825, 30 ],
         [ 2, 14, 'department_store',   '🏬', 400, 400,   280,   700 ],
+        [ 2,  1, 'shopping_cart',      '🛒', 100, 100,   720,   650 ],
         [ 2, 14, 'store',              '🏪', 400, 400,   1240,  700 ],
         [ 2, 14, 'post_office',        '🏤', 400, 400,   2200,  700 ],
         [ 2, 14, 'hotel',              '🏨', 400, 400,   3160,  700 ],
@@ -267,9 +268,7 @@ class Game {
     ];
 
     // 1 = mailbox open
-    // 2 = envelope not in mailbox
-    // 3 = envelope empty
-    // 4 = letter without paperclip
+    // 2 = water pistol filled
     flags = [];
 
     _gameOver = true;
