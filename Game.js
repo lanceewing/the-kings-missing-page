@@ -714,6 +714,8 @@ class Game {
         this.add(obj);
 
         console.timeEnd('addProp_'+prop[2]);
+
+        return obj;
     }
 
     /**

@@ -35,6 +35,9 @@ class Logic {
 
       case 'Walk to':
         switch (thing) {
+          case 'outside':
+            this.game.remove(obj);
+            break;
           case 'left path':
           case 'right path': {
               let left = thing.includes('left');
@@ -183,7 +186,9 @@ class Logic {
                 // TODO: Change this to check buildings map
                 if (obj && obj.propData && obj.propData[1] & 16) { // Building
                   // Add "outside" background
-
+                  let buildingData = this.game.buildings[obj.propData[3]];
+                  // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
+                  this.game.addObjEventListeners(this.game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]))
 
                 } else {
                   this.game.ego.say("I can't use that.", 250);
