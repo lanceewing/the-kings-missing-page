@@ -188,7 +188,7 @@ class Logic {
                   // Add "outside" background
                   let buildingData = this.game.buildings[obj.propData[3]];
                   // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
-                  this.game.addObjEventListeners(this.game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]))
+                  this.game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
 
                 } else {
                   this.game.ego.say("I can't use that.", 250);

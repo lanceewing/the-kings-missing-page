@@ -611,17 +611,6 @@ class Game {
             }
         }
 
-        // Add event listeners for objects in the room.
-        [...this.screen.children].forEach(obj => this.addObjEventListeners(obj));
-
-        // TODO: Remove this, as it isn't really required for this game.
-        // It is possible that ego has walked into the position of another object when
-        // entering the room, so we scan to find a new position.
-        //let i=0, n=0, s=1, {edge, x, z} = this.ego, bo;
-        //while (edge == 3 && (bo = this.objs.find(o => this.ego.touching(o)))) {
-        //    this.ego.setPosition(x + i, 0, z);
-        //    i+=(s*=-1)*n++;
-        //}
         if (this.edge == 3) {
             let e = this.ego;
             let bo = this.objs.find(o => e.touching(o));
@@ -713,9 +702,9 @@ class Game {
 
         this.add(obj);
 
-        console.timeEnd('addProp_'+prop[2]);
+        this.addObjEventListeners(obj);
 
-        return obj;
+        console.timeEnd('addProp_'+prop[2]);
     }
 
     /**
