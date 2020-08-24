@@ -23,12 +23,14 @@ class Logic {
    */
   process(verb, cmd, thing, e) {
     let newCommand = cmd;
-    let flags = this.game.flags;
+    let game = this.game;
+    let flags = game.flags;
+    let ego = game.ego;
 
     // If thing is in the current room, then obj will reference it.
     let obj = this.game.objs.find(i => i.dataset['name'] == thing);
     if (obj) {
-      // TODO: Walk to 740 then to object.
+      // TODO: Can we handle walking to the obj here?
     }
 
     switch (verb) {
@@ -36,6 +38,10 @@ class Logic {
       case 'Walk to':
         switch (thing) {
           case 'outside':
+            while (obj && obj.nextElementSibling) {
+              obj = obj.nextElementSibling;
+              this.game.remove(obj.previousElementSibling);
+            }
             this.game.remove(obj);
             break;
           case 'left path':
@@ -185,11 +191,22 @@ class Logic {
               default:
                 // TODO: Change this to check buildings map
                 if (obj && obj.propData && obj.propData[1] & 16) { // Building
-                  // Add "outside" background
-                  let buildingData = this.game.buildings[obj.propData[3]];
-                  // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
-                  this.game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
+                  ego.moveTo(ego.cx, 740, () => {
+                    ego.moveTo(obj.cx, 740, () => {
+                      // Add "outside" background
+                      //let buildingData = game.buildings[obj.propData[3]];
+                      // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
+                      // Add "outside" background
+                      game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
+                      // Add "inside" background.
+                      game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
+                      // Add the person that is inside the building.
+                      //game.addPropToRoom([0, 14, buildingData[1], buildingData[0], 200, 150, obj.cx-100, 450, , 1002]);
+                      // TODO: Add the items inside the building.
+                      game.props.forEach(prop => { if (prop[0] == obj.propData[10]) game.addPropToRoom(prop); });
 
+                    });
+                  });
                 } else {
                   this.game.ego.say("I can't use that.", 250);
                 }

@@ -21,7 +21,7 @@ class Ego extends Actor {
             // Now check if there is a room on this edge.
             if (edge < 8) {
                 let edgeData = this.game.rooms[this.room - 1][edge + 1];
-                if (edgeData == 11) {
+                if (edgeData == 50) {
                     // 11 means come back in the same exit.
                     edgeData = this.room;
                     edge = [5, 3, 0, 2, 1][edge-1];

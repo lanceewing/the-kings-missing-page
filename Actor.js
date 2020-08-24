@@ -14,12 +14,13 @@ class Actor extends Sprite {
    * @param {number} width The width of the Actor.
    * @param {number} height The height of the Actor.
    * @param {string} content The content to add into the Actor. Optional.
+   * @param {boolean} shadow 
    */
-  init(game, width, height, content) {
-    super.init(game, width, height, content);
+  init(game, width, height, content, shadow) {
+    super.init(game, width, height, content, shadow);
 
     // An HTML template is used for the structure of the actor.
-    this.appendChild(document.importNode(document.getElementById('person').content, true));
+    if (!content) this.appendChild(document.importNode(document.getElementById('person').content, true));
   }
 
   /**
@@ -53,65 +54,6 @@ class Actor extends Sprite {
    */
   moveTo(x, z, fn) {
     this.dests.push({ z: z, x: x, fn: fn });
-  }
-
-  /**
-   * Tells the Actor to say the given text within a speech bubble of the given width. Will
-   * execute the given optional next function if provided after the speech bubble is removed.
-   * 
-   * @param {string} text The text to say.
-   * @param {number} width The width of the speech bubble.
-   * @param {Function} next The function to execute after saying the text. Optional.
-   */
-  say(text, width, next) {
-    let game = this.game;
-    let elem = this;
-
-    game.inputEnabled = false;
-    game.overlay.style.display = 'block';
-    game.overlay.onclick = null;
-
-    let bubble = document.createElement('span');
-    bubble.className = 'bubble';
-    bubble.innerHTML = text;
-
-    let left;
-    if (this.x > 800) {
-      left = -width + 40;
-    } else if (this.x < 100) {
-      left = -10;
-    } else {
-      left = -(width / 2);
-    }
-
-    bubble.style.width = width + 'px';
-    bubble.style.left = left + 'px';
-
-    this.appendChild(bubble);
-    this.classList.add('speech');
-
-    let closeBubbleTO = null;
-    let closeBubbleFn = function (e) {
-      // If function was called by a user event, then cancel the timeout.
-      if (e) {
-        clearTimeout(closeBubbleTO);
-        game.overlay.onclick = null;
-      }
-      // Remove the speech bubble.
-      elem.classList.remove('speech');
-      if (elem.contains(bubble)) {
-        elem.removeChild(bubble);
-      }
-
-      if (next) {
-        setTimeout(next, 200);
-      } else {
-        // Re-enable user input if nothing is happening after the speech.
-        game.inputEnabled = true;
-      }
-    };
-    closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 1500);
-    game.overlay.onclick = closeBubbleFn;
   }
 
   /**
