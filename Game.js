@@ -92,32 +92,7 @@ class Game {
 
         // Main street south west
         [3, 2880, 2, 50, 5, 0, 50], 
-
-
     ];
-
-    // buildingEmoji : [ personEmoji, personName ]
-    // buildings = {
-    //     '🏢' : ['👨‍💼', 'office worker', ],// Office
-    //     '🏥' : ['👩‍⚕️', 'doctor', ['🗑', 'wastebasket']],       // Hospital
-    //     '🏛'  : ['👩‍⚖️', 'judge', ],       // Courthouse
-    //     '🏦' : ['👩‍💼', 'bank teller', ],  // Bank
-    //     '🏗'  : ['👷', 'builder', ],      // Building site
-    //     '🏬' : ['🙎‍♂️', 'salesperson', ['', ]],  // Department store
-    //     '🏪' : ['🧕', 'cashier', ],      // Store
-    //     '🏤' : ['🖥', 'selfservice', ],  // Post office
-    //     '🏨' : ['🤵', 'hotel clerk', ],  // Hotel
-    //     '🏠' : ['👨‍👩‍👧', 'family', ],      // House
-    //     '🏡' : ['👨‍👩‍👦', 'family', ],      // House with garden
-    //     '🎪' : ['🤡', 'clown', ],        // Circus
-    //     '🏫' : ['👩‍🔬', 'scientist', ],    // School
-    //     '🏚' : ['👨‍🌾', 'farmer', ],        // Barn
-    //     '🏭' : ['👨‍🏭', 'factory worker'], // Factory
-    //     '🏰' : ['💂', 'guard', ],         // Castle
-    //     '⛪' : ['👰', 'bride', ],        // Church
-    //     '🚪' : ['🧙', 'wizard', ],        // Wizard's door
-    //     '⚰' : ['🧛', 'vampire', ]        // Coffin
-    // };
 
     props = [
         // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
@@ -148,6 +123,7 @@ class Game {
         // Room 11 - In office
         // 0, 14, buildingData[1], buildingData[0], 200, 150, obj.cx-100, 450, , 1002
         [ 11,  0, 'office_worker',     '👨‍💼', 200, 150, 380, 450, , 1002 ],
+        [ 11,  1, 'ticket',            '🎟', 40,  40,  380, 670, , 1002 ],
 
         // Room 12 - In hospital
         [ 12,  0, 'doctor',            '👩‍⚕️', 200, 150, 1340, 450, , 1002 ],
@@ -157,10 +133,12 @@ class Game {
         [ 13,  0, 'judge',             '👩‍⚖️', 200, 150, 2300, 450, , 1002 ],
 
         // Room 14 - In bank
-        [ 14,  0, 'bank teller',       '👩‍💼', 200, 150, 3260, 450, , 1002 ],
+        [ 14,  0, 'bank_teller',       '👩‍💼', 200, 150, 3260, 450, , 1002 ],
+        [ 14,  1, 'cash',              '💵', 40,  40, 3260,  670, , 1002 ],
 
         // Room 15 - In building site
         [ 15,  0, 'builder',           '👷', 200, 150, 4220, 450, , 1002 ],
+        [ 15,  1, 'explosive',         '🧨', 40,  40,  4220, 670, , 1002 ],
 
         // Room 2 - Main street south
         [ 2,  2, 'tree',               '🌴', 300, 300,   50,    825, 30 ],
@@ -176,14 +154,23 @@ class Game {
         [ 2, 30, 'house',              '🏠', 400, 400,   4120,  700, , , 20 ],
 
         // Room 16 - In department store
+        [ 16, 0, 'salesperson',        '🙎‍♂️', 200, 150,   380,   450, , 1002 ], 
+        [ 16, 1, 'map',                '🗺', 40,  40,    380,   670, , 1002 ],
+        [ 16, 1, 'compass',            '🧭', 40,  40,    455,   670, , 1002 ],
 
         // Room 17 - In store
+        [ 17, 0, 'cashier',            '🧕', 200, 150,   1340,  450, , 1002 ],
+        [ 17, 1, 'cheese',             '🧀', 40,  40,    1340,  670, , 1002 ], 
 
         // Room 18 - In post office
+        [ 18, 0, 'selfservice',        '🖥',  200, 150,   2300,  450, , 1002 ], 
 
         // Room 19 - In hotel
+        [ 19, 0, 'hotel_clerk',        '🤵', 200,  150,   3260,  450, , 1002 ], 
+        [ 19, 1, 'bellhop',            '🛎',  40,  40,    3260,  670, , 1002 ],
 
-        // Room 20 - In house
+        // Room 20 - In house without gardens
+        [ 20, 0, 'family',             '👨‍👩‍👧', 200, 150,   4220,  450, , 1002 ], 
 
         // Room 3 - House row
         [ 3, 30, 'house',              '🏠', 400, 400,   330, 700, , , 20 ],
@@ -203,9 +190,8 @@ class Game {
         [ 3,  2, 'scooter',            '🛵', 150, 150,   4460, 950 ],
         [ 3, 30, 'house',              '🏠', 400, 400,   4120, 700, , , 20 ],
 
-        // Room 20 - In house without gardens
-
         // Room 21 - In house with garden
+        [ 21, 0, 'family',             '👨‍👩‍👦', 200, 150,  380,  450, , 1002 ], 
 
         // Room 4 - Park, school, farm
         [ 4,  14, 'woods',              null, 300, 300,   -50, 650 ],
@@ -235,10 +221,14 @@ class Game {
         [ 4,   2, 'sheep',             '🐑', 100, 100,   5600, 560 ],
 
         // Room 22 - In cirus
+        [ 22, 0, 'clown',              '🤡', 200, 150,   1340, 450, , 1002 ],
+        [ 22, 1, 'candy',              '🍬', 40,  40,    1340, 670, , 1002 ],
 
         // Room 23 - In school
+        [ 23, 0, 'scientist',          '👩‍🔬', 200, 150,   5180, 450, , 1002 ], 
 
         // Room 24 - In barn
+        [ 24, 0, 'farmer',             '👨‍🌾', 200, 150,   6200, 450, , 1002 ], 
 
         // Room 5 - Church
         [ 5,   2, 'tree',              '🌴', 300, 300,   50,   825, 30 ],
@@ -247,9 +237,11 @@ class Game {
         [ 5,   2, 'tree',              '🌴', 300, 300,   2730, 825, 30 ],
         [ 5,  30, 'church',            '⛪', 350, 350,   1240, 700, , , 25 ],
         [ 5,   2, 'car',               '🚙', 200, 200,   2100, 950 ],
-        [ 5,  30, 'house     ',        '🏠', 400, 400,   2200, 700, , , 20 ],
+        [ 5,  30, 'house',             '🏠', 400, 400,   2200, 700, , , 20 ],
 
         // Room 25 - In church
+        [ 25, 0, 'bride',              '👰', 200, 150,   1340, 450, , 1002 ],
+        [ 25, 1, 'lipstick',           '💄', 40,   40,    1340, 670, , 1002 ],
 
         // Room 6 - Petrol station
         [ 6,   2, 'pump',              '⛽', 120, 120,   150,  825 ],
@@ -265,6 +257,8 @@ class Game {
         [ 6,  30, 'derelict_house',    '🏚', 400, 400,   1240,  700, , , 27 ],
 
         // Room 26 - In factory
+        [ 26, 0, 'factory_worker',     '👨‍🏭', 200, 150,  450,  450, , 1002 ],
+        [ 26, 1, '',  ],
 
         // Room 27 - In derelict house
 
@@ -274,6 +268,7 @@ class Game {
         [ 7,   2, 'tree',              '🌲', 300, 300,   810,  650 ],
 
         // Room 28 - In castle
+        [ 28,  0, 'guard',             '💂', 200, 150,   280, 450, , 1004 ],
 
         // Room 8 - Woods
         [ 8,  22, 'coffin',            '⚰', 100, 100,   180,  660, , , 29 ],
@@ -285,8 +280,11 @@ class Game {
         [ 8,  18, 'door',              '🚪', 100, 200,   1250, 500, , , 30 ],
 
         // Room 29 - In coffin
+        [ 29, 0, 'vampire',            '🧛', 200, 150,   280,  450, , 1002 ],
 
         // Room 30 - In wizard's house
+        [ 30, 0, 'wizard',             '🧙', 200, 150,   1350, 450, , 1002 ],
+        [ 30, 1, 'crystal_ball',       '🔮', 40,  40,    1350, 670, , 1002 ],
 
         // Room 9 - Main street south east
         [ 9,   2, 'tree',              '🌴', 300, 300,   50,   825, 30 ],
@@ -297,6 +295,7 @@ class Game {
         [ 9,  30, 'house',             '🏡', 400, 400,   2200, 700, , , 20 ],
 
         // Room 31 - In my house
+        [ 31,  0, 'bank card',         '💳', 200, 150,   1340, 450, , 1002 ],
 
         // Room 10 - Main street south west
         [ 10,  2, 'tree',              '🌴', 300, 300,   50,   825, 30 ],
@@ -306,7 +305,7 @@ class Game {
         [ 10, 30, 'house',             '🏡', 400, 400,   280,  700, , , 20 ],
         [ 10, 30, 'derelict_house',    '🏚',  400, 400,   1240, 700, , , 27 ],
 
-        // Room 11 - Countryside
+        // Room 50 - Countryside
         // No items. Ego just walks back into the previous room, as there is nothing in that direction.
 
         // Room 0 - All rooms
