@@ -28,10 +28,8 @@ class Logic {
     let ego = game.ego;
 
     // If thing is in the current room, then obj will reference it.
-    let obj = this.game.objs.find(i => i.dataset['name'] == thing);
-    if (obj) {
-      // TODO: Can we handle walking to the obj here?
-    }
+    let obj = game.objs.find(i => i.dataset['name'] == thing);
+    let pickup = () => game.getItem(thing);
 
     switch (verb) {
 
@@ -106,23 +104,27 @@ class Logic {
 
       case 'Pick up':
         if (this.game.hasItem(thing)) {
-          this.game.ego.say("I already have that.", 140);
+          ego.say("I already have that.", 140);
         } else {
           switch (thing) {
             default:
               // Is item in the current room?
               if (obj && obj.propData[1] & 1) {
-                this.game.ego.moveTo(this.game.ego.cx, 740, function() {
-                  this.game.ego.moveTo(obj.x, 740, function() {
-                    this.game.getItem(thing);
-                    this.game.remove(obj);
-                    obj.propData[0] = -1;  // Clears the room number for the item.
-                    // TODO: this.game.addToScore(15);
-                  });
-                });
+
+                if (obj.propData[0] < 11) {
+                  // Normal room, so walk to item and pick it up.
+                  ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.x, 740, pickup));
+                } else {
+                  // Inside room.
+                  if (obj.propData[0] == 12)  {
+                    pickup();
+                  } else {
+                    game.actor.say(`Hey! That's my ${thing}.`);
+                  }
+                }
               }
               else {
-                this.game.ego.say("I can't get that.", 220);
+                ego.say("I can't get that.", 220);
               }
               break;
           }
@@ -194,15 +196,10 @@ class Logic {
                   ego.moveTo(ego.cx, 740, () => {
                     ego.moveTo(obj.cx, 740, () => {
                       // Add "outside" background
-                      //let buildingData = game.buildings[obj.propData[3]];
-                      // Room#, type, name, content, width, height, x, y, radius override, z-index override, element reference
-                      // Add "outside" background
                       game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
                       // Add "inside" background.
                       game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
-                      // Add the person that is inside the building.
-                      //game.addPropToRoom([0, 14, buildingData[1], buildingData[0], 200, 150, obj.cx-100, 450, , 1002]);
-                      // TODO: Add the items inside the building.
+                      // Add the items inside the building.
                       game.props.forEach(prop => { if (prop[0] == obj.propData[10]) game.addPropToRoom(prop); });
 
                     });
@@ -234,6 +231,11 @@ class Logic {
                 this.game.ego.say("OK");
                 flags[2] = 1;
               }
+              break;
+            case 'bouquet,bride':
+              game.dropItem('bouquet');
+              obj.say('Thanks. Take my lipstick.', 250);
+              game.getItem('lipstick');
               break;
             default:
               break;

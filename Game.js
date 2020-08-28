@@ -14,41 +14,41 @@ class Game {
 
     itemsLeft = 0;
 
-    // TODO: Decide whether we need this, or whether everything will be in emojis.
-    itemIcons = {
-        'tulip'         : '🌷',
-        'rose'          : '🌹',
-        'bouquet'       : '💐',
-        'lipstick'      : '💄',
-        'ticket'        : '🎟',
-        'coconut'       : '🥥',
-        'peanut'        : '🥜',
-        'mask'          : '👹',
-        'water pistol'  : '🔫',
-        'candy'         : '🍬',
-        'amulet'        : '🧿',
-        'cheese'        : '🧀',
-        'bank card'     : '💳',
-        'cash'          : '💵',
-        'map'           : '🗺',
-        'compass'       : '🧭',
-        'waste basket'  : '🗑',
-        'explosive'     : '🧨',
-        'test tube'     : '🧪',
-        'axe'           : '🪓',
-        'pill'          : '💊',
-        'syringe'       : '💉',
-        'blood'         : '🩸',
-        'briefcase'     : '💼', 
-        'bricks'        : '🧱',
-        'barrier'       : '🚧',
-        'paperclip'      : '📎',
-        'envelope'       : '✉',
-        'letter'         : '📄',
-        'bellhop'       : '🛎',
-        'broom'          : '🧹',
-        'crystal ball'  : '🔮',
-    };
+    // // TODO: Decide whether we need this, or whether everything will be in emojis.
+    // itemIcons = {
+    //     'tulip'         : '🌷',
+    //     'rose'          : '🌹',
+    //     'bouquet'       : '💐',
+    //     'lipstick'      : '💄',
+    //     'ticket'        : '🎟',
+    //     'coconut'       : '🥥',
+    //     'peanut'        : '🥜',
+    //     'mask'          : '👹',
+    //     'water pistol'  : '🔫',
+    //     'candy'         : '🍬',
+    //     'amulet'        : '🧿',
+    //     'cheese'        : '🧀',
+    //     'bank card'     : '💳',
+    //     'cash'          : '💵',
+    //     'map'           : '🗺',
+    //     'compass'       : '🧭',
+    //     'wastebasket'   : '🗑',
+    //     'explosive'     : '🧨',
+    //     'test tube'     : '🧪',
+    //     'axe'           : '🪓',
+    //     'pill'          : '💊',
+    //     'syringe'       : '💉',
+    //     'blood'         : '🩸',
+    //     'briefcase'     : '💼', 
+    //     'bricks'        : '🧱',
+    //     'barrier'       : '🚧',
+    //     'paperclip'      : '📎',
+    //     'envelope'       : '✉',
+    //     'letter'         : '📄',
+    //     'bellhop'       : '🛎',
+    //     'broom'          : '🧹',
+    //     'crystal ball'  : '🔮',
+    // };
 
     /**
      * The rooms map is essentially the game map.
@@ -121,7 +121,6 @@ class Game {
         [ 1,  30, 'building_site',     '🏗',  400, 400,   4120, 700, , , 15 ],
 
         // Room 11 - In office
-        // 0, 14, buildingData[1], buildingData[0], 200, 150, obj.cx-100, 450, , 1002
         [ 11,  0, 'office_worker',     '👨‍💼', 200, 150, 380, 450, , 1002 ],
         [ 11,  1, 'ticket',            '🎟', 40,  40,  380, 670, , 1002 ],
 
@@ -435,7 +434,7 @@ class Game {
         this.objs = [];
         this.room = 1;//9;//10;//7;//6;//1; //4; //7; //6;//1; // 4; //6; //1;
 
-        this.getItem('bank card');
+        this.getItem('bank card', '💳');
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
@@ -753,6 +752,9 @@ class Game {
             }
         }
 
+        // If it is an actor, store a reference to ease of use.
+        if (!prop[1]) this.actor = obj;
+
         this.add(obj);
 
         this.addObjEventListeners(obj);
@@ -831,15 +833,20 @@ class Game {
      * 
      * @param {string} name The name of the item to add to the inventory.
      */
-    getItem(name) {
+    getItem(name, icon) {
         let item = document.createElement('span');
-        item.innerHTML = this.itemIcons[name];
         item.dataset.name = name;
         this.items.appendChild(item);
-
         this.addObjEventListeners(item);
-
         this.inventory[name] = item;
+        let obj = this.screen.querySelector(`.${name}`);
+        if (obj) {
+            obj.propData[0] = -1;
+            this.remove(obj);
+            item.innerHTML = obj.propData[3];
+        } else {
+            item.innerHTML = icon;
+        }
     }
 
     /**
