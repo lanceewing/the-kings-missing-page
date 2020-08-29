@@ -263,6 +263,12 @@ class Logic {
               game.actor.say("Thanks. Take my mask.");
               game.getItem('mask');
               break;
+            case 'chipmunk,coconut':
+              game.dropItem('coconut');
+              ego.say("The chipmunk took the coconut and ran away.");
+              obj.propData[0] = -1;
+              game.remove(obj);
+              break;
             case 'candy,moai statue':
               if (flags[3]) { // Statues are awake.
                 game.dropItem('candy');
