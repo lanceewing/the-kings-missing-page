@@ -269,6 +269,12 @@ class Logic {
               obj.propData[0] = -1;
               game.remove(obj);
               break;
+            case 'banana,feeding hole':
+              let bananaProps = [ 4, 2, 'banana', '🍌', 30, 30, 1125, 640, , 651 ];
+              game.dropItem('banana');
+              game.props.push(bananaProps);
+              game.addPropToRoom(bananaProps);
+              break;
             case 'candy,moai statue':
               if (flags[3]) { // Statues are awake.
                 game.dropItem('candy');

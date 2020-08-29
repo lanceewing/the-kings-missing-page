@@ -448,6 +448,7 @@ class Game {
   
         // TODO: Remove all initial items.
         this.getItem('water pistol', '🔫');
+        this.getItem('banana', '🍌');
 
         // Enter the starting room.
         this.newRoom();
