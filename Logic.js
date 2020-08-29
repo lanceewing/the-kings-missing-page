@@ -63,12 +63,20 @@ class Logic {
             break;
 
           case 'woods':
-            this.game.inputEnabled = false;
-            this.game.ego.stop();
-            this.game.ego.moveTo(210, 740);
-            this.game.ego.moveTo(210, 640);
-            this.game.ego.moveTo(70, 550);
-            this.game.ego.moveTo(-50, 550);
+            if (flags[4]) {
+              if (game.hasItem('compass') && game.hasItem('map')) {
+                this.game.inputEnabled = false;
+                this.game.ego.stop();
+                this.game.ego.moveTo(210, 740);
+                this.game.ego.moveTo(210, 640);
+                this.game.ego.moveTo(70, 550);
+                this.game.ego.moveTo(-50, 550);
+              } else {
+                ego.say("I might get lost in the woods. I need a map and compass.");
+              }
+            } else {
+              ego.say("The elephant blocks my way.");
+            }
             break;
 
           case 'road':
@@ -203,7 +211,11 @@ class Logic {
                 if (obj && obj.propData && obj.propData[1] & 16) { // Building
                   if ((thing == 'circus') && !game.hasItem('ticket')) {
                     ego.say("I need a ticket.");
-                  } else {
+                  }
+                  else if ((thing == 'coffin') && !game.hasItem('amulet')) {
+                    ego.say("Magic is stopping me opening the coffin.");
+                  } 
+                  else {
                     let props = game.props.filter(prop => prop[0] == obj.propData[10]);
                     if (props.length) {
                       ego.moveTo(ego.cx, 740, () => {
@@ -284,12 +296,14 @@ class Logic {
               ego.say("The chipmunk took the coconut and ran away.");
               obj.propData[0] = -1;
               game.remove(obj);
+              flags[6] = 1;
               break;
             case 'banana,feeding hole':
               let bananaProps = [ 4, 2, 'banana', '🍌', 30, 30, 1125, 640, , 651 ];
               game.dropItem('banana');
               game.props.push(bananaProps);
               game.addPropToRoom(bananaProps);
+              flags[5] = 1;
               break;
             case 'candy,moai statue':
               if (flags[3]) { // Statues are awake.
@@ -298,6 +312,13 @@ class Logic {
                 game.getItem('amulet');
               } else {
                 ego.say("They're asleep.");
+              }
+              break;
+            case 'syringe,vampire':
+              if (game.hasItem('blood')) {
+                actor.say("You already have my blood.");
+              } else {
+                game.getItem('blood');
               }
               break;
             case 'bellhop,moai statue':

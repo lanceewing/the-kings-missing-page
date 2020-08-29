@@ -197,7 +197,6 @@ class Game {
         [ 4,   2, 'tree',              '🌲', 300, 300,   350, 600 ],
         [ 4,  66, 'tree',              '🌲', 300, 300,   150, 550 ],
         [ 4, 130, 'elephant',          '🐘', 200, 200,   150, 600 ],
-        //[ 4, 130, 'elephant',          '🐘', 200, 200,   875, 600 ],
         [ 4,   2, 'chipmunk',          '🐿',  50,  50,    900, 600 ],
         [ 4,  14, 'feeding_hole',      '🕳',  80,  20,   1100, 650 ],
         [ 4,  30, 'circus',            '🎪', 400, 400,   1240, 650, , , 22 ],
@@ -269,7 +268,8 @@ class Game {
         [ 7,   2, 'tree',              '🌲', 300, 300,   810,  650 ],
 
         // Room 28 - In castle
-        [ 28,  0, 'guard',             '💂', 200, 150,   280, 450, , 1004 ],
+        [ 28,  0, 'guard',             '💂', 200, 150,   280, 450, , 1002 ],
+        [ 28,  1, 'map',               '🗺', 40,  40,    280, 670, , 1002 ],
 
         // Room 8 - Woods
         [ 8,  22, 'coffin',            '⚰', 100, 100,   180,  660, , , 29 ],
@@ -323,6 +323,8 @@ class Game {
     // 2 = water pistol filled
     // 3 = moai statue awake
     // 4 = elephant not blocking woods
+    // 5 = banana in hole
+    // 6 = chipmunk has gone
     flags = [];
 
     _gameOver = true;
@@ -449,6 +451,8 @@ class Game {
         // TODO: Remove all initial items.
         this.getItem('water pistol', '🔫');
         this.getItem('banana', '🍌');
+        this.getItem('coconut', '🥥');
+        this.flags[4] = 1;
 
         // Enter the starting room.
         this.newRoom();
@@ -704,6 +708,14 @@ class Game {
             ((prop[2] == 'left_path') && !this.roomData[3]) || 
             ((prop[2] == 'right_path') && !this.roomData[5])) {
             return;
+        }
+
+        // Banana in elephant feeding hole, chipmunk gone, so move the elephant position.
+        if ((prop[2] == 'elephant') && this.flags[5] && this.flags[6]) {
+            // [ 4, 130, 'elephant',          '🐘', 200, 200,   875, 600 ],
+            this.flags[4] = 1;
+            prop[6] = 875;
+            prop[11] = null;
         }
 
         // We cache the obj when it isn't in the dom rather than recreate. It might remember it's state.
