@@ -41,6 +41,7 @@ class Logic {
               this.game.remove(obj.previousElementSibling);
             }
             this.game.remove(obj);
+            game.actor = null;
             break;
           case 'left path':
           case 'right path': {
@@ -205,6 +206,14 @@ class Logic {
                   // Mailbox closed. Use will open it.
                   obj.render(flags[2]? '📭' : '📬');
                   flags[1] = 1;
+                }
+                break;
+              case 'bellhop':
+                if (!game.actor) {
+                  game.addPropToRoom([ 19, 0, 'hotel_clerk', '🤵', 200, 150, 3260, 450, , 1002 ]);
+                  game.actor.say("Can I help you?");
+                } else {
+                  game.actor.say("I'm already here.");
                 }
                 break;
               default:
