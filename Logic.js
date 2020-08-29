@@ -128,7 +128,15 @@ class Logic {
                   if (obj.propData[0] == 12 || obj.propData[0] == 31)  {
                     // In my house and the hospital ego can pick the items without constraint.
                     pickup();
-                  } else {
+                  }
+                  else if (thing == 'bellhop') {
+                    if (game.actor) {
+                      game.actor.say("Please leave that there.");
+                    } else {
+                      pickup();
+                    }
+                  }
+                  else {
                     game.actor.say(`Hey! That's my ${thing}.`);
                   }
                 }
