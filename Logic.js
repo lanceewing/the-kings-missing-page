@@ -263,6 +263,37 @@ class Logic {
               game.actor.say("Thanks. Take my mask.");
               game.getItem('mask');
               break;
+            case 'candy,moai statue':
+              if (flags[3]) { // Statues are awake.
+                game.dropItem('candy');
+                obj.say("Mmmm... yummy. Here, take this amulet.");
+                game.getItem('amulet');
+              } else {
+                ego.say("They're asleep.");
+              }
+              break;
+            case 'bellhop,moai statue':
+              if (flags[3]) {
+                ego.say("They're already awake.");
+              } else {
+                ego.say("The bell sound woke them up.");
+                flags[3] = 1;
+              }
+              break;
+            case 'family,water pistol':
+              if (game.hasItem('candy')) {
+                ego.say("I already have candy.");
+              } else if (flags[2]) {
+                if (game.hasItem('mask')) {
+                  game.actor.say("Here's some candy.");
+                  game.getItem('candy');
+                } else {
+                  game.actor.say("You're not dressed up!");
+                }
+              } else {
+                ego.say("It doesn't have water.");
+              }
+              break;
             case 'bank card,bank teller':
               if (game.hasItem('cash')) {
                 ego.say("I already have enough cash.");

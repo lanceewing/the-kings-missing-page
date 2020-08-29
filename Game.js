@@ -187,7 +187,7 @@ class Game {
         [ 3,  1, 'rose',               '🌹',  30, 30,     3600, 680 ],
         [ 3,  2, 'scooter',            '🛵', 150, 150,   4460, 950 ],
         [ 3, 30, 'house',              '🏠', 400, 400,   4120, 700, , , 20 ],
-        
+
         // Room 21 - In halloween house
         [ 21, 0, 'family',             '👨‍👩‍👦', 200, 150,  2300, 450, , 1002 ],
         [ 21, 1, 'candy',              '🍬', 40,  40,   2300, 670, , 1002 ],
@@ -319,6 +319,7 @@ class Game {
 
     // 1 = mailbox open
     // 2 = water pistol filled
+    // 3 = moai statue awake
     flags = [];
 
     _gameOver = true;
@@ -442,6 +443,9 @@ class Game {
         this.ego.id = 'me';
         this.screen.appendChild(this.ego);
   
+        // TODO: Remove all initial items.
+        this.getItem('water pistol', '🔫');
+
         // Enter the starting room.
         this.newRoom();
         
