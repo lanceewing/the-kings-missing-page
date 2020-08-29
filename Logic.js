@@ -125,8 +125,8 @@ class Logic {
                   ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.x, 740, pickup));
                 } else {
                   // Inside room.
-                  if (obj.propData[0] == 12 || obj.propData[0] == 31)  {
-                    // In my house and the hospital ego can pick the items without constraint.
+                  if (obj.propData[0] == 12 || obj.propData[0] == 31 || obj.propData[0] == 7)  {
+                    // In my house, castle and the hospital ego can pick the items without constraint.
                     pickup();
                   }
                   else if (thing == 'bellhop') {
@@ -337,6 +337,11 @@ class Logic {
               } else {
                 game.getItem('blood');
               }
+              break;
+            case 'blood,scientist':
+              game.dropItem('blood');
+              game.actor.say("Here, this is the cure.");
+              game.getItem('test tube', '🧪');
               break;
             case 'bellhop,moai statue':
               if (flags[3]) {

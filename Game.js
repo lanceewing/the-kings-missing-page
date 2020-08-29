@@ -14,42 +14,6 @@ class Game {
 
     itemsLeft = 0;
 
-    // // TODO: Decide whether we need this, or whether everything will be in emojis.
-    // itemIcons = {
-    //     'tulip'         : '🌷',
-    //     'rose'          : '🌹',
-    //     'bouquet'       : '💐',
-    //     'lipstick'      : '💄',
-    //     'ticket'        : '🎟',
-    //     'coconut'       : '🥥',
-    //     'peanut'        : '🥜',
-    //     'mask'          : '👹',
-    //     'water pistol'  : '🔫',
-    //     'candy'         : '🍬',
-    //     'amulet'        : '🧿',
-    //     'cheese'        : '🧀',
-    //     'bank card'     : '💳',
-    //     'cash'          : '💵',
-    //     'map'           : '🗺',
-    //     'compass'       : '🧭',
-    //     'wastebasket'   : '🗑',
-    //     'explosive'     : '🧨',
-    //     'test tube'     : '🧪',
-    //     'axe'           : '🪓',
-    //     'pill'          : '💊',
-    //     'syringe'       : '💉',
-    //     'blood'         : '🩸',
-    //     'briefcase'     : '💼', 
-    //     'bricks'        : '🧱',
-    //     'barrier'       : '🚧',
-    //     'paperclip'      : '📎',
-    //     'envelope'       : '✉',
-    //     'letter'         : '📄',
-    //     'bellhop'       : '🛎',
-    //     'broom'          : '🧹',
-    //     'crystal ball'  : '🔮',
-    // };
-
     /**
      * The rooms map is essentially the game map.
      */
@@ -452,6 +416,7 @@ class Game {
         this.getItem('water pistol', '🔫');
         this.getItem('banana', '🍌');
         this.getItem('coconut', '🥥');
+        this.getItem('blood', '🩸');
         this.flags[4] = 1;
 
         // Enter the starting room.
