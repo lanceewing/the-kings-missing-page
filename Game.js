@@ -721,7 +721,7 @@ class Game {
             obj = new Sprite();
             obj.init(this, prop[4], prop[5], prop[3], !(prop[1] & 4), (prop[1] & 128));
 
-            obj.dataset.name = prop[2]?.replace('_',' ');
+            obj.dataset.name = prop[2].replace('_',' ');
             obj.classList.add(prop[2]);
 
             obj.propData = prop;
@@ -781,24 +781,6 @@ class Game {
         elem.onclick = e => this.processCommand(e);
         elem.onmousemove = e => this.objMouseMove(e);
     }
-
-    // /**
-    //  * Handles a mouse leave event.
-    //  * 
-    //  * @param {MouseEvent} e 
-    //  */
-    // objMouseLeave(e) {
-    //     this.thing = '';
-    // }
-
-    // /**
-    //  * Handles a mouse click event.
-    //  * 
-    //  * @param {MouseEvent} e 
-    //  */
-    // objClicked(e) {
-    //     this.processCommand(e);
-    // }
     
     // TODO: Experimenting with testing pixels for transparency.
     objMouseMove(e) {
