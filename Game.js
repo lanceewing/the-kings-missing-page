@@ -168,9 +168,6 @@ class Game {
         [ 19, 0, 'hotel_clerk',        '🤵', 200,  150,   3260,  450, , 1002 ], 
         [ 19, 1, 'bellhop',            '🛎',  40,  40,    3260,  670, , 1002 ],
 
-        // Room 20 - In house without gardens
-        [ 20, 0, 'family',             '👨‍👩‍👧', 200, 150,   4220,  450, , 1002 ], 
-
         // Room 3 - House row
         [ 3, 30, 'house',              '🏠', 400, 400,   330, 700, , , 20 ],
         [ 3,  2, 'tree',               '🌲', 300, 300,   80, 825 ],
@@ -179,18 +176,21 @@ class Game {
         [ 3,  2, 'tree',               '🌳', 300, 300,   2730, 650 ],
         [ 3,  2, 'tree',               '🌲', 300, 300,   3690, 650 ],
         [ 3,  2, 'car',                '🚙', 200, 200,   800, 950 ],
-        [ 3, 30, 'house',              '🏡', 400, 400,   1240, 700, , , 21 ],
-        [ 3,  1, 'tulip',              '🌷', 30,  30,    1680, 680 ],
-        [ 3,  2, 'car',                '🚗', 200, 200,   2000, 950 ],
+        [ 3, 30, 'house',              '🏡', 400, 400,   1240, 700, , , 20 ],
+        [ 3,  1, 'tulip',              '🌷', 30,  30,    1190, 680 ],
+        [ 3,  2, 'car',                '🚗', 200, 200,   1900, 950 ],
         [ 3,  2, 'minivan',            '🚐', 200, 200,   3000, 950 ],
-        [ 3, 30, 'house',              '🏠', 400, 400,   2200, 700, , , 20 ],
-        [ 3, 30, 'house',              '🏡', 400, 400,   3160, 700, , , 21 ],
+        [ 3,  2, 'jack-o-lantern',     '🎃', 50,  50,    2140, 690 ],
+        [ 3, 30, 'halloween_house',    '🏠', 400, 400,   2200, 700, , , 21 ],
+        [ 3,  2, 'jack-o-lantern',     '🎃', 50,  50,    2610, 690 ],
+        [ 3, 30, 'house',              '🏡', 400, 400,   3160, 700, , , 20 ],
         [ 3,  1, 'rose',               '🌹',  30, 30,     3600, 680 ],
         [ 3,  2, 'scooter',            '🛵', 150, 150,   4460, 950 ],
         [ 3, 30, 'house',              '🏠', 400, 400,   4120, 700, , , 20 ],
-
-        // Room 21 - In house with garden
-        [ 21, 0, 'family',             '👨‍👩‍👦', 200, 150,  380,  450, , 1002 ], 
+        
+        // Room 21 - In halloween house
+        [ 21, 0, 'family',             '👨‍👩‍👦', 200, 150,  2300, 450, , 1002 ],
+        [ 21, 1, 'candy',              '🍬', 40,  40,   2300, 670, , 1002 ],
 
         // Room 4 - Park, school, farm
         [ 4,  14, 'woods',              null, 300, 300,   -50, 650 ],
@@ -221,7 +221,7 @@ class Game {
 
         // Room 22 - In cirus
         [ 22, 0, 'clown',              '🤡', 200, 150,   1340, 450, , 1002 ],
-        [ 22, 1, 'candy',              '🍬', 40,  40,    1340, 670, , 1002 ],
+        [ 22, 1, 'mask',               '👹', 40,  40,    1340, 670, , 1002 ],
 
         // Room 23 - In school
         [ 23, 0, 'scientist',          '👩‍🔬', 200, 150,   5180, 450, , 1002 ], 
@@ -253,13 +253,13 @@ class Game {
         [ 6,   6, 'oil_drum',          '🛢', 100, 100,   820,  680 ],
         [ 6,   6, 'oil_drum',          '🛢', 100, 100,   930,  680 ],
         [ 6,   2, 'car',               '🚙', 200, 200,  350,   950 ],
-        [ 6,  30, 'derelict_house',    '🏚', 400, 400,   1240,  700, , , 27 ],
+        [ 6,  30, 'garage',            '🏚', 400, 400,   1240,  700, , , 27 ],
 
         // Room 26 - In factory
-        [ 26, 0, 'factory_worker',     '👨‍🏭', 200, 150,  450,  450, , 1002 ],
-        [ 26, 1, '',  ],
+        [ 26,  0, 'factory_worker',    '👨‍🏭', 200, 150,  450,  450, , 1002 ],
 
-        // Room 27 - In derelict house
+        // Room 27 - In garage
+        [ 27,  0, 'mechanic',          '👩‍🔧', 200, 150,  1340, 450, , 1002 ],
 
         // Room 7 - Castle gates
         [ 7,  30, 'castle',            '🏰', 600, 600,   180,  620, , , 28 ],
@@ -294,7 +294,7 @@ class Game {
         [ 9,  30, 'house',             '🏡', 400, 400,   2200, 700, , , 20 ],
 
         // Room 31 - In my house
-        [ 31,  0, 'bank card',         '💳', 200, 150,   1340, 450, , 1002 ],
+        [ 31,  1, 'bank_card',         '💳', 40, 40,   1340, 670, , 1002 ],
 
         // Room 10 - Main street south west
         [ 10,  2, 'tree',              '🌴', 300, 300,   50,   825, 30 ],
@@ -302,7 +302,7 @@ class Game {
         [ 10,  2, 'tree',              '🌴', 300, 300,   1770, 825, 30 ],
         [ 10,  1, 'coconut',           '🥥', 30, 30,     2000, 825 ],
         [ 10, 30, 'house',             '🏡', 400, 400,   280,  700, , , 20 ],
-        [ 10, 30, 'derelict_house',    '🏚',  400, 400,   1240, 700, , , 27 ],
+        [ 10, 30, 'derelict_house',    '🏚',  400, 400,   1240, 700, , , 20 ],
 
         // Room 50 - Countryside
         // No items. Ego just walks back into the previous room, as there is nothing in that direction.
@@ -432,9 +432,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 1;//9;//10;//7;//6;//1; //4; //7; //6;//1; // 4; //6; //1;
-
-        this.getItem('bank card', '💳');
+        this.room = 3;//9;//10;//7;//6;//1; //4; //7; //6;//1; // 4; //6; //1;
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
@@ -715,8 +713,8 @@ class Game {
             obj = new Sprite();
             obj.init(this, prop[4], prop[5], prop[3], !(prop[1] & 4), (prop[1] & 128));
 
-            // If this is not a unique object, then we set a class.
-            obj.classList.add(obj.dataset.name = prop[2]);
+            obj.dataset.name = prop[2]?.replace('_',' ');
+            obj.classList.add(prop[2]);
 
             obj.propData = prop;
 
@@ -771,41 +769,28 @@ class Game {
     addObjEventListeners(elem) {
         // It is important that we don't use addEventListener in this case. We need to overwrite
         // the event handler on entering each room.
-        //elem.onmouseenter = e => this.objMouseEnter(e);
-        elem.onmouseleave = e => this.objMouseLeave(e);
-        elem.onclick = e => this.objClicked(e);
+        elem.onmouseleave = e => this.thing = '';
+        elem.onclick = e => this.processCommand(e);
         elem.onmousemove = e => this.objMouseMove(e);
     }
 
     // /**
-    //  * Handles a mouse enter event.
+    //  * Handles a mouse leave event.
     //  * 
     //  * @param {MouseEvent} e 
     //  */
-    // objMouseEnter(e) {
-    //     //this.thing = e.target.dataset.name? e.target.dataset.name.replace('_',' ') : '';
+    // objMouseLeave(e) {
+    //     this.thing = '';
     // }
 
-    /**
-     * Handles a mouse leave event.
-     * 
-     * @param {MouseEvent} e 
-     */
-    objMouseLeave(e) {
-        this.thing = '';
-    }
-
-    /**
-     * Handles a mouse click event.
-     * 
-     * @param {MouseEvent} e 
-     */
-    objClicked(e) {
-        // TODO: Remove. Mouse move now tracks the "thing"
-        //let target = e.currentTarget;
-        //this.thing = target.dataset.name? target.dataset.name.replace('_',' ') : '';
-        this.processCommand(e);
-    }
+    // /**
+    //  * Handles a mouse click event.
+    //  * 
+    //  * @param {MouseEvent} e 
+    //  */
+    // objClicked(e) {
+    //     this.processCommand(e);
+    // }
     
     // TODO: Experimenting with testing pixels for transparency.
     objMouseMove(e) {
@@ -839,7 +824,7 @@ class Game {
         this.items.appendChild(item);
         this.addObjEventListeners(item);
         this.inventory[name] = item;
-        let obj = this.screen.querySelector(`.${name}`);
+        let obj = this.objs.find(i => i.dataset['name'] == name);
         if (obj) {
             obj.propData[0] = -1;
             this.remove(obj);

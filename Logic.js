@@ -116,7 +116,8 @@ class Logic {
                   ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.x, 740, pickup));
                 } else {
                   // Inside room.
-                  if (obj.propData[0] == 12)  {
+                  if (obj.propData[0] == 12 || obj.propData[0] == 31)  {
+                    // In my house and the hospital ego can pick the items without constraint.
                     pickup();
                   } else {
                     game.actor.say(`Hey! That's my ${thing}.`);
@@ -138,7 +139,7 @@ class Logic {
               this.game.ego.say("It's empty.", 200);
             } else {
               this.game.ego.say("Letter inside.", 200);
-              this.game.getItem('letter');
+              this.game.getItem('letter', '📄');
             }
             break;
           case 'letter':
@@ -146,7 +147,15 @@ class Logic {
               this.game.ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
             } else {
               this.game.ego.say("Has paper clip.", 200);
-              this.game.getItem('paperclip');
+              this.game.getItem('paperclip', '📎');
+            }
+            break;
+          case 'wastebasket':
+            if (this.game.hasItem('syringe')) {
+              game.ego.say("It's empty.");
+            } else {
+              game.ego.say("Syringe is inside.");
+              game.getItem('syringe', '💉');
             }
             break;
           case 'shopping cart':
@@ -154,7 +163,7 @@ class Logic {
               this.game.ego.say("Nothing in there.", 250);
             } else {
               this.game.ego.say("I found a water pistol.", 300);
-              this.game.getItem('water pistol');
+              this.game.getItem('water pistol', '🔫');
             }
             break;
           default:
@@ -182,7 +191,7 @@ class Logic {
                   } else {
                     // Letter inside, so take it.
                     obj.render('📭');
-                    this.game.getItem('envelope');
+                    this.game.getItem('envelope', '✉');
                   }
                 } else {
                   // Mailbox closed. Use will open it.
@@ -191,19 +200,22 @@ class Logic {
                 }
                 break;
               default:
-                // TODO: Change this to check buildings map
                 if (obj && obj.propData && obj.propData[1] & 16) { // Building
-                  ego.moveTo(ego.cx, 740, () => {
-                    ego.moveTo(obj.cx, 740, () => {
-                      // Add "outside" background
-                      game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
-                      // Add "inside" background.
-                      game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
-                      // Add the items inside the building.
-                      game.props.forEach(prop => { if (prop[0] == obj.propData[10]) game.addPropToRoom(prop); });
+                  if ((thing == 'circus') && !game.hasItem('ticket')) {
+                    ego.say("I need a ticket.");
+                  } else {
+                    ego.moveTo(ego.cx, 740, () => {
+                      ego.moveTo(obj.cx, 740, () => {
+                        // Add "outside" background
+                        game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
+                        // Add "inside" background.
+                        game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
+                        // Add the items inside the building.
+                        game.props.forEach(prop => { if (prop[0] == obj.propData[10]) game.addPropToRoom(prop); });
 
+                      });
                     });
-                  });
+                  }
                 } else {
                   this.game.ego.say("I can't use that.", 250);
                 }
@@ -217,7 +229,7 @@ class Logic {
           switch (things) {
             case 'rose,tulip':
               if (this.game.hasItem('rose') && this.game.hasItem('tulip')) {
-                this.game.getItem('bouquet');
+                this.game.getItem('bouquet', '💐');
                 this.game.dropItem('tulip');
                 this.game.dropItem('rose');
               } else {
@@ -234,8 +246,26 @@ class Logic {
               break;
             case 'bouquet,bride':
               game.dropItem('bouquet');
-              obj.say('Thanks. Take my lipstick.', 250);
+              game.actor.say('Thanks. Take my lipstick.', 250);
               game.getItem('lipstick');
+              break;
+            case 'briefcase,office worker':
+              game.dropItem('briefcase');
+              game.actor.say('Thanks. Take my circus ticket.');
+              game.getItem('ticket');
+              break;
+            case 'clown,lipstick':
+              game.dropItem('lipstick');
+              game.actor.say("Thanks. Take my mask.");
+              game.getItem('mask');
+              break;
+            case 'bank card,bank teller':
+              if (game.hasItem('cash')) {
+                ego.say("I already have enough cash.");
+              } else {
+                game.actor.say("Here's your cash.");
+                game.getItem('cash');
+              }
               break;
             default:
               break;
