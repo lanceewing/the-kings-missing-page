@@ -153,8 +153,7 @@ class Game {
         [ 2, 30, 'house',              '🏠', 400, 400,   4120,  700, , , 20 ],
 
         // Room 16 - In department store
-        [ 16, 0, 'salesperson',        '🙎‍♂️', 200, 150,   380,   450, , 1002 ], 
-        [ 16, 1, 'map',                '🗺', 40,  40,    380,   670, , 1002 ],
+        [ 16, 0, 'salesperson',        '🙎‍♂️', 200, 150,   380,   450, , 1002 ],
         [ 16, 1, 'compass',            '🧭', 40,  40,    455,   670, , 1002 ],
 
         // Room 17 - In store
@@ -323,6 +322,7 @@ class Game {
     // 1 = mailbox open
     // 2 = water pistol filled
     // 3 = moai statue awake
+    // 4 = elephant not blocking woods
     flags = [];
 
     _gameOver = true;

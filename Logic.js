@@ -263,6 +263,22 @@ class Logic {
               game.actor.say("Thanks. Take my mask.");
               game.getItem('mask');
               break;
+            case 'cash,salesperson':
+              if (game.hasItem('compass')) {
+                game.actor.say("I have nothing to sell.");
+              } else {
+                game.actor.say("Here's your compass.");
+                game.getItem('compass');
+              }
+              break;
+            case 'cash,cashier':
+              if (game.hasItem('banana')) {
+                game.actor.say("I only have bananas to sell.");
+              } else {
+                game.actor.say("Here's your banana.");
+                game.getItem('banana');
+              }
+              break;
             case 'chipmunk,coconut':
               game.dropItem('coconut');
               ego.say("The chipmunk took the coconut and ran away.");

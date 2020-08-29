@@ -376,7 +376,7 @@ class Sprite extends HTMLElement {
         let elem = this;
 
         // TODO: Decide whether to keep this calculation.
-        width = width? width : Math.min(300, text.length * 15);
+        width = width? width : Math.min(350, text.length * 15);
 
         game.inputEnabled = false;
         game.overlay.style.display = 'block';
