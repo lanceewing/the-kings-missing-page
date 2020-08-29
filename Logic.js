@@ -204,17 +204,21 @@ class Logic {
                   if ((thing == 'circus') && !game.hasItem('ticket')) {
                     ego.say("I need a ticket.");
                   } else {
-                    ego.moveTo(ego.cx, 740, () => {
-                      ego.moveTo(obj.cx, 740, () => {
-                        // Add "outside" background
-                        game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
-                        // Add "inside" background.
-                        game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
-                        // Add the items inside the building.
-                        game.props.forEach(prop => { if (prop[0] == obj.propData[10]) game.addPropToRoom(prop); });
-
+                    let props = game.props.filter(prop => prop[0] == obj.propData[10]);
+                    if (props.length) {
+                      ego.moveTo(ego.cx, 740, () => {
+                        ego.moveTo(obj.cx, 740, () => {
+                          // Add "outside" background
+                          game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
+                          // Add "inside" background.
+                          game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
+                          // Add the items inside the building.
+                          props.forEach(prop => game.addPropToRoom(prop));
+                        });
                       });
-                    });
+                    } else {
+                      ego.say("There's no one home.");
+                    }
                   }
                 } else {
                   this.game.ego.say("I can't use that.", 250);
