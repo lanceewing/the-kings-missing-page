@@ -10,7 +10,6 @@ class Logic {
    */
   constructor(game) {
     this.game = game;
-    this.userInput = game.userInput;
   }
 
   /**
@@ -256,7 +255,8 @@ class Logic {
           // If verb doesn't equal cmd, it means that it is a scenario where an item
           // is being used with something.
           let useFn = () => {
-            let things = [thing, cmd.substring(4, cmd.indexOf(' with '))].sort().join();
+            let thing1 = cmd.substring(4, cmd.indexOf(' with '));
+            let things = [thing, thing1].sort().join();
             switch (things) {
               case 'rose,tulip':
                 if (this.game.hasItem('rose') && this.game.hasItem('tulip')) {
@@ -271,7 +271,7 @@ class Logic {
                 if (flags[2]) {
                   this.game.ego.say("It's already full.", 200);
                 } else {
-                  this.game.ego.say("OK");
+                  this.game.ego.say("OK", 70);
                   flags[2] = 1;
                 }
                 break;
@@ -372,7 +372,7 @@ class Logic {
                 }
                 break;
               default:
-                ego.say("I can't use that.");
+                ego.say("Hmmm, that didn't work.");
                 break;
             }
           }

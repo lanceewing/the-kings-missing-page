@@ -306,7 +306,6 @@ class Game {
         this.commands = document.getElementById('commands');
         this.msg = document.getElementById('msg');
         this.defineCustomElements();
-        this.userInput = new UserInput(this, screen);
         this.logic = new Logic(this);
         this.sound = new Sound();
         this.emojiMap = new Map();
@@ -339,8 +338,6 @@ class Game {
     start() {
         this.resizeScreen();
         window.onresize = e => this.resizeScreen(e);
-
-        this.userInput.enableInput();
 
         // Register click event listeners for item list arrow buttons.
         document.getElementById("up").onclick = e => this.scrollInv(1);
@@ -501,8 +498,6 @@ class Game {
             }
         }
 
-        //this.userInput.processUserInput(this.ego);
-
         // If after updating all objects, the room that Ego says it is in is different
         // than what it was previously in, then we trigger entry in to the new room.
         if (this.ego.edge) {
@@ -569,16 +564,6 @@ class Game {
                 a1.moved = false;
             }
         }
-    }
-
-    /**
-     * Adds the given points to the current score.
-     * 
-     * @param {number} points The number of points to increment the score by.
-     */
-    addToScore(points) {
-        this.score += points;
-        this.scoreEl.innerHTML = '' + this.score + ' of 135';
     }
       
     /**
