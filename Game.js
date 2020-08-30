@@ -415,6 +415,11 @@ class Game {
         this.getItem('banana', '🍌');
         this.getItem('coconut', '🥥');
         this.getItem('blood', '🩸');
+        this.getItem('map', '🗺');
+        this.getItem('compass', '🧭');
+        this.getItem('syringe', '💉');
+        this.getItem('test tube', '🧪');
+        this.getItem('amulet', '🧿');
         this.flags[4] = 1;
 
         // Enter the starting room.

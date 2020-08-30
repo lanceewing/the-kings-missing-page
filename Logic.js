@@ -96,16 +96,11 @@ class Logic {
             break;
 
           default:
-            this.game.ego.stop(true);
-
-            let z = ((e.pageY / this.game.scaleY) - 27) * 2;
-            if (z > 710) {
-              this.game.ego.moveTo(
-                this.game.screenLeft + (e.pageX / this.game.scaleX),
-                ((e.pageY / this.game.scaleY) - 27) * 2);
-    
-            } else {
-              this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 740);
+            // Walk to screen object or screen click position.
+            if ((e.target == game.screen) || obj) {
+              let z = ((e.pageY / game.scaleY) - 27) * 2;
+              ego.stop(true);
+              ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
             }
             break;
         }
@@ -326,7 +321,7 @@ class Logic {
               if (flags[3]) { // Statues are awake.
                 game.dropItem('candy');
                 obj.say("Mmmm... yummy. Here, take this amulet.");
-                game.getItem('amulet');
+                game.getItem('amulet', '🧿');
               } else {
                 ego.say("They're asleep.");
               }
