@@ -371,6 +371,18 @@ class Logic {
                   game.getItem('cash');
                 }
                 break;
+              case 'test tube,vampire':
+                // End game sequence.
+                game.inputEnabled = false;
+                actor.say("An antidote? Really? Thank you so much!", 200, () => {
+                  actor.say("It tastes... strange...", 200, () => {
+                    actor.say("I feel... something...", 200, () => {
+                      actor.render('👦');
+                      actor.say("I'm normal again!");
+                    });
+                  });
+                });
+                break;
               default:
                 ego.say("Hmmm, that didn't work.");
                 break;

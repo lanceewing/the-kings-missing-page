@@ -1,7 +1,5 @@
 class Game {
 
-    actors = [];
-
     inventory = {};
     
     verb = 'Walk to';
@@ -9,8 +7,6 @@ class Game {
     command = 'Walk to';   // Current constructed command, either full or partial
     
     thing = '';
-
-    score = 0;
 
     itemsLeft = 0;
 
@@ -289,8 +285,6 @@ class Game {
     // 6 = chipmunk has gone
     flags = [];
 
-    _gameOver = true;
-
     inputEnabled = false;
 
     /**
@@ -300,7 +294,6 @@ class Game {
         this.screen = document.getElementById('screen');
         this.wrap = document.getElementById('wrap');
         this.overlay = document.getElementById('overlay');
-        this.scoreEl = document.getElementById('score');
         this.items = document.getElementById('itemlist');
         this.sentence = document.getElementById('sentence');
         this.commands = document.getElementById('commands');
@@ -383,7 +376,6 @@ class Game {
      * the initial start and then subsequent restarts. 
      */
     init() {
-        this._gameOver = false;
         this.inputEnabled = true;
         
         window.onclick = null;
@@ -481,7 +473,7 @@ class Game {
         this.updateObjects();
 
         // Update sentence.
-        let newSentence = (this._gameOver? 'Game Over' : this.command + ' ' + this.thing);
+        let newSentence = this.command + ' ' + this.thing;
         if (newSentence != this.lastSentence) {
             this.sentence.innerHTML = this.lastSentence = newSentence;
         }
@@ -572,7 +564,7 @@ class Game {
      * @param {MouseEvent} e The mouse event that trigger the command to process.
      */
     processCommand(e) {
-        if (this.inputEnabled && !this._gameOver) {
+        if (this.inputEnabled) {
           this.command = this.logic.process(this.verb, this.command, this.thing, e);
           if (this.command == this.verb) {
             this.command = this.verb = 'Walk to';
