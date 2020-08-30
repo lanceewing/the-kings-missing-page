@@ -240,7 +240,7 @@ class Logic {
                           // Add "outside" background
                           game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
                           // Add "inside" background.
-                          game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.x, 700, , 1001]);
+                          game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
                           // Add the items inside the building.
                           props.forEach(prop => game.addPropToRoom(prop));
                         });
