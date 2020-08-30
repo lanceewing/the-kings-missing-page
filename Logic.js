@@ -378,7 +378,21 @@ class Logic {
                   actor.say("It tastes... strange...", 200, () => {
                     actor.say("I feel... something...", 200, () => {
                       actor.render('👦');
-                      actor.say("I'm normal again!");
+                      actor.say("I'm normal again!!", 200, () => {
+                        game.room = 7;
+                        ego.edge
+                        game.fadeOut(game.wrap);
+                        setTimeout(() => {
+                          game.newRoom();
+                          ego.say("I have returned the page boy to the castle.", 200, () => {
+                            ego.say("Thank you for helping me to solve the case.", 200, () => {
+                              ego.say("Well done!!!", 200, () => {
+                                game.gameOver("You've Won!!");
+                              });
+                            });
+                          });
+                        }, 200);
+                      });
                     });
                   });
                 });
