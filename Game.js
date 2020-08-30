@@ -602,6 +602,9 @@ class Game {
     newRoom() {
         console.time('newRoom');
 
+        // All main rooms are outside,
+        this.inside = 0;
+
         // Remove the previous room's Objs from the screen.
         this.objs.forEach(obj => obj.remove());
         this.objs = [];

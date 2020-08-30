@@ -42,6 +42,7 @@ class Logic {
             }
             this.game.remove(obj);
             game.actor = null;
+            game.inside = 0;
             break;
           case 'left path':
           case 'right path': {
@@ -97,7 +98,7 @@ class Logic {
 
           default:
             // Walk to screen object or screen click position.
-            if ((e.target == game.screen) || obj) {
+            if (((e.target == game.screen) || obj) && !game.inside) {
               let z = ((e.pageY / game.scaleY) - 27) * 2;
               ego.stop(true);
               ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
@@ -238,6 +239,7 @@ class Logic {
                           game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
                           // Add the items inside the building.
                           props.forEach(prop => game.addPropToRoom(prop));
+                          game.inside = 1;
                         });
                       });
                     } else {
