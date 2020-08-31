@@ -394,7 +394,7 @@ class Sprite extends HTMLElement {
         this.classList.add('speech');
 
         let closeBubbleTO = null;
-        let closeBubbleFn = function (e) {
+        let closeBubbleFn = e => {
             // If function was called by a user event, then cancel the timeout.
             if (e) {
                 clearTimeout(closeBubbleTO);
