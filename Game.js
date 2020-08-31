@@ -389,7 +389,7 @@ class Game {
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
         this.ego.init(this, 50, 150);
-        this.ego.setPosition(500, 0, 750);
+        this.ego.setPosition(450, 0, 750);
         this.screen.appendChild(this.ego);
   
         // TODO: Remove all initial items.

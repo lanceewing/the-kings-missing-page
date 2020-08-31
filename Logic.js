@@ -29,6 +29,7 @@ class Logic {
     // If thing is in the current room, then obj will reference it.
     let obj = game.objs.find(i => i.dataset['name'] == thing);
     let pickup = () => game.getItem(thing);
+    let speaker = game.actor? game.actor : ego;
 
     switch (verb) {
       case 'Talk to':
@@ -46,7 +47,7 @@ class Logic {
             if (obj && obj == game.actor) {
               game.actor.say("Hello!");
             } else {
-              (game.actor? game.actor : ego).say("It doesn't speak.");
+              speaker.say("It doesn't speak.");
             }
             break;
         }
@@ -63,6 +64,7 @@ class Logic {
             game.actor = null;
             ego.show();
             game.inside = 0;
+            game.thing = '';
             break;
           case 'left path':
           case 'right path': {
@@ -117,11 +119,40 @@ class Logic {
             break;
 
           default:
-            // Walk to screen object or screen click position.
-            if (((e.target == game.screen) || obj) && !game.inside) {
-              let z = ((e.pageY / game.scaleY) - 27) * 2;
-              ego.stop(true);
-              ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+            // Walking into a building.
+            if (obj && obj.propData && obj.propData[1] & 16) { 
+              if ((thing == 'circus') && !game.hasItem('ticket')) {
+                ego.say("I need a ticket.");
+              }
+              else if ((thing == 'coffin') && !game.hasItem('amulet')) {
+                ego.say("Magic is stopping me opening the coffin.");
+              } 
+              else {
+                let props = game.props.filter(prop => prop[0] == obj.propData[10]);
+                if (props.length) {
+                  ego.moveTo(ego.cx, 740, () => {
+                    ego.moveTo(obj.cx, 740, () => {
+                      // Add "outside" background
+                      game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
+                      // Add "inside" background.
+                      game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
+                      // Add the items inside the building.
+                      props.forEach(prop => game.addPropToRoom(prop));
+                      ego.hide();
+                      game.inside = 1;
+                    });
+                  });
+                } else {
+                  ego.say("There's no one home.");
+                }
+              }
+            } else {
+              // Walk to screen object or screen click position.
+              if (((e.target == game.screen) || obj) && !game.inside) {
+                let z = ((e.pageY / game.scaleY) - 27) * 2;
+                ego.stop(true);
+                ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+              }
             }
             break;
         }
@@ -263,35 +294,7 @@ class Logic {
                 }
                 break;
               default:
-                if (obj && obj.propData && obj.propData[1] & 16) { // Building
-                  if ((thing == 'circus') && !game.hasItem('ticket')) {
-                    ego.say("I need a ticket.");
-                  }
-                  else if ((thing == 'coffin') && !game.hasItem('amulet')) {
-                    ego.say("Magic is stopping me opening the coffin.");
-                  } 
-                  else {
-                    let props = game.props.filter(prop => prop[0] == obj.propData[10]);
-                    if (props.length) {
-                      ego.moveTo(ego.cx, 740, () => {
-                        ego.moveTo(obj.cx, 740, () => {
-                          // Add "outside" background
-                          game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
-                          // Add "inside" background.
-                          game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
-                          // Add the items inside the building.
-                          props.forEach(prop => game.addPropToRoom(prop));
-                          ego.hide();
-                          game.inside = 1;
-                        });
-                      });
-                    } else {
-                      ego.say("There's no one home.");
-                    }
-                  }
-                } else {
-                  ego.say("I can't use that.", 250);
-                }
+                ego.say("I can't use that.", 250);
                 break;
             }
           }
