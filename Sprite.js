@@ -288,7 +288,7 @@ class Sprite extends HTMLElement {
                     }
 
                     // Horizon edge
-                    if (z < 500) {
+                    if (z < 600) {
                         edge = (x < 250 ? 2 : x > (rightX - 250) ? 4 : 6);
                     }
 
@@ -384,7 +384,7 @@ class Sprite extends HTMLElement {
                 game.inputEnabled = true;
             }
         };
-        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 150000);
+        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 1500);
         game.overlay.onclick = closeBubbleFn;
     }
 }

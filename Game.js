@@ -124,12 +124,10 @@ class Game {
         [ 18, 0, 'selfservice',        '🖥',  200, 150,   2300,  450, , 1002 ], 
 
         // Room 19 - In hotel
-        //[ 19, 0, 'hotel_clerk',        '🤵', 200,  150,   3260,  450, , 1002 ], 
         [ 19, 1, 'bellhop',            '🛎',  40,  40,    3260,  670, , 1002 ],
 
         // Room 3 - House row
         [ 3, 30, 'house',              '🏠', 400, 400,   330, 700, , , 20 ],
-        [ 3,  2, 'tree',               '🌲', 300, 300,   80, 825 ],
         [ 3,  2, 'tree',               '🌳', 300, 300,   810, 650 ],
         [ 3,  2, 'tree',               '🌳', 300, 300,   1770, 650 ],
         [ 3,  2, 'tree',               '🌳', 300, 300,   2730, 650 ],
@@ -508,7 +506,7 @@ class Game {
             this.edge = this.ego.edge;
             if (this.room == this.ego.room) {
                 // No room change.
-                this.ego.say("I didn't find much in that direction.", 200);
+                this.ego.dests[0].fn = () => this.ego.say("I didn't find much in that direction.", 200);
             } else {
                 this.room = this.ego.room;
                 this.fadeOut(this.wrap);

@@ -24,7 +24,7 @@ class Ego extends Actor {
                 if (edgeData == 50) {
                     // 11 means come back in the same exit.
                     edgeData = this.room;
-                    edge = [5, 3, 0, 2, 1][edge-1];
+                    edge = [5, 4, 0, 2, 1][edge-1];
                 }
                 if (edgeData) {
                     this.game.inputEnabled = false;
@@ -38,8 +38,8 @@ class Ego extends Actor {
                     // Get room data for new room, so we can calculate right side entry position.
                     let newRoomWidth = this.game.rooms[this.room - 1][1];
                     let newRoomDown = (this.game.rooms[this.room - 1][3] < 0);
-                    let pathStartY = (newRoomDown? 980 : 500);
-                    let pathStartAddX = (newRoomDown? 0 : 200);
+                    let pathStartY = (newRoomDown? 980 : 600);
+                    let pathStartAddX = (newRoomDown? 0 : 150);
                     let reverseX = newRoomWidth - ((this.x / this.game.roomData[1]) * newRoomWidth);
 
                     // 1 = left crossing
@@ -82,7 +82,7 @@ class Ego extends Actor {
                             break;
 
                         case 7: // Back from the castle.
-                            this.setPosition(3300, this.y, 500);
+                            this.setPosition(3300, this.y, 600);
                             this.setDirection(Sprite.OUT);
                             this.moveTo(3300, 740, () => this.game.inputEnabled = true);
                             break;
