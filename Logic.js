@@ -31,6 +31,17 @@ class Logic {
     let pickup = () => game.getItem(thing);
 
     switch (verb) {
+      case 'Talk to':
+        switch (thing) {
+          default:
+            if (obj == game.actor) {
+              game.actor.say("Hello!");
+            } else {
+              ego.say("It didn't respond.");
+            }
+            break;
+        }
+        break;
 
       case 'Walk to':
         switch (thing) {
@@ -177,6 +188,28 @@ class Logic {
               ego.say("I found a water pistol.", 300);
               game.getItem('water pistol', '🔫');
             }
+            break;
+          case 'map':
+            ego.say("It is a map of the woods. The entrance is to the left of the circus.");
+            break;
+          case 'chipmunk':
+            ego.say("It's scaring the elephant.");
+            break;
+          case 'elephant':
+            if (flags[4]) {
+              ego.say("He looks happy now.");
+            } else {
+              ego.say("It's blocking the entrance to the woods.", 250, () => {
+                if (flags[6]) {
+                  ego.say("I need something to lure him away.");
+                } else {
+                  ego.say("I think it's afraid of the chipmunk.");
+                }
+              });
+            }
+            break;
+          case 'feeding hole':
+            ego.say("This is where the elephant feeds.");
             break;
           default:
             if (thing != "") {

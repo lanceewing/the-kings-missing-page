@@ -359,6 +359,7 @@ class Game {
         this.fadeOut(this.wrap);
         if (msg) this.msg.innerHTML = msg;
         onclick = e => {
+            onclick = null;
             this.fadeOut(this.msg);
             setTimeout(() => {
                 this.msg.style.display = 'none'
@@ -374,9 +375,6 @@ class Game {
      * the initial start and then subsequent restarts. 
      */
     init() {
-        // Deregister initial Click to Start message.
-        onclick = null;
-
         this.screen.onclick = e => this.processCommand(e);
   
         // For restarts, we'll need to remove the objects from the screen.
