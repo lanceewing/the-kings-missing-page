@@ -401,8 +401,9 @@ class Game {
         this.getItem('compass', '🧭');
         this.getItem('syringe', '💉');
         this.getItem('test tube', '🧪');
-        this.getItem('amulet', '🧿');
+        //this.getItem('amulet', '🧿');
         this.flags[4] = 1;
+        this.flags[3] = 1;
 
         // Enter the starting room.
         this.newRoom();

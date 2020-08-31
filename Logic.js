@@ -37,11 +37,22 @@ class Logic {
           case 'guard':
             game.actor.say("Hello Detective Pip.", 250, () => {
               if (game.hasItem('map')) {
-                game.actor.say("Have you found our missing Page Boy yet?", 550);
+                game.actor.say("Have you found our missing Page Boy yet?", 500);
               } else {
-                game.actor.say("Please take the map to help your search.", 550);
+                game.actor.say("Please take the map to help your search.", 500);
               }
             });
+            break;
+          case 'moai statue':
+            if (flags[3]) {
+              if (game.hasItem("amulet")) {
+                ego.say("They're ignorning me now.");
+              } else {
+                obj.say("We're hungry!");
+              }
+            } else {
+              ego.say("I think they're... asleep?");
+            }
             break;
           default:
             if (obj && obj == game.actor) {

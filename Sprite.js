@@ -163,13 +163,13 @@ class Sprite extends HTMLElement {
         this.cz = z * 3;
 
         // Update the style of the sprite to reflect the new position.
-        let top = Math.floor(this.z / 2) - this.height - Math.floor(this.y);
+        this.top = Math.floor(this.z / 2) - this.height - Math.floor(this.y);
         if (this == this.game.ego) {
-            this.style.setProperty('--sprite-top', `${top}px`);
+            this.style.setProperty('--sprite-top', `${this.top}px`);
             this.style.setProperty('--sprite-left', `${this.x}px`);
         } else {
             // TODO: Can we make this work the same as ego?
-            this.style.top = top + 'px';
+            this.style.top = this.top + 'px';
             this.style.left = (this.x) + 'px';
         }
 
@@ -357,9 +357,11 @@ class Sprite extends HTMLElement {
         }
 
         bubble.style.width = width + 'px';
-        bubble.style.left = left + 'px';
+        bubble.style.setProperty('--left', `${-left}px`);
+        bubble.style.left = this.x + left + 'px';
+        bubble.style.bottom = `${500-this.top}px`;
 
-        this.appendChild(bubble);
+        game.screen.appendChild(bubble);
         this.classList.add('speech');
 
         let closeBubbleTO = null;
@@ -371,8 +373,8 @@ class Sprite extends HTMLElement {
             }
             // Remove the speech bubble.
             elem.classList.remove('speech');
-            if (elem.contains(bubble)) {
-                elem.removeChild(bubble);
+            if (game.screen.contains(bubble)) {
+                game.screen.removeChild(bubble);
             }
 
             if (next) {
@@ -382,7 +384,7 @@ class Sprite extends HTMLElement {
                 game.inputEnabled = true;
             }
         };
-        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 1500);
+        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 150000);
         game.overlay.onclick = closeBubbleFn;
     }
 }
