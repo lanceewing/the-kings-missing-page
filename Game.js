@@ -374,8 +374,7 @@ class Game {
      * the initial start and then subsequent restarts. 
      */
     init() {
-        this.inputEnabled = true;
-        
+        // Deregister initial Click to Start message.
         onclick = null;
 
         this.screen.onclick = e => this.processCommand(e);
@@ -387,12 +386,12 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 4;//3;//9;//10;//7;//6;//1; //4; //7; //6;//1; // 4; //6; //1;
+        this.room = 7;
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
         this.ego.init(this, 50, 150);
-        this.ego.setPosition(350, 0, 750);
+        this.ego.setPosition(500, 0, 750);
         this.screen.appendChild(this.ego);
   
         // TODO: Remove all initial items.
@@ -409,7 +408,25 @@ class Game {
 
         // Enter the starting room.
         this.newRoom();
-        
+
+        // Intro text.
+        this.inputEnabled = false;
+        this.ego.say("Hello!!", 100, () => {
+            this.ego.say("I'm detective Pip.", 250, () => {
+                this.ego.say("The King has commissioned me to find his missing Page Boy.", 300, () => {
+                    this.ego.say("He was on his way to deliver a message to The Wizard...", 300, () => {
+                        this.ego.moveTo(300, 740, () => {
+                            this.ego.say("...but went missing in the woods to the west.", 300, () => {
+                                this.ego.moveTo(300, 800, () => {
+                                    this.ego.say("Please help me to find him.", 200, () => this.inputEnabled = true);
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+
         // Fade in the whole screen at the start.
         this.fadeIn(this.wrap);
     }
