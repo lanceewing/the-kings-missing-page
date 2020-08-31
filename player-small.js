@@ -40,10 +40,6 @@ var CPlayer = function() {
         return 2 * (value % 1) - 1;
     };
 
-    var osc_square = function (value) {
-        return (value % 1) < 0.5 ? 1 : -1;
-    };
-
     var osc_tri = function (value) {
         var v2 = (value % 1) * 4;
         if(v2 < 2) return v2 - 1;
@@ -134,7 +130,7 @@ var CPlayer = function() {
     // Array of oscillator functions
     var mOscillators = [
         osc_sin,
-        osc_square,
+        ,
         osc_saw,
         osc_tri
     ];
@@ -328,17 +324,6 @@ var CPlayer = function() {
 
         // Return the WAVE formatted typed array
         return wave;
-    };
-
-    // Get n samples of wave data at time t [s]. Wave data in range [-2,2].
-    this.getData = function(t, n) {
-        var i = 2 * Math.floor(t * 44100);
-        var d = new Array(n);
-        for (var j = 0; j < 2*n; j += 1) {
-            var k = i + j;
-            d[j] = t > 0 && k < mMixBuf.length ? mMixBuf[k] / 32768 : 0;
-        }
-        return d;
     };
 };
 

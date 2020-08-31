@@ -325,36 +325,6 @@ class Sprite extends HTMLElement {
     }
 
     /**
-     * Updates this Sprite for the current animation frame.
-     * 
-     * @param {Game} game 
-     */
-    update(game) {
-        if (!this.moved) {
-            this.move();
-        }
-    }
-
-    /**
-     * Invokes when this Sprite hits another Sprite. The default behaviour is to simply reset the
-     * position. Can be overridden by sub-classes.
-     */
-    hit(obj) {
-        if (this.moved) {
-            this.reset();
-        }
-    }
-
-    /**
-     * Invoked when this Sprite hits and edge. Overridden by sub-classes.
-     *
-     * @param {Array} edge If defined then this is an Array identifying the edge. Will be null if the edge is the ground.
-     */
-    hitEdge(edge) {
-        // Default is do nothing.
-    }
-
-    /**
      * Tells the Actor to say the given text within a speech bubble of the given width. Will
      * execute the given optional next function if provided after the speech bubble is removed.
      * 

@@ -393,8 +393,6 @@ class Game {
         this.ego = document.createElement('x-ego');
         this.ego.init(this, 50, 150);
         this.ego.setPosition(350, 0, 750);
-        this.ego.nesw = 1;
-        this.ego.id = 'me';
         this.screen.appendChild(this.ego);
   
         // TODO: Remove all initial items.
@@ -538,7 +536,6 @@ class Game {
         a1.update();
 
         this.objs.forEach(o => {
-            o.update();
             if (a1.touching(o)) a1.hit(o);
         });
 
@@ -732,7 +729,6 @@ class Game {
     // TODO: Experimenting with testing pixels for transparency.
     objMouseMove(e) {
         let target = e.currentTarget;
-        //let name = target.dataset.name? target.dataset.name : target.id;
         if (target.canvas) {
             let rect = target.getBoundingClientRect(); 
             let x = ~~((e.clientX - rect.left) / this.scaleX);
@@ -747,7 +743,7 @@ class Game {
                 target = elements[1]? elements[1] : null;
             }
         }
-        this.thing = target? (target.dataset.name? target.dataset.name : target.id).replace('_',' ') : '';
+        this.thing = target? target.dataset.name : '';
     }
 
     /**
