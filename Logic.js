@@ -159,10 +159,12 @@ class Logic {
               }
             } else {
               // Walk to screen object or screen click position.
-              if (((e.target == game.screen) || obj) && !game.inside) {
+              if (!game.inside) {
                 let z = ((e.pageY / game.scaleY) - 27) * 2;
-                ego.stop(true);
-                ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+                if (z <= 970) {
+                  ego.stop(true);
+                  ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+                }
               }
             }
             break;
