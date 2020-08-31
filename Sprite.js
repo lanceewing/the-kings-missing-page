@@ -232,14 +232,6 @@ class Sprite extends HTMLElement {
             this.facing = facing;
         }
 
-        // TODO: Remove this. It was only required when cursor keys were supported for movement.
-        // Convert the direction into a heading, but only if LEFT, RIGHT, IN, or OUT are set.
-        //if (direction & 0x0F) {
-        //    this.heading = Util.dirToHeading(direction);
-        //} else {
-        //    this.heading = null;
-        //}
-
         if (oldFacing != this.facing) {
             this.classList.remove('facing' + oldFacing);
             this.classList.add('facing' + this.facing);

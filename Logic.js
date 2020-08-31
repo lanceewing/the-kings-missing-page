@@ -37,9 +37,9 @@ class Logic {
           case 'outside':
             while (obj && obj.nextElementSibling) {
               obj = obj.nextElementSibling;
-              this.game.remove(obj.previousElementSibling);
+              game.remove(obj.previousElementSibling);
             }
-            this.game.remove(obj);
+            game.remove(obj);
             game.actor = null;
             game.inside = 0;
             break;
@@ -49,29 +49,29 @@ class Logic {
               // TODO: This is a bit hacky. Would be nice if this method had the actual target sprite.
               let down = document.querySelectorAll('.down').length > 0; 
               let endY = (down? 1000 : 490);
-              let endX = (left? (down? 20 : 200) : this.game.roomData[1] - (down? 70 : 200));
-              let firstX = (left? (down? 150 : 20) : this.game.roomData[1] - (down? 200 : 70));              
+              let endX = (left? (down? 20 : 200) : game.roomData[1] - (down? 70 : 200));
+              let firstX = (left? (down? 150 : 20) : game.roomData[1] - (down? 200 : 70));              
 
-              this.game.inputEnabled = false;
-              this.game.ego.stop();
+              game.inputEnabled = false;
+              ego.stop();
 
               // Walk to be in front of the path.
-              this.game.ego.moveTo(firstX, 740);
+              ego.moveTo(firstX, 740);
 
               // Now walk through the path.
-              this.game.ego.moveTo(endX, endY);
+              ego.moveTo(endX, endY);
             }
             break;
 
           case 'woods':
             if (flags[4]) {
               if (game.hasItem('compass') && game.hasItem('map')) {
-                this.game.inputEnabled = false;
-                this.game.ego.stop();
-                this.game.ego.moveTo(210, 740);
-                this.game.ego.moveTo(210, 640);
-                this.game.ego.moveTo(70, 550);
-                this.game.ego.moveTo(-50, 550);
+                game.inputEnabled = false;
+                ego.stop();
+                ego.moveTo(210, 740);
+                ego.moveTo(210, 640);
+                ego.moveTo(70, 550);
+                ego.moveTo(-50, 550);
               } else {
                 ego.say("I might get lost in the woods. I need a map and compass.");
               }
@@ -81,18 +81,18 @@ class Logic {
             break;
 
           case 'road':
-            this.game.inputEnabled = false;
-            this.game.ego.stop();
-            this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 850);
-            this.game.ego.moveTo(this.game.screenLeft + (e.pageX / this.game.scaleX), 1000);
+            game.inputEnabled = false;
+            ego.stop();
+            ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), 850);
+            ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), 1000);
             break;
 
           case 'castle path':
           case 'mountain':
-            this.game.inputEnabled = false;
-            this.game.ego.stop();
-            this.game.ego.moveTo(3280, 740);
-            this.game.ego.moveTo(3280, 400);
+            game.inputEnabled = false;
+            ego.stop();
+            ego.moveTo(3280, 740);
+            ego.moveTo(3280, 400);
             break;
 
           default:
@@ -107,7 +107,7 @@ class Logic {
         break;
 
       case 'Pick up':
-        if (this.game.hasItem(thing)) {
+        if (game.hasItem(thing)) {
           ego.say("I already have that.", 140);
         } else {
           switch (thing) {
@@ -147,40 +147,40 @@ class Logic {
       case 'Look at':
         switch (thing) {
           case 'envelope':
-            if (this.game.hasItem('letter')) {
-              this.game.ego.say("It's empty.", 200);
+            if (game.hasItem('letter')) {
+              ego.say("It's empty.", 200);
             } else {
-              this.game.ego.say("Letter inside.", 200);
-              this.game.getItem('letter', '📄');
+              ego.say("Letter inside.", 200);
+              game.getItem('letter', '📄');
             }
             break;
           case 'letter':
-            if (this.game.hasItem('paperclip')) {
-              this.game.ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
+            if (game.hasItem('paperclip')) {
+              ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
             } else {
-              this.game.ego.say("Has paper clip.", 200);
-              this.game.getItem('paperclip', '📎');
+              ego.say("Has paper clip.", 200);
+              game.getItem('paperclip', '📎');
             }
             break;
           case 'wastebasket':
-            if (this.game.hasItem('syringe')) {
-              game.ego.say("It's empty.");
+            if (game.hasItem('syringe')) {
+              ego.say("It's empty.");
             } else {
-              game.ego.say("Syringe is inside.");
+              ego.say("Syringe is inside.");
               game.getItem('syringe', '💉');
             }
             break;
           case 'shopping cart':
-            if (this.game.hasItem('water pistol')) {
-              this.game.ego.say("Nothing in there.", 250);
+            if (game.hasItem('water pistol')) {
+              ego.say("Nothing in there.", 250);
             } else {
-              this.game.ego.say("I found a water pistol.", 300);
-              this.game.getItem('water pistol', '🔫');
+              ego.say("I found a water pistol.", 300);
+              game.getItem('water pistol', '🔫');
             }
             break;
           default:
             if (thing != "") {
-              this.game.ego.say("It's just a " + thing + ".", 250);
+              ego.say("It's just a " + thing + ".", 250);
             }
             break;
         }
@@ -189,21 +189,21 @@ class Logic {
       case 'Use':
         if (cmd == verb) {
           // Using items will add the ' with ' word to the sentence.
-          if (this.game.hasItem(thing)) {
+          if (game.hasItem(thing)) {
             newCommand = 'Use ' + thing + ' with ';
           } else {
             switch (thing) {
               case 'mailbox':
                 if (flags[1]) {
                   // Mailbox open.
-                  if (this.game.hasItem('envelope')) {
+                  if (game.hasItem('envelope')) {
                     // No letter inside, so close it.
                     obj.render('📪');
                     flags[1] = 0;
                   } else {
                     // Letter inside, so take it.
                     obj.render('📭');
-                    this.game.getItem('envelope', '✉');
+                    game.getItem('envelope', '✉');
                   }
                 } else {
                   // Mailbox closed. Use will open it.
@@ -259,19 +259,19 @@ class Logic {
             let things = [thing, thing1].sort().join();
             switch (things) {
               case 'rose,tulip':
-                if (this.game.hasItem('rose') && this.game.hasItem('tulip')) {
-                  this.game.getItem('bouquet', '💐');
-                  this.game.dropItem('tulip');
-                  this.game.dropItem('rose');
+                if (game.hasItem('rose') && game.hasItem('tulip')) {
+                  game.getItem('bouquet', '💐');
+                  game.dropItem('tulip');
+                  game.dropItem('rose');
                 } else {
-                  this.game.ego.say("I should pick them both up first.", 200);
+                  ego.say("I should pick them both up first.", 200);
                 }
                 break;
               case 'fountain,water pistol':
                 if (flags[2]) {
-                  this.game.ego.say("It's already full.", 200);
+                  ego.say("It's already full.", 200);
                 } else {
-                  this.game.ego.say("OK", 70);
+                  ego.say("OK", 70);
                   flags[2] = 1;
                 }
                 break;
@@ -415,7 +415,7 @@ class Logic {
         break;
 
       default:
-        this.game.ego.say("Nothing happened.", 220);
+        ego.say("Nothing happened.", 220);
         break;
     }
 

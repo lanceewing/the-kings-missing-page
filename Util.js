@@ -114,13 +114,4 @@ class Util {
 
         return [minX, minY, maxX, maxY];
     }
-
-    /**
-     * Converts a direction value to a heading value.
-     *  
-     * @param {number} dir The direction value to convert.
-     */
-    static dirToHeading(dir) {
-        return Math.atan2(((dir & 0x08) >> 3) - ((dir & 0x04) >> 2), ((dir & 0x02) >> 1) - (dir & 0x01));
-    }
 }
