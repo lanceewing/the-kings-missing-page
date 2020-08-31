@@ -397,7 +397,7 @@ class Game {
         this.getItem('banana', '🍌');
         this.getItem('coconut', '🥥');
         this.getItem('blood', '🩸');
-        this.getItem('map', '🗺');
+        //this.getItem('map', '🗺');
         this.getItem('compass', '🧭');
         this.getItem('syringe', '💉');
         this.getItem('test tube', '🧪');

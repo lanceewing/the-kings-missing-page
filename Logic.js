@@ -33,11 +33,20 @@ class Logic {
     switch (verb) {
       case 'Talk to':
         switch (thing) {
+          case 'guard':
+            game.actor.say("Hello Detective Pip.", 250, () => {
+              if (game.hasItem('map')) {
+                game.actor.say("Have you found our missing Page Boy yet?", 550);
+              } else {
+                game.actor.say("Please take the map to help your search.", 550);
+              }
+            });
+            break;
           default:
-            if (obj == game.actor) {
+            if (obj && obj == game.actor) {
               game.actor.say("Hello!");
             } else {
-              ego.say("It didn't respond.");
+              (game.actor? game.actor : ego).say("It doesn't speak.");
             }
             break;
         }
@@ -52,6 +61,7 @@ class Logic {
             }
             game.remove(obj);
             game.actor = null;
+            ego.show();
             game.inside = 0;
             break;
           case 'left path':
@@ -131,7 +141,7 @@ class Logic {
                   ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.x, 740, pickup));
                 } else {
                   // Inside room.
-                  if (obj.propData[0] == 12 || obj.propData[0] == 31 || obj.propData[0] == 7)  {
+                  if (obj.propData[0] == 12 || obj.propData[0] == 31 || obj.propData[0] == 28)  {
                     // In my house, castle and the hospital ego can pick the items without constraint.
                     pickup();
                   }
@@ -271,6 +281,7 @@ class Logic {
                           game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
                           // Add the items inside the building.
                           props.forEach(prop => game.addPropToRoom(prop));
+                          ego.hide();
                           game.inside = 1;
                         });
                       });
