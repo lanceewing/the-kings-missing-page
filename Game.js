@@ -330,7 +330,7 @@ class Game {
      */
     start() {
         this.resizeScreen();
-        window.onresize = e => this.resizeScreen(e);
+        onresize = e => this.resizeScreen(e);
 
         // Register click event listeners for item list arrow buttons.
         document.getElementById("up").onclick = e => this.scrollInv(1);
@@ -357,17 +357,15 @@ class Game {
      */
     gameOver(msg) {
         this.fadeOut(this.wrap);
-        if (msg) {
-          this.msg.innerHTML = msg;
-        }
-        window.onclick = e => {
+        if (msg) this.msg.innerHTML = msg;
+        onclick = e => {
             this.fadeOut(this.msg);
-            setTimeout(() => this.msg.style.display = 'none', 200);
             setTimeout(() => {
+                this.msg.style.display = 'none'
                 this.sound.play('music');
                 this.init();
                 this.loop();
-            }, 500);
+            }, 200);
         }
     }
 
@@ -378,7 +376,7 @@ class Game {
     init() {
         this.inputEnabled = true;
         
-        window.onclick = null;
+        onclick = null;
 
         this.screen.onclick = e => this.processCommand(e);
   
@@ -451,8 +449,8 @@ class Game {
      * @param {UIEvent} e The resize event.
      */
     resizeScreen(e) {
-        this.scaleX = window.innerWidth / this.wrap.offsetWidth;
-        this.scaleY = window.innerHeight / this.wrap.offsetHeight;
+        this.scaleX = innerWidth / this.wrap.offsetWidth;
+        this.scaleY = innerHeight / this.wrap.offsetHeight;
         this.wrap.style.setProperty('--scale-x', this.scaleX);
         this.wrap.style.setProperty('--scale-y', this.scaleY);
     }
@@ -534,28 +532,17 @@ class Game {
      * the hit method on both Sprites. 
      */
     updateObjects() {
-        let objsLen = this.objs.length;
+        let a1 = this.ego;
 
-        // Iterate over all of the Sprites in the current room, invoking update on each on.
-        for (let i=-1, a1=this.ego; i < objsLen; a1 = this.objs[++i]) {
-            if (a1) {
-                a1.update();
+        // Attempt to update ego.
+        a1.update();
 
-                // Check if the Sprite is touching another Sprite.
-                for (let j = i + 1; j < objsLen; j++) {
-                    let a2 = this.objs[j];
-                    if (a2 && a1.touching(a2)) {
-                        // If it is touching, then invoke hit on both Sprites. They might take 
-                        // different actions in response to the hit.
-                        a1.hit(a2);
-                        a2.hit(a1);
-                    }
-                }
+        this.objs.forEach(o => {
+            o.update();
+            if (a1.touching(o)) a1.hit(o);
+        });
 
-                // Clears the Sprite's moved flag, which is only of use to the hit method.
-                a1.moved = false;
-            }
-        }
+        a1.moved = false;
     }
       
     /**

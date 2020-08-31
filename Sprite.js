@@ -87,7 +87,7 @@ class Sprite extends HTMLElement {
             canvas.getContext('2d').putImageData(emojiData, 0, 0);
             this.canvas = canvas;
         } else {
-            let [canvas, imgData, exists] = Util.renderEmoji(content, this.width, this.height, flip);
+            let [canvas, imgData] = Util.renderEmoji(content, this.width, this.height, flip);
             this.canvas = canvas;
             this.game.emojiMap.set(emojiKey, imgData);
         }
@@ -103,8 +103,7 @@ class Sprite extends HTMLElement {
      * @returns {boolean} true if this Sprite is touching the given Sprite; otherwise false.
      */
     touching(obj, gap) {
-        // Some objects are not solid, e.g. ghosts.
-        if (this.ignore || obj.ignore) {
+        if (this.ignore || obj.ignore || obj == this) {
             return false;
         }
         if (obj) {
