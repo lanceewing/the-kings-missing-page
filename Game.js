@@ -270,8 +270,8 @@ class Game {
         // Room 0 - All rooms
         [ 0,  14, 'wall',               null, 6720,  114, 0,    620, , 500 ],
         [ 0,  14, 'road',               null, 6720,  50,  0,    985, , 100 ],
-        [ 0,  14, 'left_path',          null, 200,   305, null, 866, , 501 ],
-        [ 0,  14, 'right_path',         null, 200,   305, null, 866, , 501 ],
+        [ 0,  14, 'left_path',          null, 100,   305, null, 866, , 501 ],
+        [ 0,  14, 'right_path',         null, 100,   305, null, 866, , 501 ],
 
     ];
 
