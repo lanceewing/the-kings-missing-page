@@ -212,11 +212,11 @@ x-sprite canvas {
   background-position: 0px 0px, 4px 31px, 29px 28px, 33px 3px;
 }
 .left_path, .right_path {
-  top: 120px;
+  top: 121px;
   background: linear-gradient( 
       230deg, 
-      #31da81 0% 24%, 
-      grey 25% 48%, 
+      #31da81 0% 27%, 
+      grey 28% 48%, 
       #31da81 49% 63%, 
       grey 64% 65%, 
       #464646 67% 72%, 
@@ -237,12 +237,12 @@ x-sprite canvas {
   transform: scaleY(-1) scaleX(-1) rotateX(-60deg);
 }
 .left_path.down {
-  top: 272px;
+  top: 273px;
   transform: scaleX(-1) rotateX(-60deg);
   box-shadow: #31da81 0px -5px 0px 0px;
 }
 .right_path.down {
-  top: 272px;
+  top: 273px;
   transform: rotateX(-60deg);
   box-shadow: #31da81 0px -5px 0px 0px;
 }
