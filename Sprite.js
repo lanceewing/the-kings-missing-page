@@ -41,15 +41,12 @@ class Sprite extends HTMLElement {
 
         if (shadow) {
             this.shadow = document.createElement('x-shadow');
-            // TODO: Experimental emoji text shadow.
-            //this.shadow.innerText = content;
             this.appendChild(this.shadow);
         }
 
         this.moved = false;
         this.positions = [];
         this.radius = this.width / 2;
-        this.colour = 'grey';
 
         this.cx = 0;
         this.cy = 0;
@@ -58,10 +55,7 @@ class Sprite extends HTMLElement {
         this.step = this.stepInc = (this.maxStep / 10);
 
         this.direction = Sprite.OUT;
-        this.directionLast = 1;
         this.heading = null;
-        this.backgroundX = 0;
-        this.backgroundY = 0;
         this.facing = 4;
         this.destZ = -1;
         this.destX = -1;
@@ -221,7 +215,6 @@ class Sprite extends HTMLElement {
         let facing = 0;
 
         if (direction && direction != this.direction) {
-            this.directionLast = this.direction;
             this.direction = direction;
 
             // Convert the direction to a facing direction by shifting right until we find

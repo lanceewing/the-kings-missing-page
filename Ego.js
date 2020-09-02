@@ -39,7 +39,7 @@ class Ego extends Actor {
                     let newRoomWidth = this.game.rooms[this.room - 1][1];
                     let newRoomDown = (this.game.rooms[this.room - 1][3] < 0);
                     let pathStartY = (newRoomDown? 980 : 600);
-                    let pathStartAddX = (newRoomDown? 0 : 60);
+                    let pathStartAddX = (newRoomDown? 0 : 40);
                     let reverseX = newRoomWidth - ((this.x / this.game.roomData[1]) * newRoomWidth);
 
                     // 1 = left crossing
@@ -72,7 +72,7 @@ class Ego extends Actor {
                         case 4: // Right foot path, i.e. hitting horizon up the right side.
                             this.setPosition(pathStartAddX, this.y, pathStartY);
                             this.setDirection(Sprite.OUT);
-                            this.moveTo(70, 740, () => this.game.inputEnabled = true);
+                            this.moveTo(30, 740, () => this.game.inputEnabled = true);
                             break;
 
                         case 5: // From the right edge of screen, i.e. right crossing.
