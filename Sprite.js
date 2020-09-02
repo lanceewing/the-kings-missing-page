@@ -173,6 +173,7 @@ class Sprite extends HTMLElement {
     hide() {
         this.style.display = 'none';
         this.visible = false;
+        this.ignore = true;
 
         // This is mainly to reset any lower opacity that might have been in
         // place prior to being hidden, such as as the result of a fade.
@@ -185,6 +186,7 @@ class Sprite extends HTMLElement {
     show() {
         this.style.display = 'block';
         this.visible = true;
+        this.ignore = false;
     }
 
     /**

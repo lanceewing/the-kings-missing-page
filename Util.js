@@ -17,6 +17,7 @@ class Util {
         canvas.width = size * 1.4 + 10;
         let ctx = canvas.getContext('2d');
         ctx.font = `${size}px Segoe UI Emoji`;
+        //ctx.font = `${size}px twemoji`;
         ctx.textBaseline = 'bottom';
         ctx.fillText(emojiText, 5, canvas.height - 5);
 

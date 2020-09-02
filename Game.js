@@ -610,10 +610,10 @@ class Game {
             console.time('buildTrees');
             let treeSize = this.roomData[0] & 4? 100 : 200;
             for (let x=0; x < this.roomData[1]; x += treeSize) {
-                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', treeSize, treeSize, x, 400 ]);
+                this.addPropToRoom([ 0, 0x4A, 'trees', '🌲', treeSize, treeSize, x, 400 ]);
             }
             for (let x=-treeSize/2; x < this.roomData[1]; x += treeSize) {
-                this.addPropToRoom([ 0, 2, 'trees', '🌲', treeSize, treeSize, x, 450 ]);
+                this.addPropToRoom([ 0, 10, 'trees', '🌲', treeSize, treeSize, x, 450 ]);
             }
             console.timeEnd('buildTrees');
         }
