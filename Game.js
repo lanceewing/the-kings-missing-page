@@ -391,7 +391,7 @@ class Game {
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
         this.ego.init(this, 50, 150);
-        this.ego.setPosition(450, 0, 750);
+        this.ego.setPosition(450, 750);
         this.screen.appendChild(this.ego);
   
         // TODO: Remove all initial items.
@@ -633,7 +633,7 @@ class Game {
                 // Ego is touching a car...
                 // TODO: We could make this a death scenario, e.g. car just started moving.
                 // Move Ego to either the left or right, depending on which is closer.
-                e.setPosition(e.cx < bo.cx? bo.x - e.width - 20 : bo.x + bo.width + 20, 0, e.z);
+                e.setPosition(e.cx < bo.cx? bo.x - e.width - 20 : bo.x + bo.width + 20, e.z);
                 // Adjust the destination to match the new X position.
                 e.dests[0].x = e.x;
             }
@@ -692,7 +692,7 @@ class Game {
             obj.propData = prop;
 
             if (prop[6] !== null) {
-                obj.setPosition(prop[6], 0, prop[7]);
+                obj.setPosition(prop[6], prop[7]);
             }
 
             if (prop[1] & 32) {

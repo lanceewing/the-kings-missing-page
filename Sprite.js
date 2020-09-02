@@ -49,7 +49,6 @@ class Sprite extends HTMLElement {
         this.radius = this.width / 2;
 
         this.cx = 0;
-        this.cy = 0;
 
         this.maxStep = 5;
         this.step = this.stepInc = (this.maxStep / 10);
@@ -119,7 +118,7 @@ class Sprite extends HTMLElement {
         let pos = this.positions.pop();
 
         if (pos) {
-            this.setPosition(pos.x, pos.y, pos.z);
+            this.setPosition(pos.x, pos.z);
             this.positions.pop();
         }
 
@@ -131,18 +130,17 @@ class Sprite extends HTMLElement {
     }
 
     /**
-     * Sets the Sprite's position to the given x, y, and z position.
+     * Sets the Sprite's position to the given x and z position.
      * 
      * @param {number} x The x part of the new position.
-     * @param {number} y The y part of the new position.
      * @param {number} z The z part of the new position.
      */
-    setPosition(x, y, z) {
+    setPosition(x, z) {
         // If we have a previous position then z will have a non-zero value. We don't
         // want to push the initially undefined position.
         if (this.z) {
             // Remember the last 5 positions.
-            this.positions.push({ x: this.x, y: this.y, z: this.z });
+            this.positions.push({ x: this.x, z: this.z });
             if (this.positions.length > 5) {
                 this.positions = this.positions.slice(-5);
             }
@@ -150,14 +148,12 @@ class Sprite extends HTMLElement {
 
         // Set the new position and calculate the centre point of the Sprite sphere.
         this.x = x;
-        this.y = y;
         this.z = z;
         this.cx = x + this.width / 2;
-        this.cy = y + this.width / 2;
         this.cz = z * 3;
 
         // Update the style of the sprite to reflect the new position.
-        this.top = Math.floor(this.z / 2) - this.height - Math.floor(this.y);
+        this.top = Math.floor(this.z / 2) - this.height;
         if (this == this.game.ego) {
             this.style.setProperty('--sprite-top', `${this.top}px`);
             this.style.setProperty('--sprite-left', `${this.x}px`);
@@ -171,9 +167,6 @@ class Sprite extends HTMLElement {
         if (this.canvas) {
             this.canvas.style.zIndex = Math.floor(this.z);
         }
-
-        //let scale = (((this.cz - 1000) / 2000) * 0.5) + 0.5;
-        //this.style.transform = `rotateY(0deg) scaleY(${scale})`;
     }
 
     /**
@@ -241,7 +234,6 @@ class Sprite extends HTMLElement {
         if (this.direction || this.heading != null) {
             let x = this.x;
             let z = this.z;
-            let y = this.y;
             let edge = 0;
             let rightX = this.game.roomData[1];
 
@@ -306,7 +298,7 @@ class Sprite extends HTMLElement {
             } else {
                 // If x or z has changed, update the position.
                 if ((x != this.x) || (z != this.z)) {
-                    this.setPosition(x, y, z);
+                    this.setPosition(x, z);
                     this.moved = true;
                 }
             }
