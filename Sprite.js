@@ -6,8 +6,6 @@ class Sprite extends HTMLElement {
     static IN = 0x04;
     static OUT = 0x08;
 
-    static DIRS = [Sprite.LEFT, Sprite.RIGHT, Sprite.IN, Sprite.OUT];
-
     /**
      * Constructor for Sprite.
      */
