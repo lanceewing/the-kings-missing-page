@@ -212,7 +212,7 @@ x-sprite canvas {
   background-position: 0px 0px, 4px 31px, 29px 28px, 33px 3px;
 }
 .left_path, .right_path {
-  top: 121px;
+  top: 120px;
   background: linear-gradient( 
       230deg, 
       #31da81 0% 27%, 
@@ -221,12 +221,13 @@ x-sprite canvas {
       grey 64% 65%, 
       #464646 67% 72%, 
       #252525 74% 100%);
-  background-color: #31da81;
   box-shadow: 
     inset #31da81 0px -26px 0px 0px, 
     inset grey 0px -31px 0px 0px,
-    inset #252525 0px -70px 0px 0px,
-    inset #80808080 0px 3px 0px 0px;
+    inset #252525 0px -70px 0px 0px; 
+  border-top: #80808000 solid 4px;
+  background-repeat: no-repeat;
+  /*border-right: transparent solid 4px;*/
 }
 .left_path {
   left: 0px;
@@ -234,17 +235,21 @@ x-sprite canvas {
 }
 .right_path {
   right: 0px;
-  transform: scaleY(-1) scaleX(-1) rotateX(-60deg);
+  transform: scaleY(-1) rotateX(-60deg) scaleX(-1);
 }
 .left_path.down {
   top: 273px;
-  transform: scaleX(-1) rotateX(-60deg);
   box-shadow: #31da81 0px -5px 0px 0px;
+  background-position-y: -4px;
+  border: none;
+  transform: rotateX(-60deg) scaleX(-1);
 }
 .right_path.down {
   top: 273px;
-  transform: rotateX(-60deg);
   box-shadow: #31da81 0px -5px 0px 0px;
+  background-position-y: -4px;
+  border: none;
+  transform: rotateX(-60deg);
 }
 .castle_path {
   border-bottom: 150px solid grey;

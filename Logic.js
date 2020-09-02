@@ -83,8 +83,8 @@ class Logic {
               // TODO: This is a bit hacky. Would be nice if this method had the actual target sprite.
               let down = document.querySelectorAll('.down').length > 0; 
               let endY = (down? 1000 : 490);
-              let endX = (left? (down? 20 : 200) : game.roomData[1] - (down? 70 : 200));
-              let firstX = (left? (down? 150 : 20) : game.roomData[1] - (down? 200 : 70));              
+              let endX = (left? (down? -70 : 100) : game.roomData[1] - (down? -70 : 100));
+              let firstX = (left? (down? 100 : 20) : game.roomData[1] - (down? 100 : 20));              
 
               game.inputEnabled = false;
               ego.stop();

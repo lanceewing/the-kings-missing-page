@@ -381,7 +381,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 7;
+        this.room = 6;//7;//4;//5;//7;
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
@@ -406,6 +406,7 @@ class Game {
         this.newRoom();
 
         // Intro text.
+        /*
         this.inputEnabled = false;
         this.ego.say("Hello!!", 100, () => {
             this.ego.say("I'm detective Pip.", 250, () => {
@@ -422,6 +423,8 @@ class Game {
                 });
             });
         });
+        */
+       this.inputEnabled = true; // TODO: Remove.
 
         // Fade in the whole screen at the start.
         this.fadeIn(this.wrap);
