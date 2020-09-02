@@ -353,17 +353,22 @@ class Game {
      * @param {string} msg The message to display, optional.
      */
     gameOver(msg) {
+        this.started = false;
         this.fadeOut(this.wrap);
         if (msg) this.msg.innerHTML = msg;
         onclick = e => {
-            onclick = null;
-            this.fadeOut(this.msg);
-            setTimeout(() => {
-                this.msg.style.display = 'none'
-                this.sound.play('music');
-                this.init();
-                this.loop();
-            }, 200);
+            if (!this.started) {
+                this.started = true;
+                onclick = null;
+                if (document.fullscreenEnabled) document.documentElement.requestFullscreen();
+                this.fadeOut(this.msg);
+                setTimeout(() => {
+                    this.msg.style.display = 'none'
+                    this.sound.play('music');
+                    this.init();
+                    this.loop();
+                }, 200);
+            }
         }
     }
 
@@ -406,7 +411,7 @@ class Game {
         this.newRoom();
 
         // Intro text.
-        /*
+        
         this.inputEnabled = false;
         this.ego.say("Hello!!", 100, () => {
             this.ego.say("I'm detective Pip.", 250, () => {
@@ -423,8 +428,8 @@ class Game {
                 });
             });
         });
-        */
-       this.inputEnabled = true; // TODO: Remove.
+        
+       //this.inputEnabled = true; // TODO: Remove.
 
         // Fade in the whole screen at the start.
         this.fadeIn(this.wrap);
