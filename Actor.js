@@ -20,7 +20,7 @@ class Actor extends Sprite {
     super.init(game, width, height, content, shadow);
 
     // An HTML template is used for the structure of the actor.
-    if (!content) this.appendChild(document.importNode(document.getElementById('person').content, true));
+    this.appendChild(document.importNode(document.getElementById('person').content, true));
   }
 
   /**

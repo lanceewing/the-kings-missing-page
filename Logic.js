@@ -141,6 +141,7 @@ class Logic {
               else {
                 let props = game.props.filter(prop => prop[0] == obj.propData[10]);
                 if (props.length) {
+                  ego.stop(true);
                   ego.moveTo(ego.cx, 740, () => {
                     ego.moveTo(obj.cx, 740, () => {
                       // Add "outside" background

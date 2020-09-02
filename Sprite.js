@@ -160,7 +160,7 @@ class Sprite extends HTMLElement {
         } else {
             // TODO: Can we make this work the same as ego?
             this.style.top = this.top + 'px';
-            this.style.left = (this.x) + 'px';
+            this.style.left = this.x + 'px';
         }
 
         this.style.zIndex = Math.floor(this.z);
