@@ -496,7 +496,7 @@ class Game {
         }
 
         // Adjust screen left to account for scrolling.
-        if (this.ego.isVisible()) {
+        if (this.ego.visible) {
             let newScreenLeft = this.ego.cx - (960 / 2);
             if (newScreenLeft < 0) newScreenLeft = 0;
             if (newScreenLeft > (this.roomData[1] - 960)) newScreenLeft = (this.roomData[1] - 960);

@@ -190,13 +190,6 @@ class Sprite extends HTMLElement {
     }
 
     /**
-     * Returns whether this screen object is visible or not.
-     */
-    isVisible() {
-        return this.visible;
-    }
-
-    /**
      * Sets the direction of this Sprite to the new direction provided. The direction is
      * a bit mask, and so might be a composite direction. From the direction, the heading
      * is calculated.
