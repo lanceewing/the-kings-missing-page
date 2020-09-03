@@ -158,7 +158,7 @@ class Game {
         [ 4,   2, 'chipmunk',          '🐿',  50,  50,    900, 600 ],
         [ 4,  14, 'feeding_hole',      '🕳',  80,  20,   1100, 650 ],
         [ 4,  30, 'circus',            '🎪', 400, 400,   1240, 650, , , 22 ],
-        [ 4,   2, 'fountain',          '⛲', 200, 200,   2300, 550 ],
+        [ 4,   2, 'fountain',          '⛲', 200, 200,   2300, 600 ],
         [ 4,  14, 'mountain',          '⛰',  350, 350,   3160, 350, , 99 ],
         [ 4,  14, 'castle_path',       null,  300, 300,   3160, 700, , 100 ],
         [ 4,   2, 'bus',               '🚌', 250, 250,   4900, 950 ],
@@ -386,7 +386,7 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 1;//6;//7;//4;//5;//7;
+        this.room = 7;//1;//6;//7;//4;//5;//7;
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');

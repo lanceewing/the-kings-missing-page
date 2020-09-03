@@ -266,7 +266,7 @@ class Sprite extends HTMLElement {
                     }
 
                     // Horizon edge
-                    if (z < 600) {
+                    if (z < 550) {
                         edge = (x < 250 ? 2 : x > (rightX - 250) ? 4 : 6);
                     }
 
