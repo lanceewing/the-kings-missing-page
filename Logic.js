@@ -166,6 +166,10 @@ class Logic {
                 if (z <= 970) {
                   ego.stop(true);
                   ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+                } else {
+                  // Must be an item. Change command to Use
+                  game.verb = 'Use';
+                  newCommand = 'Use ' + thing + ' with ';
                 }
               }
             }
