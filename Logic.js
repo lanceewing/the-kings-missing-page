@@ -343,7 +343,7 @@ class Logic {
                 break;
               case 'bouquet,bride':
                 game.dropItem('bouquet');
-                game.actor.say('Thanks. Take my lipstick.', 250);
+                game.actor.say('Thanks. Take my lipstick.');
                 game.getItem('lipstick');
                 break;
               case 'briefcase,office worker':
@@ -399,7 +399,7 @@ class Logic {
                 if (game.hasItem('blood')) {
                   actor.say("You already have my blood.");
                 } else {
-                  game.getItem('blood');
+                  game.getItem('blood', '🩸');
                 }
                 break;
               case 'blood,scientist':
@@ -440,11 +440,11 @@ class Logic {
               case 'test tube,vampire':
                 // End game sequence.
                 game.inputEnabled = false;
-                actor.say("An antidote? Really? Thank you so much!", 200, () => {
-                  actor.say("It tastes... strange...", 200, () => {
-                    actor.say("I feel... something...", 200, () => {
-                      actor.render('👦');
-                      actor.say("I'm normal again!!", 200, () => {
+                game.actor.say("An antidote? Really? Thank you so much!", 200, () => {
+                  game.actor.say("It tastes... strange...", 200, () => {
+                    game.actor.say("I feel... something...", 200, () => {
+                      game.actor.render('👦');
+                      game.actor.say("I'm normal again!!", 200, () => {
                         game.room = 7;
                         ego.edge
                         game.fadeOut(game.wrap);
@@ -470,7 +470,7 @@ class Logic {
           }
 
           // Execute Use command for two objects, with movement when outside.
-          if (game.inside) {
+          if (game.inside || !obj) {
             useFn();
           } else {
             ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, useFn));

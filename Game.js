@@ -395,6 +395,7 @@ class Game {
         this.screen.appendChild(this.ego);
   
         // TODO: Remove all initial items.
+        /*
         this.getItem('water pistol', '🔫');
         this.getItem('banana', '🍌');
         this.getItem('coconut', '🥥');
@@ -406,12 +407,13 @@ class Game {
         this.getItem('amulet', '🧿');
         this.flags[4] = 1;
         this.flags[3] = 1;
+        */
 
         // Enter the starting room.
         this.newRoom();
 
         // Intro text.
-        /*
+        
         this.inputEnabled = false;
         this.ego.say("Hello!!", 100, () => {
             this.ego.say("I'm detective Pip.", 250, () => {
@@ -428,8 +430,8 @@ class Game {
                 });
             });
         });
-        */
-        this.inputEnabled = true; // TODO: Remove.
+        
+        //this.inputEnabled = true; // TODO: Remove.
 
         // Fade in the whole screen at the start.
         this.fadeIn(this.wrap);
@@ -626,12 +628,13 @@ class Game {
             }
         }
 
+        this.ego.show();
+
         if (this.edge == 3) {
             let e = this.ego;
             let bo = this.objs.find(o => e.touching(o));
             if (bo) {
                 // Ego is touching a car...
-                // TODO: We could make this a death scenario, e.g. car just started moving.
                 // Move Ego to either the left or right, depending on which is closer.
                 e.setPosition(e.cx < bo.cx? bo.x - e.width - 20 : bo.x + bo.width + 20, e.z);
                 // Adjust the destination to match the new X position.
@@ -640,7 +643,6 @@ class Game {
         }
 
         this.fadeIn(this.wrap);
-        this.ego.show();
         this.fadeIn(this.ego);
 
         console.timeEnd('newRoom');
