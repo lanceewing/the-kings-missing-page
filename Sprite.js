@@ -256,7 +256,6 @@ class Sprite extends HTMLElement {
                     // This edge number is simply to stop ego. He won't leave the room. Only the pedestrian
                     // crossings can be used to cross the street, so any other movement beyond the foot path
                     // is blocked.
-                    // TODO: Top of foot path.
                     if ((z < 710) || (z > 850)) edge = 10;
 
                 } else {
@@ -266,7 +265,7 @@ class Sprite extends HTMLElement {
                     }
 
                     // Horizon edge
-                    if (z < 550) {
+                    if (z < 540) {
                         edge = (x < 250 ? 2 : x > (rightX - 250) ? 4 : 6);
                     }
 

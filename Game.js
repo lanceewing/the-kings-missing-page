@@ -238,11 +238,11 @@ class Game {
         [ 8,  18, 'door',              '🚪', 100, 200,   1250, 500, , , 30 ],
 
         // Room 29 - In coffin
-        [ 29, 0, 'vampire',            '🧛', 200, 150,   280,  450, , 1002 ],
+        [ 29, 0, 'vampire',            '🧛', 200, 150,   380,  450, , 1002 ],
 
         // Room 30 - In wizard's house
-        [ 30, 0, 'wizard',             '🧙', 200, 150,   1350, 450, , 1002 ],
-        [ 30, 1, 'crystal_ball',       '🔮', 40,  40,    1350, 670, , 1002 ],
+        [ 30, 0, 'wizard',             '🧙', 200, 150,   860, 450, , 1002 ],
+        [ 30, 1, 'crystal_ball',       '🔮', 40,  40,    860, 670, , 1002 ],
 
         // Room 9 - Main street south east
         [ 9,   2, 'tree',              '🌴', 300, 300,   50,   825, 30 ],
@@ -399,11 +399,11 @@ class Game {
         this.getItem('banana', '🍌');
         this.getItem('coconut', '🥥');
         this.getItem('blood', '🩸');
-        //this.getItem('map', '🗺');
+        this.getItem('map', '🗺');
         this.getItem('compass', '🧭');
         this.getItem('syringe', '💉');
         this.getItem('test tube', '🧪');
-        //this.getItem('amulet', '🧿');
+        this.getItem('amulet', '🧿');
         this.flags[4] = 1;
         this.flags[3] = 1;
 
@@ -619,10 +619,10 @@ class Game {
         }
         if (this.roomData[0] & 8) {
             for (let x=0; x < this.roomData[1]; x += 300) {
-                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', 300, 300, x, 1100 ]);
+                this.addPropToRoom([ 0, 0x42, 'trees', '🌲', 300, 300, x, 1100, , 990 ]);
             }
             for (let x=-150; x < this.roomData[1]; x += 300) {
-                this.addPropToRoom([ 0, 2, 'trees', '🌲', 300, 300, x, 1150 ]);
+                this.addPropToRoom([ 0, 2, 'trees', '🌲', 300, 300, x, 1150, , 991 ]);
             }
         }
 

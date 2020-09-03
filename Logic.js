@@ -104,8 +104,8 @@ class Logic {
                 ego.stop();
                 ego.moveTo(210, 740);
                 ego.moveTo(210, 640);
-                ego.moveTo(70, 550);
-                ego.moveTo(-50, 550);
+                ego.moveTo(70, 555);
+                ego.moveTo(-50, 555);
               } else {
                 ego.say("I might get lost in the woods. I need a map and compass.");
               }
@@ -144,10 +144,11 @@ class Logic {
                   ego.stop(true);
                   ego.moveTo(ego.cx, 740, () => {
                     ego.moveTo(obj.cx, 740, () => {
+                      let outsideX = Math.min(Math.max(obj.cx-200, 280), game.roomData[1] - 680);
                       // Add "outside" background
                       game.addPropToRoom([0, 14, 'outside', null, 6720, 485, 0, 970, , 1000]);
                       // Add "inside" background.
-                      game.addPropToRoom([0, 14, 'inside', null, 400, 300, obj.cx-200, 700, , 1001]);
+                      game.addPropToRoom([0, 14, 'inside', null, 400, 300, outsideX, 700, , 1001]);
                       // Add the items inside the building.
                       props.forEach(prop => game.addPropToRoom(prop));
                       ego.hide();
