@@ -281,8 +281,6 @@ class Game {
     // 6 = chipmunk has gone
     flags = [];
 
-    inputEnabled = false;
-
     /**
      * Constructor for Game.
      */
@@ -345,17 +343,9 @@ class Game {
         let cursorImgUrl = Util.renderEmoji('➕', 20, 20)[0].toDataURL();
         document.body.style.cursor = `url(${cursorImgUrl}) 10 10, auto`;
 
-        this.gameOver();
-    }
-
-    /**
-     * @param {string} msg The message to display, optional.
-     */
-    gameOver(msg) {
         this.started = false;
         this.fadeOut(this.wrap);
-        if (msg) this.msg.innerHTML = msg;
-        this.fadeIn(this.msg);
+
         onclick = e => {
             if (!this.started) {
                 this.started = true;
@@ -378,11 +368,6 @@ class Game {
      */
     init() {
         this.screen.onclick = e => this.processCommand(e);
-  
-        // For restarts, we'll need to remove the objects from the screen.
-        if (this.objs) {
-            this.objs.forEach(obj => obj.remove());
-        }
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];

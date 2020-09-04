@@ -180,7 +180,7 @@ class Logic {
                     });
                   });
                 } else {
-                  ego.say("There's no one home.");
+                  ego.say("The building is locked.");
                 }
               }
             } else {
