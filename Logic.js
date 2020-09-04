@@ -409,11 +409,11 @@ class Logic {
               case 'test tube,vampire':
                 // End game sequence.
                 game.inputEnabled = false;
-                game.actor.say("An antidote? Really? Thank you so much!", () => {
-                  game.actor.say("It tastes... strange...", () => {
-                    game.actor.say("I feel... something...", () => {
+                game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
+                  game.actor.say("It tastes... strange...", 350, () => {
+                    game.actor.say("I feel... something...", 350, () => {
                       game.actor.render('👦');
-                      game.actor.say("I'm normal again!!", () => {
+                      game.actor.say("I'm normal again!!", 300, () => {
                         game.room = 7;
                         ego.edge
                         game.fadeOut(game.wrap);
@@ -422,7 +422,7 @@ class Logic {
                           ego.say("I have returned the page boy to the castle.", 200, () => {
                             ego.say("Thank you for helping me to solve the case.", 200, () => {
                               ego.say("Well done!!!", 200, () => {
-                                game.gameOver("You've Won!!");
+                                setTimeout(() => location.reload(), 3000);
                               });
                             });
                           });
