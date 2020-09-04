@@ -161,16 +161,16 @@ class Logic {
               }
             } else {
               // Walk to screen object or screen click position.
-              if (!game.inside) {
-                let z = ((e.pageY / game.scaleY) - 27) * 2;
-                if (z <= 970) {
+              let z = ((e.pageY / game.scaleY) - 27) * 2;
+              if (z <= 970) {
+                if (!game.inside) {
                   ego.stop(true);
                   ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
-                } else {
-                  // Must be an item. Change command to Use
-                  game.verb = 'Use';
-                  newCommand = 'Use ' + thing + ' with ';
                 }
+              } else {
+                // Must be an item. Change command to Use
+                game.verb = 'Use';
+                newCommand = 'Use ' + thing + ' with ';
               }
             }
             break;
