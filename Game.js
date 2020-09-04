@@ -356,6 +356,7 @@ class Game {
         this.started = false;
         this.fadeOut(this.wrap);
         if (msg) this.msg.innerHTML = msg;
+        this.fadeIn(this.msg);
         onclick = e => {
             if (!this.started) {
                 this.started = true;
@@ -381,7 +382,7 @@ class Game {
   
         // For restarts, we'll need to remove the objects from the screen.
         if (this.objs) {
-            this.obj.forEach(obj => obj.remove());
+            this.objs.forEach(obj => obj.remove());
         }
         
         // Set the room back to the start, and clear the object map.
