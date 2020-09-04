@@ -165,7 +165,6 @@ class Game {
         [ 4,   2, 'bus_stop',          '🚏',  50, 200,    4800, 825 ],
         [ 4,   1, 'briefcase',         '💼', 40, 40,     4790, 820 ],
         [ 4,   2, 'bicyle',            '🚲', 100, 100,   4450, 600 ],
-        [ 4,   2, 'bicyle',            '🚲', 100, 100,   4500, 650 ],
         [ 4,   2, 'goal_net',          '🥅', 100, 100,   4200, 500 ],
         [ 4,   2, 'moai_statue',       '🗿',  100, 200,   3500, 650 ],
         [ 4, 130, 'moai_statue',       '🗿',  100, 200,   3025, 650 ],
@@ -409,6 +408,9 @@ class Game {
         this.flags[4] = 1;
         this.flags[3] = 1;
         */
+    
+        // Letter from the King.
+        this.getItem('letter', '📄');
 
         // Enter the starting room.
         this.newRoom();

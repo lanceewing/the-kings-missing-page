@@ -217,21 +217,8 @@ class Logic {
 
       case 'Look at':
         switch (thing) {
-          case 'envelope':
-            if (game.hasItem('letter')) {
-              ego.say("It's empty.", 200);
-            } else {
-              ego.say("Letter inside.", 200);
-              game.getItem('letter', '📄');
-            }
-            break;
           case 'letter':
-            if (game.hasItem('paperclip')) {
-              ego.say("It's a commission from the King asking you to find his missing page boy.", 300);
-            } else {
-              ego.say("Has paper clip.", 200);
-              game.getItem('paperclip', '📎');
-            }
+            ego.say("It's a commission from the King asking you to find his missing page boy.");
             break;
           case 'wastebasket':
             if (game.hasItem('syringe')) {
@@ -286,24 +273,6 @@ class Logic {
             newCommand = 'Use ' + thing + ' with ';
           } else {
             switch (thing) {
-              case 'mailbox':
-                if (flags[1]) {
-                  // Mailbox open.
-                  if (game.hasItem('envelope')) {
-                    // No letter inside, so close it.
-                    obj.render('📪');
-                    flags[1] = 0;
-                  } else {
-                    // Letter inside, so take it.
-                    obj.render('📭');
-                    game.getItem('envelope', '✉');
-                  }
-                } else {
-                  // Mailbox closed. Use will open it.
-                  obj.render(flags[2]? '📭' : '📬');
-                  flags[1] = 1;
-                }
-                break;
               case 'bellhop':
                 if (!game.actor) {
                   game.addPropToRoom([ 19, 0, 'hotel_clerk', '🤵', 200, 150, 3260, 450, , 1002 ]);
