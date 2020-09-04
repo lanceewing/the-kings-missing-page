@@ -51,8 +51,32 @@ class Logic {
                 obj.say("We're hungry!");
               }
             } else {
-              ego.say("I think they're... asleep?");
+              obj.say("Zzzzzzz...", 150, () => {
+                ego.say("I think they're... asleep?");
+              });
             }
+            break;
+          case 'family':
+            game.actor.say("Happy Halloween!");
+            break;
+          case 'vampire':
+            game.actor.say("I used to be a Page Boy for the King."), 450, () => {
+              game.actor.say("Then the wizard turned me into a vampire.", 500);
+            };
+            break;
+          case 'wizard':
+            game.actor.say("The Page Boy? Yes, I saw him.", 400, () => {
+              game.actor.say("Told me bad news, so I taught him a lesson.", 500);
+            });
+            break;
+          case 'scientist':
+            game.actor.say("I specialise in the study of blood.", 400);
+            break;
+          case 'sheep':
+            e.target.parentNode.say("Baaaaa!");
+            break;
+          case 'cow':
+            e.target.parentNode.say("Mooooo!");
             break;
           default:
             if (obj && obj == game.actor) {
@@ -229,18 +253,23 @@ class Logic {
             }
             break;
           case 'shopping cart':
-            if (game.hasItem('water pistol')) {
-              ego.say("Nothing in there.", 250);
-            } else {
-              ego.say("I found a water pistol.", 300);
-              game.getItem('water pistol', '🔫');
-            }
+            ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, () => {
+              if (game.hasItem('water pistol')) {
+                ego.say("Nothing in there.", 250);
+              } else {
+                ego.say("I found a water pistol.", 300);
+                game.getItem('water pistol', '🔫');
+              }
+            }));
             break;
           case 'map':
             ego.say("It is a map of the woods. The entrance is to the left of the circus.");
             break;
           case 'chipmunk':
             ego.say("It's scaring the elephant.");
+            break;
+          case 'briefcase':
+            ego.say("Someone forgot this briefcase at the bus stop.");
             break;
           case 'elephant':
             if (flags[4]) {
@@ -257,6 +286,12 @@ class Logic {
             break;
           case 'feeding hole':
             ego.say("This is where the elephant feeds.");
+            break;
+          case 'castle':
+            ego.say("The King's castle.");
+            break;
+          case 'my house':
+            ego.say("This is where I live.");
             break;
           default:
             if (thing != "") {
@@ -341,6 +376,10 @@ class Logic {
                   game.getItem('banana');
                 }
                 break;
+              case 'bank card,cashier':
+              case 'bank card,salesperson':
+                game.actor.say("We only take cash.");
+                break;
               case 'chipmunk,coconut':
                 game.dropItem('coconut');
                 ego.say("The chipmunk took the coconut and ran away.");
@@ -368,6 +407,7 @@ class Logic {
                 if (game.hasItem('blood')) {
                   actor.say("You already have my blood.");
                 } else {
+                  actor.say("Sure, take my blood. Please find a cure.");
                   game.getItem('blood', '🩸');
                 }
                 break;
