@@ -332,13 +332,21 @@ class Game {
         document.getElementById("down").onclick = e => this.scrollInv(-1);
 
         this.commands.querySelectorAll('*').forEach(verb => {
-            verb.onclick = e => this.command = this.verb = e.target.dataset.name;
+            verb.onclick = e => {
+                this.command = this.verb = e.target.dataset.name;
+                this.verbIcon = e.target.innerText;
+            }
         });
 
         // Initalise the mouse cursor.
-        // TODO: Build the hour glass emoji for wait moments.
-        let cursorImgUrl = Util.renderEmoji('➕', 20, 20)[0].toDataURL();
-        document.body.style.cursor = `url(${cursorImgUrl}) 10 10, auto`;
+        this.cursors = {};
+        ['➕','⏳','🚶','👁','🤏🏼','💬','🤚🏼','🡳','🡱','🡰','🡲','🡴','🡵','🡷','🡶'].forEach(c => {
+            this.cursors[c] = `url(${Util.renderEmoji(c, 50, 50)[0].toDataURL()}) 25 25, auto`;
+            document.body.style.setProperty(`--${c}`, this.cursors[c]);
+        });
+        this.verbIcon = '🚶';
+        
+        document.body.style.cursor = this.cursors['➕'];
 
         this.started = false;
         this.fadeOut(this.wrap);
@@ -514,7 +522,7 @@ class Game {
 
         // Update cursor and overlay based on user input state.
         this.overlay.style.display = (this.inputEnabled? 'none' : 'block');
-        //this.wrap.style.cursor = (this.inputEnabled? 'crosshair' : 'wait');
+        this.wrap.style.cursor = this.cursors[this.inputEnabled? this.verbIcon : '⏳'];
     }
 
     /**
@@ -563,6 +571,7 @@ class Game {
           this.command = this.logic.process(this.verb, this.command, this.thing, e);
           if (this.command == this.verb) {
             this.command = this.verb = 'Walk to';
+            this.verbIcon = '🚶';
           }
         }
         if (e) e.stopPropagation();

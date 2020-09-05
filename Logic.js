@@ -298,6 +298,14 @@ class Logic {
           case 'my house':
             ego.say("This is where I live.");
             break;
+          case 'tree':
+          case 'trees':
+            if ((game.room == 4) || (game.room == 7)) {
+              ego.say("This might be the woods, but where is the entrance?");
+            } else {
+              ego.say("The trees make this town look very pretty.");
+            }
+            break;
           default:
             if (thing != "") {
               ego.say("It's just a " + thing + ".", 250);

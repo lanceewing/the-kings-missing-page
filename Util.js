@@ -19,6 +19,7 @@ class Util {
         ctx.font = `${size}px Segoe UI Emoji`;
         //ctx.font = `${size}px twemoji`;
         ctx.textBaseline = 'bottom';
+        ctx.fillStyle = 'red';
         ctx.fillText(emojiText, 5, canvas.height - 5);
 
         // On Windows, this reduces the thick black edges.
