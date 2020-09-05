@@ -6,87 +6,46 @@ class Sound {
   constructor() {
     // Stores the sounds, keyed by the sound name.
     this.sounds = {};
-
-    // The sound module only seems to work in Chrome and Firefox.
-    this.active = (!(navigator.userAgent.match(/Opera|OPR\//)));
   }
 
   /**
    * Initialises the Sounds.
    */
   init() {
-    if (this.active) {
-        this.add('music', 1, Sound.SONG);
-  
-        // TODO: Add ZzFX sounds.
-      }
+    this.add('music', Sound.SONG);
   }
   
   /**
    * Generates a sound using the given data and adds it to the stored sounds under the 
-   * given name. It will generate the sound multiple times if count is greater than one.
-   * This method handles both ZzFX sounds and SoundBox compositions.
+   * given name.
    * 
    * @param {Object} name The name of the sound to create. This is the key in the stored sounds.
-   * @param {Object} count The number of times to generate the sound.
    * @param {Object} data The data containing the parameters of the sound to be generated.
    */
-  add(name, count, data) {
-    this.sounds[name] = {tick: 0, count: count, pool: []};
-    for (let i = 0; i < count; i++) {
-      let audio = new Audio();
-      if (data instanceof Array) {
-        // If it is an Array, it must be ZzFX data.
-        // TODO: Implement.
-
-      } else {
-        // Otherwise it is SoundBox data.
-        let player = new CPlayer();
-        player.init(data);
-        // Using only 4 instruments. This saves a bit of space.
-        player.generate();
-        player.generate();
-        player.generate();
-        player.generate();
-        audio.src = URL.createObjectURL(new Blob([player.createWave()], {type: "audio/wav"}));
-        // This is background music, so we set it to loop and turn the volume down a bit.
-        audio.loop = true;
-        audio.volume = 1.0;
-      }
-      this.sounds[name].pool.push(audio);
-    }
+  add(name, data) {
+    let audio = new Audio();
+    let player = new CPlayer();
+    player.init(data);
+    // Using only 4 instruments. This saves a bit of space.
+    player.generate();
+    player.generate();
+    player.generate();
+    player.generate();
+    audio.src = URL.createObjectURL(new Blob([player.createWave()], {type: "audio/wav"}));
+    // This is background music, so we set it to loop and turn the volume down a bit.
+    audio.loop = true;
+    audio.volume = 1.0;
+    this.sounds[name] = audio;
   }
   
   /**
    * Plays the sound of the given name. All sounds are stored as pre-generated Audio 
-   * objects. So it is simply a matter of telling it to play. Some sounds have multiple
-   * copies, particularly if the sound can be played in quick succession, potentially
-   * overlapping. In such a case, it can't use the same Audio, so iterates over a pool
-   * of Audios containing the same sound.  
+   * objects. So it is simply a matter of telling it to play.
    * 
    * @param {string} name The name of the sound to play.
    */
   play(name) {
-    if (this.active) {
-      var sound = this.sounds[name];
-      sound.pool[sound.tick].play();
-    }
-  }
-  
-  /**
-   * Pauses the sound of the given name. This is only useful if the count is one, such
-   * as for the background music. The current position within the Audio is also set 
-   * back to the beginning so that when it is resumed, it starts at the beginning 
-   * again.
-   *  
-   * @param {string} name The name of the sound to pause.
-   */
-  pause(name) {
-    if (this.active) {
-      let audio = this.sounds[name].pool[0];
-      audio.pause();
-      audio.currentTime = 0;
-    }
+    this.sounds[name].play();
   }
   
   /**
