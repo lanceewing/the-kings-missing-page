@@ -694,6 +694,9 @@ class Game {
                 obj.setPosition(prop[6], prop[7]);
             }
 
+            if (prop[1] & 16) {
+                obj.classList.add('bldg');
+            }
             if (prop[1] & 32) {
                 obj.classList.add('light');
             }
