@@ -291,6 +291,7 @@ class Game {
         this.items = document.getElementById('itemlist');
         this.sentence = document.getElementById('sentence');
         this.commands = document.getElementById('commands');
+        this.status = document.getElementById('status');
         this.msg = document.getElementById('msg');
         this.defineCustomElements();
         this.logic = new Logic(this);
@@ -406,7 +407,10 @@ class Game {
                         this.ego.moveTo(300, 740, () => {
                             this.ego.say("...but went missing in the woods to the west.", 300, () => {
                                 this.ego.moveTo(300, 800, () => {
-                                    this.ego.say("Please help me to find him.", 200, () => this.inputEnabled = true);
+                                    this.ego.say("Please help me to find him.", 200, () => {
+                                        this.inputEnabled = true;
+                                        this.fadeOut(this.status);
+                                    });
                                 });
                             });
                         });

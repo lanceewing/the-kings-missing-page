@@ -411,6 +411,8 @@ x-sprite canvas {
 .outside {
   opacity: 0.7;
   background: black;
+  height: 512px !important;
+  top: -27px !important;
 }
 .inside {
   background: black;
