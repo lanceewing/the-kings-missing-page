@@ -334,10 +334,6 @@ class Game {
             verb.onclick = e => this.command = this.verb = e.target.dataset.name;
         });
 
-        // The sound generation might be a bit time consuming on slower machines.
-        // TODO: Fix how sound is initialised.
-        setTimeout(() => this.sound.init(), 1);
-
         // Initalise the mouse cursor.
         // TODO: Build the hour glass emoji for wait moments.
         let cursorImgUrl = Util.renderEmoji('➕', 20, 20)[0].toDataURL();
@@ -354,7 +350,7 @@ class Game {
                 this.fadeOut(this.msg);
                 setTimeout(() => {
                     this.msg.style.display = 'none'
-                    this.sound.play('music');
+                    this.sound.playSong();
                     this.init();
                     this.loop();
                 }, 200);

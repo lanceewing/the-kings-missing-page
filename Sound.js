@@ -4,48 +4,28 @@ class Sound {
    * Constructor for Sound.
    */
   constructor() {
-    // Stores the sounds, keyed by the sound name.
-    this.sounds = {};
-  }
-
-  /**
-   * Initialises the Sounds.
-   */
-  init() {
-    this.add('music', Sound.SONG);
-  }
-  
-  /**
-   * Generates a sound using the given data and adds it to the stored sounds under the 
-   * given name.
-   * 
-   * @param {Object} name The name of the sound to create. This is the key in the stored sounds.
-   * @param {Object} data The data containing the parameters of the sound to be generated.
-   */
-  add(name, data) {
-    let audio = new Audio();
-    let player = new CPlayer();
-    player.init(data);
-    // Using only 4 instruments. This saves a bit of space.
-    player.generate();
-    player.generate();
-    player.generate();
-    player.generate();
-    audio.src = URL.createObjectURL(new Blob([player.createWave()], {type: "audio/wav"}));
-    // This is background music, so we set it to loop and turn the volume down a bit.
-    audio.loop = true;
-    audio.volume = 1.0;
-    this.sounds[name] = audio;
+    setTimeout(() => {
+      let audio = new Audio();
+      let player = new CPlayer();
+      player.init(Sound.SONG);
+      // Using only 4 instruments. This saves a bit of space.
+      player.generate();
+      player.generate();
+      player.generate();
+      player.generate();
+      audio.src = URL.createObjectURL(new Blob([player.createWave()], {type: "audio/wav"}));
+      // This is background music, so we set it to loop and turn the volume down a bit.
+      audio.loop = true;
+      audio.volume = 1.0;
+      this.song = audio;
+    }, 1);
   }
   
   /**
-   * Plays the sound of the given name. All sounds are stored as pre-generated Audio 
-   * objects. So it is simply a matter of telling it to play.
-   * 
-   * @param {string} name The name of the sound to play.
+   * Starts playing the game music.
    */
-  play(name) {
-    this.sounds[name].play();
+  playSong() {
+    this.song.play();
   }
   
   /**

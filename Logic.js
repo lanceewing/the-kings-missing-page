@@ -405,9 +405,9 @@ class Logic {
                 break;
               case 'syringe,vampire':
                 if (game.hasItem('blood')) {
-                  actor.say("You already have my blood.");
+                  game.actor.say("You already have my blood.");
                 } else {
-                  actor.say("Sure, take my blood. Please find a cure.");
+                  game.actor.say("Sure, take my blood. Please find a cure.");
                   game.getItem('blood', '🩸');
                 }
                 break;
