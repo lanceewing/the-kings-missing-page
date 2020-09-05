@@ -97,6 +97,7 @@ class Logic {
             }
             game.remove(obj);
             game.actor = null;
+            ego.setPosition(ego.x, ego.z-544);
             ego.show();
             game.inside = 0;
             game.thing = '';
@@ -177,6 +178,7 @@ class Logic {
                       props.forEach(prop => game.addPropToRoom(prop));
                       ego.hide();
                       game.inside = 1;
+                      ego.setPosition(ego.x, ego.z+544);
                     });
                   });
                 } else {
@@ -362,6 +364,9 @@ class Logic {
                 game.dropItem('lipstick');
                 game.actor.say("Thanks. Take my mask.");
                 game.getItem('mask');
+                break;
+              case 'blood,doctor':
+                game.actor.say("I'm sorry, vampire blood isn't my thing.");
                 break;
               case 'cash,salesperson':
                 if (game.hasItem('compass')) {

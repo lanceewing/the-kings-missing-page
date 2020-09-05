@@ -355,13 +355,16 @@ class Sprite extends HTMLElement {
             }
 
             if (next) {
-                setTimeout(next, 200);
+                // TODO: An attempt to fix double speech bubble issue.
+                let nextFn = next;
+                setTimeout(nextFn, 200);
+                next = null;
             } else {
                 // Re-enable user input if nothing is happening after the speech.
                 game.inputEnabled = true;
             }
         };
-        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 1500);
+        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 150000);
         game.overlay.onclick = closeBubbleFn;
     }
 }
