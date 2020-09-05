@@ -227,7 +227,6 @@ x-sprite canvas {
     inset #252525 0px -70px 0px 0px; 
   border-top: #80808000 solid 4px;
   background-repeat: no-repeat;
-  /*border-right: transparent solid 4px;*/
 }
 .left_path {
   left: 0px;
@@ -392,6 +391,7 @@ x-sprite canvas {
   border: 2px solid black;
   box-shadow: 6px 3px black;
   z-index: 1010;
+  transform: rotateY(0deg);
 }
 .bubble:before {
   z-index: 1011;
