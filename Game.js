@@ -213,7 +213,7 @@ class Game {
         [ 6,  30, 'garage',            '🏚', 400, 400,   1240,  700, , , 27 ],
 
         // Room 26 - In factory
-        [ 26,  0, 'factory_worker',    '👨‍🏭', 200, 150,  450,  450, , 1002 ],
+        [ 26,  0, 'factory_worker',    '👨‍🏭', 200, 150,  425,  450, , 1002 ],
 
         // Room 27 - In garage
         [ 27,  0, 'mechanic',          '👩‍🔧', 200, 150,  1340, 450, , 1002 ],
@@ -273,7 +273,7 @@ class Game {
 
     ];
 
-    // 1 = mailbox open
+    // 1 = (not used anymore)
     // 2 = water pistol filled
     // 3 = moai statue awake
     // 4 = elephant not blocking woods

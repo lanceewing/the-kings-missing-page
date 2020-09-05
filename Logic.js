@@ -66,7 +66,7 @@ class Logic {
             break;
           case 'wizard':
             game.actor.say("The Page Boy? Yes, I saw him.", 400, () => {
-              game.actor.say("Told me bad news, so I taught him a lesson.", 500);
+              game.actor.say("Told me some bad news, so I taught him a lesson.");
             });
             break;
           case 'scientist':
@@ -180,7 +180,7 @@ class Logic {
                     });
                   });
                 } else {
-                  ego.say("The building is locked.");
+                  ego.say("This building is locked.");
                 }
               }
             } else {
@@ -251,6 +251,9 @@ class Logic {
               ego.say("Syringe is inside.");
               game.getItem('syringe', '💉');
             }
+            break;
+          case 'water pistol':
+            ego.say(flags[2]? "It contains water." : "It is empty.");
             break;
           case 'shopping cart':
             ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, () => {
@@ -341,7 +344,7 @@ class Logic {
                 if (flags[2]) {
                   ego.say("It's already full.", 200);
                 } else {
-                  ego.say("OK", 70);
+                  ego.say("The pistol now contains water.", 70);
                   flags[2] = 1;
                 }
                 break;
