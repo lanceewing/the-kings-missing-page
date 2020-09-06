@@ -440,3 +440,23 @@ x-sprite canvas {
 .woods {
   cursor: var(--🡴);
 }
+#screen.left:before {
+  left: -20px;
+  content: '';
+  position: absolute;
+  width: 60px;
+  top: 348px;
+  height:76px;
+  cursor: var(--🡰);
+  background: red;
+}
+#screen.right:after {
+  right: -20px;
+  content: '';
+  position: absolute;
+  width: 60px;
+  top: 348px;
+  height: 76px;
+  cursor: var(--🡲);
+  background: red;
+}

@@ -191,7 +191,9 @@ class Logic {
               if (z <= 970) {
                 if (!game.inside) {
                   ego.stop(true);
-                  ego.moveTo(game.screenLeft + (e.pageX / game.scaleX), z > 710? z : 740);
+                  let destX = game.screenLeft + (e.pageX / game.scaleX);
+                  destX = (destX > game.roomData[1] - 50? game.roomData[1] + 10 : destX < 50? -10 : destX);
+                  ego.moveTo(destX, z > 710? z : 740);
                 }
               } else {
                 // Must be an item. Change command to Use
@@ -346,6 +348,7 @@ class Logic {
                   game.getItem('bouquet', '💐');
                   game.dropItem('tulip');
                   game.dropItem('rose');
+                  ego.say("I made a bouquet.");
                 } else {
                   ego.say("I should pick them both up first.", 200);
                 }
@@ -508,6 +511,11 @@ class Logic {
       default:
         ego.say("Nothing happened.", 220);
         break;
+    }
+
+    if (newCommand.endsWith('with ')) {
+      game.verbIcon = game.inventory[thing].innerHTML;
+      game.cursors[game.verbIcon] = `url(${Util.renderEmoji(game.verbIcon, 50, 50)[0].toDataURL()}) 25 25, auto`;
     }
 
     return newCommand;

@@ -270,7 +270,6 @@ class Game {
         [ 0,  14, 'road',               null, 6720,  50,  0,    985, , 100 ],
         [ 0,  14, 'left_path',          null, 100,   305, null, 866, , 501 ],
         [ 0,  14, 'right_path',         null, 100,   305, null, 866, , 501 ],
-
     ];
 
     // 1 = (not used anymore)
@@ -344,6 +343,7 @@ class Game {
             this.cursors[c] = `url(${Util.renderEmoji(c, 50, 50)[0].toDataURL()}) 25 25, auto`;
             document.body.style.setProperty(`--${c}`, this.cursors[c]);
         });
+
         this.verbIcon = '🚶';
         
         document.body.style.cursor = this.cursors['➕'];
@@ -376,28 +376,13 @@ class Game {
         
         // Set the room back to the start, and clear the object map.
         this.objs = [];
-        this.room = 7;//1;//6;//7;//4;//5;//7;
+        this.room = 7;
 
         // Create Ego (the main character) and add it to the screen.
         this.ego = document.createElement('x-ego');
         this.ego.init(this, 50, 150);
         this.ego.setPosition(450, 750);
         this.screen.appendChild(this.ego);
-  
-        // TODO: Remove all initial items.
-        /*
-        this.getItem('water pistol', '🔫');
-        this.getItem('banana', '🍌');
-        this.getItem('coconut', '🥥');
-        this.getItem('blood', '🩸');
-        this.getItem('map', '🗺');
-        this.getItem('compass', '🧭');
-        this.getItem('syringe', '💉');
-        this.getItem('test tube', '🧪');
-        this.getItem('amulet', '🧿');
-        this.flags[4] = 1;
-        this.flags[3] = 1;
-        */
     
         // Letter from the King.
         this.getItem('letter', '📄');
@@ -406,7 +391,6 @@ class Game {
         this.newRoom();
 
         // Intro text.
-        
         this.inputEnabled = false;
         this.ego.say("Hello!!", 100, () => {
             this.ego.say("I'm detective Pip.", 250, () => {
@@ -426,8 +410,6 @@ class Game {
                 });
             });
         });
-        
-        //this.inputEnabled = true; // TODO: Remove.
 
         // Fade in the whole screen at the start.
         this.fadeIn(this.wrap);
@@ -624,6 +606,9 @@ class Game {
                 this.addPropToRoom([ 0, 2, 'trees', '🌲', 300, 300, x, 1150, , 991 ]);
             }
         }
+
+        // Add left and right classes if walk left and right are available.
+        this.screen.className = (this.roomData[2] && this.room != 4? 'left ' : '') + (this.roomData[6]? 'right' : '');
 
         this.ego.show();
 

@@ -248,7 +248,7 @@ class Sprite extends HTMLElement {
                     // Check whether a room edge has been hit.
 
                     // Left edge, which will be a left pedestrian crossing.
-                    if (x < 0) edge = 1;
+                    if (x < 0 && this.game.room != 4) edge = 1;
 
                     // Right edge, whidh will be a right pedestrian crossing.
                     if ((x + this.width) > rightX) edge = 5;
