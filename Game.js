@@ -337,16 +337,14 @@ class Game {
             }
         });
 
-        // Initalise the mouse cursor.
+        // Initalise the mouse cursors.
         this.cursors = {};
-        ['➕','⏳','🚶','👁','🤏🏼','💬','🤚🏼','🡳','🡱','🡰','🡲','🡴','🡵','🡷','🡶'].forEach(c => {
-            this.cursors[c] = `url(${Util.renderEmoji(c, 50, 50)[0].toDataURL()}) 25 25, auto`;
+        ['🚶','🤚🏼','🡱','💬','🡳','⏳','🡴','👁','🡰','➕','🡵','🤏🏼','🡲','❔','🡷','🔍','🡶'].forEach((c,i) => {
+            let hsy = [49,25][i%2];
+            this.cursors[c] = `url(${Util.renderEmoji(c, 50, 50)[0].toDataURL()}) 25 ${hsy}, auto`;
             document.body.style.setProperty(`--${c}`, this.cursors[c]);
         });
-
         this.verbIcon = '🚶';
-        
-        document.body.style.cursor = this.cursors['➕'];
 
         this.started = false;
         this.fadeOut(this.wrap);
@@ -502,9 +500,20 @@ class Game {
             this.ego.edge = 0;
         }
 
-        // Update cursor and overlay based on user input state.
+        // Update based on user input state.
         this.overlay.style.display = (this.inputEnabled? 'none' : 'block');
-        this.wrap.style.cursor = this.cursors[this.inputEnabled? this.verbIcon : '⏳'];
+
+        // Update cursor.
+        let newCursor = this.cursors[this.inputEnabled? this.verbIcon : '⏳'];
+        if (newCursor != this.currCursor) {
+            this.wrap.style.cursor = newCursor;
+            if (this.verbIcon != '🚶') {
+                this.wrap.style.setProperty('--c', newCursor);
+            } else {
+                this.wrap.style.removeProperty('--c');
+            }
+        }
+        this.currCursor = newCursor;
     }
 
     /**

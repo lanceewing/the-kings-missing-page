@@ -231,12 +231,12 @@ x-sprite canvas {
 .left_path {
   left: 0px;
   transform: scaleY(-1) rotateX(-60deg);
-  cursor: var(--🡵);
+  cursor: var(--c, var(--🡵));
 }
 .right_path {
   right: 0px;
   transform: scaleY(-1) rotateX(-60deg) scaleX(-1);
-  cursor: var(--🡴);
+  cursor: var(--c, var(--🡴));
 }
 .left_path.down {
   top: 273px;
@@ -244,7 +244,7 @@ x-sprite canvas {
   background-position-y: -4px;
   border: none;
   transform: rotateX(-60deg) scaleX(-1);
-  cursor: var(--🡷);
+  cursor: var(--c, var(--🡷));
 }
 .right_path.down {
   top: 273px;
@@ -252,13 +252,13 @@ x-sprite canvas {
   background-position-y: -4px;
   border: none;
   transform: rotateX(-60deg);
-  cursor: var(--🡶);
+  cursor: var(--c, var(--🡶));
 }
 .castle_path {
   border-bottom: 150px solid grey;
   border-left: 125px solid transparent;
   border-right: 125px solid transparent;
-  cursor: var(--🡱);
+  cursor: var(--c, var(--🡱));
 }
 .actor {
   width: 100%;
@@ -432,13 +432,13 @@ x-sprite canvas {
   position: absolute;
 }
 .bldg {
-  cursor: var(--🡱);
+  cursor: var(--c, var(--🡱));
 }
 .road {
-  cursor: var(--🡳);
+  cursor: var(--c, var(--🡳));
 }
 .woods {
-  cursor: var(--🡴);
+  cursor: var(--c, var(--🡴));
 }
 #screen.left:before {
   left: -20px;
@@ -447,7 +447,7 @@ x-sprite canvas {
   width: 60px;
   top: 348px;
   height:76px;
-  cursor: var(--🡰);
+  cursor: var(--c, var(--🡰));
   background: red;
 }
 #screen.right:after {
@@ -457,6 +457,6 @@ x-sprite canvas {
   width: 60px;
   top: 348px;
   height: 76px;
-  cursor: var(--🡲);
+  cursor: var(--c, var(--🡲));
   background: red;
 }
