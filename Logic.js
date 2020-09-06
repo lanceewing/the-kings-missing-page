@@ -357,7 +357,7 @@ class Logic {
                 if (flags[2]) {
                   ego.say("It's already full.", 200);
                 } else {
-                  ego.say("The pistol now contains water.", 70);
+                  ego.say("The pistol now contains water.");
                   flags[2] = 1;
                 }
                 break;
@@ -477,6 +477,7 @@ class Logic {
                         ego.edge
                         game.fadeOut(game.wrap);
                         setTimeout(() => {
+                          game.inside = 0;
                           game.newRoom();
                           ego.say("I have returned the page boy to the castle.", 200, () => {
                             ego.say("Thank you for helping me to solve the case.", 200, () => {

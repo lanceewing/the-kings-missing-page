@@ -364,7 +364,7 @@ class Sprite extends HTMLElement {
                 game.inputEnabled = true;
             }
         };
-        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 150000);
+        closeBubbleTO = setTimeout(closeBubbleFn, (text.length / 10) * 1500);
         game.overlay.onclick = closeBubbleFn;
     }
 }

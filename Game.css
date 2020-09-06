@@ -448,7 +448,6 @@ x-sprite canvas {
   top: 348px;
   height:76px;
   cursor: var(--c, var(--🡰));
-  background: red;
 }
 #screen.right:after {
   right: -20px;
@@ -458,5 +457,4 @@ x-sprite canvas {
   top: 348px;
   height: 76px;
   cursor: var(--c, var(--🡲));
-  background: red;
 }
