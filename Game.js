@@ -297,7 +297,7 @@ class Game {
         this.sound = new Sound();
         this.emojiMap = new Map();
         let unicodeVersion = this.detectEmojiVersion();
-        Util.twemoji = unicodeVersion < 13;
+        Util.twemoji = unicodeVersion < 14;
         console.log('UNICODE VERSION: ' + unicodeVersion);
         this.start();
     }

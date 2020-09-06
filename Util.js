@@ -21,7 +21,9 @@ class Util {
         canvas.height = size + (size / 8) + 20;
         canvas.width = size * 1.4 + 10;
         let ctx = canvas.getContext('2d');
-        ctx.font = `${size}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
+        //ctx.font = `${size}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
+        // TODO: We could try once to render at actual size, then fall back on 250px.
+        ctx.font = `${Util.twemoji && size < 250? size : 250}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
         ctx.textBaseline = 'bottom';
         if (fill) ctx.fillStyle = 'red';
         ctx.fillText(emojiText, 5, canvas.height - 5);
