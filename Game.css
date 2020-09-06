@@ -97,6 +97,7 @@ span {
   text-align: center;
   background-color: #2d2022;
   margin: 1px;
+  cursor: var(--➕);
 }
 #items {
   width: 463px;
@@ -127,6 +128,7 @@ span {
   width: 410px;
   font-size: 0px;
   font-family: "Apple Color Emoji", "Segoe UI Emoji";
+  cursor: var(--➕);
 }
 #commands span {
   background-color: #2d2022;
