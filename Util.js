@@ -1,6 +1,11 @@
 class Util {
 
     /**
+     * Whether the Twemoji font is active or not.
+     */
+    static twemoji = false;
+
+    /**
      * Renders the given emoji text at that given font size on a canvas. Returns that canvas.
      * 
      * @param {string} emojiText The emoji text to render.
@@ -10,16 +15,15 @@ class Util {
      * 
      * @returns The created canvas with the rendered emoji text at the given font size.
      */
-    static renderEmoji(emojiText, width, height, flip=false) {
+    static renderEmoji(emojiText, width, height, flip=false, fill=true) {
         let size = Math.max(width, height);
         let canvas = document.createElement('canvas');
         canvas.height = size + (size / 8) + 20;
         canvas.width = size * 1.4 + 10;
         let ctx = canvas.getContext('2d');
-        ctx.font = `${size}px Segoe UI Emoji`;
-        //ctx.font = `${size}px twemoji`;
+        ctx.font = `${size}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
         ctx.textBaseline = 'bottom';
-        ctx.fillStyle = 'red';
+        if (fill) ctx.fillStyle = 'red';
         ctx.fillText(emojiText, 5, canvas.height - 5);
 
         // On Windows, this reduces the thick black edges.
@@ -89,12 +93,16 @@ class Util {
                 spread = true;
             }
             else if ((red == 0) && (green == 0) && (blue == 0)) {
-                imgData.data[pos + 3] = 0;
-                spread = true;
+                if (!Util.twemoji) {
+                    imgData.data[pos + 3] = 0;
+                    spread = true;
+                }
             }
             else if (brightness < 70) {
-                imgData.data[pos + 3] = Math.round(brightness * (255 / 70));
-                spread = true;
+                if (!Util.twemoji) {
+                    imgData.data[pos + 3] = Math.round(brightness * (255 / 70));
+                    spread = true;
+                }
             }
 
             if (spread) {

@@ -219,7 +219,7 @@ class Game {
         [ 27,  0, 'mechanic',          '👩‍🔧', 200, 150,  1340, 450, , 1002 ],
 
         // Room 7 - Castle gates
-        [ 7,  30, 'castle',            '🏰', 600, 600,   180,  620, , , 28 ],
+        [ 7,  30, 'castle',            '🏰', 600, 400,   180,  620, , , 28 ],
         [ 7,   2, 'tree',              '🌲', 300, 300,   -150, 650 ],
         [ 7,   2, 'tree',              '🌲', 300, 300,   810,  650 ],
 
@@ -296,8 +296,9 @@ class Game {
         this.logic = new Logic(this);
         this.sound = new Sound();
         this.emojiMap = new Map();
-        this.unicodeVersion = this.detectEmojiVersion();
-        console.log('UNICODE VERSION: ' + this.unicodeVersion);
+        let unicodeVersion = this.detectEmojiVersion();
+        Util.twemoji = unicodeVersion < 13;
+        console.log('UNICODE VERSION: ' + unicodeVersion);
         this.start();
     }
 
@@ -306,7 +307,7 @@ class Game {
      */
     detectEmojiVersion() {
         // These chars are from different Unicode version, starting at 6.
-        return [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50)[2]? 1 : 0), 5);
+        return [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
     }
 
     /**
