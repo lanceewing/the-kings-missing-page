@@ -447,8 +447,8 @@ x-sprite canvas {
   content: '';
   position: absolute;
   width: 60px;
-  top: 348px;
-  height:76px;
+  top: 225px;
+  height: 200px;
   cursor: var(--c, var(--🡰));
 }
 #screen.right:after {
@@ -456,7 +456,7 @@ x-sprite canvas {
   content: '';
   position: absolute;
   width: 60px;
-  top: 348px;
-  height: 76px;
+  top: 225px;
+  height: 200px;
   cursor: var(--c, var(--🡲));
 }
