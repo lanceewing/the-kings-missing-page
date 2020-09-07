@@ -23,7 +23,7 @@ class Util {
         let ctx = canvas.getContext('2d');
         //ctx.font = `${size}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
         // TODO: We could try once to render at actual size, then fall back on 250px.
-        ctx.font = `${Util.twemoji && size < 250? size : 250}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
+        ctx.font = `${!Util.twemoji || size < 250? size : 250}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
         ctx.textBaseline = 'bottom';
         if (fill) ctx.fillStyle = 'red';
         ctx.fillText(emojiText, 5, canvas.height - 5);
@@ -126,4 +126,16 @@ class Util {
 
         return [minX, minY, maxX, maxY];
     }
+
+    /**
+     * Detects what Emoji Unicode version is available by default.
+     */
+    static detectEmojiVersion() {
+        // These chars are from different Unicode version, starting at 6.
+        let unicodeVersion = [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
+        if (Util.twemoji = unicodeVersion < 13) document.body.classList.add('twemoji');
+        console.log('UNICODE VERSION: ' + unicodeVersion);
+    }
 }
+
+Util.detectEmojiVersion();

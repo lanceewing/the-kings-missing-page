@@ -13,23 +13,13 @@
 */
 /* Twemoji COLR vector format. Works on Windows Chrome, Firefox and Edge. */
 @font-face { 
-  font-family: "twemoji"; 
-  /*src: url('./fonts/TwemojiMozilla.ttf') format("truetype");*/
+  font-family: "twemoji";
   src: url('https://lanceewing.github.io/twemoji.ttf');
 }
-/* EmojiOne works in Firefox but not Chrome or Edge. Seems out of date.
-@font-face{
-  font-family:"emojione";
-  src:url("./fonts/emojione-svg.woff") format("woff"),
-  url("./fonts/emojione-svg.otf") format("opentype");
+/* The browser will not download the twemoji font unless the twemoji class is present. */
+.twemoji #controls {
+  font-family: "twemoji";
 }
-*/
-/* NotoColorEmoji works in Chrome and Edge, but not Firefox 
-@font-face {
-  font-family: "NotoColorEmoji";
-  src:url("./fonts/NotoColorEmoji.ttf") format("truetype");
-}
-*/
 *, *::before, *::after {
   box-sizing: border-box;
   user-select: none;
@@ -79,7 +69,7 @@ span {
 #controls {
   background-color: black;
   height: 82px;
-  font-family: "twemoji", "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: "Apple Color Emoji", "Segoe UI Emoji";
 }
 #controls span:hover, #itemlist div:hover {
   color: hsl(210, 100%, 40%);
@@ -197,10 +187,10 @@ x-sprite canvas {
   height: 100%;
   transform: rotateY(0deg); 
 }
-x-sprite.castle {
+x-sprite.bldg {
   overflow: hidden;
 }
-x-sprite.castle canvas {
+.twemoji x-sprite.bldg canvas {
   height: 105%;
 }
 .dark {

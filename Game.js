@@ -296,18 +296,7 @@ class Game {
         this.logic = new Logic(this);
         this.sound = new Sound();
         this.emojiMap = new Map();
-        let unicodeVersion = this.detectEmojiVersion();
-        Util.twemoji = unicodeVersion < 14;
-        console.log('UNICODE VERSION: ' + unicodeVersion);
         this.start();
-    }
-
-    /**
-     * Detects what Emoji Unicode version is available by default.
-     */
-    detectEmojiVersion() {
-        // These chars are from different Unicode version, starting at 6.
-        return [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
     }
 
     /**
