@@ -246,7 +246,7 @@ class Logic {
       case 'Look at':
         switch (thing) {
           case 'letter':
-            ego.say("It's a commission from the King asking you to find his missing page boy.");
+            ego.say("It's a commission from the King asking me to find his missing page boy.");
             break;
           case 'wastebasket':
             if (game.hasItem('syringe')) {
@@ -317,196 +317,173 @@ class Logic {
         break;
       
       case 'Use':
-        if (cmd == verb) {
-          // Using items will add the ' with ' word to the sentence.
-          if (game.hasItem(thing)) {
-            newCommand = 'Use ' + thing + ' with ';
-          } else {
-            switch (thing) {
-              case 'bellhop':
-                if (!game.actor) {
-                  game.addPropToRoom([ 19, 0, 'hotel_clerk', '🤵', 200, 150, 3260, 450, , 1002 ]);
-                  game.actor.say("Can I help you?");
+        let useFn = () => {
+          let thing1 = cmd.substring(4, cmd.indexOf(' with '));
+          let things = [thing, thing1].sort().join();
+          switch (things) {
+            case 'rose,tulip':
+              if (game.hasItem('rose') && game.hasItem('tulip')) {
+                game.getItem('bouquet', '💐');
+                game.dropItem('tulip');
+                game.dropItem('rose');
+                ego.say("I made a bouquet.");
+              } else {
+                ego.say("I should pick them both up first.", 200);
+              }
+              break;
+            case 'fountain,water pistol':
+              if (flags[2]) {
+                ego.say("It's already full.", 200);
+              } else {
+                ego.say("The pistol now contains water.");
+                flags[2] = 1;
+              }
+              break;
+            case 'bouquet,bride':
+              game.dropItem('bouquet');
+              game.actor.say('Thanks. Take my lipstick.');
+              game.getItem('lipstick');
+              break;
+            case 'briefcase,office worker':
+              game.dropItem('briefcase');
+              game.actor.say('Thanks. Take my circus ticket.');
+              game.getItem('ticket');
+              break;
+            case 'clown,lipstick':
+              game.dropItem('lipstick');
+              game.actor.say("Thanks. Take my mask.");
+              game.getItem('mask');
+              break;
+            case 'blood,doctor':
+              game.actor.say("I'm sorry, vampire blood isn't my thing.");
+              break;
+            case 'cash,salesperson':
+              if (game.hasItem('compass')) {
+                game.actor.say("I have nothing to sell.");
+              } else {
+                game.actor.say("Here's your compass.");
+                game.getItem('compass');
+              }
+              break;
+            case 'cash,cashier':
+              if (game.hasItem('banana')) {
+                game.actor.say("I only have bananas to sell.");
+              } else {
+                game.actor.say("Here's your banana.");
+                game.getItem('banana');
+              }
+              break;
+            case 'bank card,cashier':
+            case 'bank card,salesperson':
+              game.actor.say("We only take cash.");
+              break;
+            case 'chipmunk,coconut':
+              game.dropItem('coconut');
+              ego.say("The chipmunk took the coconut and ran away.");
+              obj.propData[0] = -1;
+              game.remove(obj);
+              flags[6] = 1;
+              break;
+            case 'banana,feeding hole':
+              let bananaProps = [ 4, 2, 'banana', '🍌', 30, 30, 1125, 640, , 651 ];
+              game.dropItem('banana');
+              game.props.push(bananaProps);
+              game.addPropToRoom(bananaProps);
+              flags[5] = 1;
+              break;
+            case 'candy,moai statue':
+              if (flags[3]) { // Statues are awake.
+                game.dropItem('candy');
+                obj.say("Mmmm... yummy. Here, take this amulet.");
+                game.getItem('amulet', '🧿');
+              } else {
+                ego.say("They're asleep.");
+              }
+              break;
+            case 'syringe,vampire':
+              if (game.hasItem('blood')) {
+                game.actor.say("You already have my blood.");
+              } else {
+                game.actor.say("Sure, take my blood. Please find a cure.");
+                game.getItem('blood', '🩸');
+              }
+              break;
+            case 'blood,scientist':
+              game.dropItem('blood');
+              game.actor.say("Here, this is the cure.");
+              game.getItem('test tube', '🧪');
+              break;
+            case 'bellhop,moai statue':
+              if (flags[3]) {
+                ego.say("They're already awake.");
+              } else {
+                ego.say("The bell sound woke them up.");
+                flags[3] = 1;
+              }
+              break;
+            case 'family,water pistol':
+              if (game.hasItem('candy')) {
+                ego.say("I already have candy.");
+              } else if (flags[2]) {
+                if (game.hasItem('mask')) {
+                  game.actor.say("Here's some candy.");
+                  game.getItem('candy');
                 } else {
-                  game.actor.say("I'm already here.");
+                  game.actor.say("You're not dressed up!");
                 }
-                break;
-              default:
-                ego.say("I can't use that.", 250);
-                break;
-            }
-          }
-        } else {
-          // If verb doesn't equal cmd, it means that it is a scenario where an item
-          // is being used with something.
-          let useFn = () => {
-            let thing1 = cmd.substring(4, cmd.indexOf(' with '));
-            let things = [thing, thing1].sort().join();
-            switch (things) {
-              case 'rose,tulip':
-                if (game.hasItem('rose') && game.hasItem('tulip')) {
-                  game.getItem('bouquet', '💐');
-                  game.dropItem('tulip');
-                  game.dropItem('rose');
-                  ego.say("I made a bouquet.");
-                } else {
-                  ego.say("I should pick them both up first.", 200);
-                }
-                break;
-              case 'fountain,water pistol':
-                if (flags[2]) {
-                  ego.say("It's already full.", 200);
-                } else {
-                  ego.say("The pistol now contains water.");
-                  flags[2] = 1;
-                }
-                break;
-              case 'bouquet,bride':
-                game.dropItem('bouquet');
-                game.actor.say('Thanks. Take my lipstick.');
-                game.getItem('lipstick');
-                break;
-              case 'briefcase,office worker':
-                game.dropItem('briefcase');
-                game.actor.say('Thanks. Take my circus ticket.');
-                game.getItem('ticket');
-                break;
-              case 'clown,lipstick':
-                game.dropItem('lipstick');
-                game.actor.say("Thanks. Take my mask.");
-                game.getItem('mask');
-                break;
-              case 'blood,doctor':
-                game.actor.say("I'm sorry, vampire blood isn't my thing.");
-                break;
-              case 'cash,salesperson':
-                if (game.hasItem('compass')) {
-                  game.actor.say("I have nothing to sell.");
-                } else {
-                  game.actor.say("Here's your compass.");
-                  game.getItem('compass');
-                }
-                break;
-              case 'cash,cashier':
-                if (game.hasItem('banana')) {
-                  game.actor.say("I only have bananas to sell.");
-                } else {
-                  game.actor.say("Here's your banana.");
-                  game.getItem('banana');
-                }
-                break;
-              case 'bank card,cashier':
-              case 'bank card,salesperson':
-                game.actor.say("We only take cash.");
-                break;
-              case 'chipmunk,coconut':
-                game.dropItem('coconut');
-                ego.say("The chipmunk took the coconut and ran away.");
-                obj.propData[0] = -1;
-                game.remove(obj);
-                flags[6] = 1;
-                break;
-              case 'banana,feeding hole':
-                let bananaProps = [ 4, 2, 'banana', '🍌', 30, 30, 1125, 640, , 651 ];
-                game.dropItem('banana');
-                game.props.push(bananaProps);
-                game.addPropToRoom(bananaProps);
-                flags[5] = 1;
-                break;
-              case 'candy,moai statue':
-                if (flags[3]) { // Statues are awake.
-                  game.dropItem('candy');
-                  obj.say("Mmmm... yummy. Here, take this amulet.");
-                  game.getItem('amulet', '🧿');
-                } else {
-                  ego.say("They're asleep.");
-                }
-                break;
-              case 'syringe,vampire':
-                if (game.hasItem('blood')) {
-                  game.actor.say("You already have my blood.");
-                } else {
-                  game.actor.say("Sure, take my blood. Please find a cure.");
-                  game.getItem('blood', '🩸');
-                }
-                break;
-              case 'blood,scientist':
-                game.dropItem('blood');
-                game.actor.say("Here, this is the cure.");
-                game.getItem('test tube', '🧪');
-                break;
-              case 'bellhop,moai statue':
-                if (flags[3]) {
-                  ego.say("They're already awake.");
-                } else {
-                  ego.say("The bell sound woke them up.");
-                  flags[3] = 1;
-                }
-                break;
-              case 'family,water pistol':
-                if (game.hasItem('candy')) {
-                  ego.say("I already have candy.");
-                } else if (flags[2]) {
-                  if (game.hasItem('mask')) {
-                    game.actor.say("Here's some candy.");
-                    game.getItem('candy');
-                  } else {
-                    game.actor.say("You're not dressed up!");
-                  }
-                } else {
-                  ego.say("It doesn't have water.");
-                }
-                break;
-              case 'bank card,bank teller':
-                if (game.hasItem('cash')) {
-                  ego.say("I already have enough cash.");
-                } else {
-                  game.actor.say("Here's your cash.");
-                  game.getItem('cash');
-                }
-                break;
-              case 'test tube,vampire':
-                // End game sequence.
-                game.inputEnabled = false;
-                game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
-                  game.actor.say("It tastes... strange...", 350, () => {
-                    game.actor.say("I feel... something...", 350, () => {
-                      game.actor.render('👦');
-                      game.actor.say("I'm normal again!!", 300, () => {
-                        game.room = 7;
-                        ego.edge
-                        game.fadeOut(game.wrap);
-                        setTimeout(() => {
-                          game.inside = 0;
-                          game.newRoom();
-                          ego.say("I have returned the page boy to the castle.", 200, () => {
-                            ego.say("Thank you for helping me to solve the case.", 200, () => {
-                              ego.say("Well done!!!", 200, () => {
-                                setTimeout(() => location.reload(), 3000);
-                              });
+              } else {
+                ego.say("It doesn't have water.");
+              }
+              break;
+            case 'bank card,bank teller':
+              if (game.hasItem('cash')) {
+                ego.say("I already have enough cash.");
+              } else {
+                game.actor.say("Here's your cash.");
+                game.getItem('cash');
+              }
+              break;
+            case 'test tube,vampire':
+              // End game sequence.
+              game.inputEnabled = false;
+              game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
+                game.actor.say("It tastes... strange...", 350, () => {
+                  game.actor.say("I feel... something...", 350, () => {
+                    game.actor.render('👦');
+                    game.actor.say("I'm normal again!!", 300, () => {
+                      game.room = 7;
+                      ego.edge
+                      game.fadeOut(game.wrap);
+                      setTimeout(() => {
+                        game.inside = 0;
+                        game.newRoom();
+                        ego.say("I have returned the page boy to the castle.", 200, () => {
+                          ego.say("Thank you for helping me to solve the case.", 200, () => {
+                            ego.say("Well done!!!", 200, () => {
+                              setTimeout(() => location.reload(), 3000);
                             });
                           });
-                        }, 200);
-                      });
+                        });
+                      }, 200);
                     });
                   });
                 });
-                break;
-              default:
-                ego.say("Hmmm, that didn't work.");
-                break;
-            }
+              });
+              break;
+            default:
+              ego.say("Hmmm, that didn't work.");
+              break;
           }
-
-          // Execute Use command for two objects, with movement when outside.
-          if (game.inside || !obj) {
-            useFn();
-          } else {
-            ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, useFn));
-          }
-
-          newCommand = verb;
         }
+
+        // Execute Use command for two objects, with movement when outside.
+        if (game.inside || !obj) {
+          useFn();
+        } else {
+          ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, useFn));
+        }
+
+        newCommand = verb;
         break;
 
       default:

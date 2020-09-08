@@ -92,7 +92,7 @@ span {
   cursor: var(--➕);
 }
 #items {
-  width: 463px;
+  width: 545px;
   height: 82px;
   background-color: #2d2022;;
   margin: 1px;
@@ -116,7 +116,7 @@ span {
   font-size: 40px;
 }
 #commands {
-  width: 410px;
+  width: 328px;
   font-size: 0px;
   cursor: var(--➕);
 }

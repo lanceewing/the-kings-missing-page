@@ -125,6 +125,7 @@ class Game {
 
         // Room 19 - In hotel
         [ 19, 1, 'bellhop',            '🛎',  40,  40,    3260,  670, , 1002 ],
+        [ 19, 0, 'hotel_clerk',        '🤵', 200, 150,    3260,  450, , 1002 ],
 
         // Room 3 - House row
         [ 3, 30, 'house',              '🏠', 400, 400,   330, 700, , , 20 ],
@@ -328,10 +329,12 @@ class Game {
         });
 
         // Initalise the mouse cursors.
+        // Note: Firefox ignores custom cursors bigger than 32x32 when near the Window edge.
+        let cursorSize = navigator.userAgent.match(/Firefox/)? 32 : 50;
         this.cursors = {};
         ['🚶','🤚🏼','🡱','💬','🡳','⏳','🡴','👁','🡰','➕','🡵','🤏🏼','🡲','❔','🡷','🔍','🡶'].forEach((c,i) => {
-            let hsy = [49,25][i%2];
-            this.cursors[c] = `url(${Util.renderEmoji(c, 50, 50)[0].toDataURL()}) 25 ${hsy}, auto`;
+            let hsy = [cursorSize-1, cursorSize/2][i%2];
+            this.cursors[c] = `url(${Util.renderEmoji(c, cursorSize, cursorSize)[0].toDataURL()}) ${cursorSize/2} ${hsy}, auto`;
             document.body.style.setProperty(`--${c}`, this.cursors[c]);
         });
         this.verbIcon = '🚶';
@@ -642,13 +645,13 @@ class Game {
         // We only add the wall if the room type says there is one.
         if (((prop[2] == 'wall') && !(this.roomData[0] & 0x01)) || 
             ((prop[2] == 'left_path') && !this.roomData[3]) || 
-            ((prop[2] == 'right_path') && !this.roomData[5])) {
+            ((prop[2] == 'right_path') && !this.roomData[5]) || 
+            ((prop[2] == 'hotel_clerk') && (Math.random() < 0.5))) {
             return;
         }
 
         // Banana in elephant feeding hole, chipmunk gone, so move the elephant position.
         if ((prop[2] == 'elephant') && this.flags[5] && this.flags[6]) {
-            // [ 4, 130, 'elephant',          '🐘', 200, 200,   875, 600 ],
             this.flags[4] = 1;
             prop[6] = 875;
             prop[11] = null;
@@ -802,7 +805,7 @@ class Game {
     scrollInv(dir) {
         let newLeft = this.itemsLeft + (77 * dir);
         let invCount = this.items.children.length;
-        if ((newLeft <= 0) && (newLeft >= -((invCount - 6) * 77))) {
+        if ((newLeft <= 0) && (newLeft >= -((invCount - 7) * 77))) {
             this.itemsLeft = newLeft;
             this.items.style.left = this.itemsLeft + 'px';
         }
