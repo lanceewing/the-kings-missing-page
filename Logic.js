@@ -455,6 +455,7 @@ class Logic {
                       ego.edge
                       game.fadeOut(game.wrap);
                       setTimeout(() => {
+                        ego.setPosition(ego.x, ego.z-544);
                         game.inside = 0;
                         game.newRoom();
                         ego.say("I have returned the page boy to the castle.", 200, () => {
