@@ -36,7 +36,7 @@ class Actor extends Sprite {
     this.heading = null;
     this.cell = 0;
 
-    if (this.destFn) {
+    if (this.destFn && !fully) {
       this.destFn();
       this.destFn = null;
     }
