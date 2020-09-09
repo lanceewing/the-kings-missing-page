@@ -97,7 +97,6 @@ class Game {
 
         // Room 15 - In building site
         [ 15,  0, 'builder',           '👷', 200, 150, 4220, 450, , 1002 ],
-        [ 15,  1, 'explosive',         '🧨', 40,  40,  4220, 670, , 1002 ],
 
         // Room 2 - Main street south
         [ 2,  2, 'tree',               '🌴', 300, 300,   50,    825, 30 ],
