@@ -95,13 +95,13 @@ class Util {
                 spread = true;
             }
             else if ((red == 0) && (green == 0) && (blue == 0)) {
-                if (!Util.twemoji) {
+                if (Util.WIN) {
                     imgData.data[pos + 3] = 0;
                     spread = true;
                 }
             }
             else if (brightness < 70) {
-                if (!Util.twemoji) {
+                if (Util.WIN) {
                     imgData.data[pos + 3] = Math.round(brightness * (255 / 70));
                     spread = true;
                 }
@@ -132,9 +132,10 @@ class Util {
      */
     static detectEmojiVersion() {
         // These chars are from different Unicode version, starting at 6.
-        let unicodeVersion = [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
-        if (Util.twemoji = unicodeVersion < 13) document.body.classList.add('twemoji');
-        console.log('UNICODE VERSION: ' + unicodeVersion);
+        //let unicodeVersion = [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
+        //if (Util.twemoji = unicodeVersion < 13) document.body.classList.add('twemoji');
+        if (Util.twemoji = !Util.renderEmoji('🩸', 100, 100, 0, 0)[2]) document.body.classList.add('twemoji');
+        Util.WIN = navigator.platform.indexOf('Win') > -1;
     }
 }
 
