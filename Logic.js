@@ -124,7 +124,7 @@ class Logic {
 
           case 'woods':
             if (flags[4]) {
-              if (game.hasItem('compass') && game.hasItem('map')) {
+              if (game.hasItem('map')) {
                 game.inputEnabled = false;
                 ego.stop();
                 ego.moveTo(210, 740);
@@ -132,7 +132,7 @@ class Logic {
                 ego.moveTo(70, 555);
                 ego.moveTo(-50, 555);
               } else {
-                ego.say("I might get lost in the woods. I need a map and compass.");
+                ego.say("I might get lost in the woods. I need a map.");
               }
             } else {
               ego.say("The elephant blocks my way.");
@@ -248,14 +248,6 @@ class Logic {
           case 'letter':
             ego.say("It's a commission from the King asking me to find his missing page boy.");
             break;
-          case 'wastebasket':
-            if (game.hasItem('syringe')) {
-              ego.say("It's empty.");
-            } else {
-              ego.say("Syringe is inside.");
-              game.getItem('syringe', '💉');
-            }
-            break;
           case 'water pistol':
             ego.say(flags[2]? "It contains water." : "It is empty.");
             break;
@@ -358,11 +350,11 @@ class Logic {
               game.actor.say("I'm sorry, vampire blood isn't my thing.");
               break;
             case 'cash,salesperson':
-              if (game.hasItem('compass')) {
+              if (game.hasItem('syringe')) {
                 game.actor.say("I have nothing to sell.");
               } else {
-                game.actor.say("Here's your compass.");
-                game.getItem('compass');
+                game.actor.say("Here's your syringe.");
+                game.getItem('syringe');
               }
               break;
             case 'cash,cashier':
