@@ -369,9 +369,9 @@ class Logic {
             case 'bank card,salesperson':
               game.actor.say("We only take cash.");
               break;
-            case 'chipmunk,coconut':
-              game.dropItem('coconut');
-              ego.say("The chipmunk took the coconut and ran away.");
+            case 'chipmunk,palm nut':
+              game.dropItem('palm nut');
+              ego.say("The chipmunk took the palm nut and ran away.");
               obj.propData[0] = -1;
               game.remove(obj);
               flags[6] = 1;
