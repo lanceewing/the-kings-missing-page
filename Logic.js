@@ -60,9 +60,9 @@ class Logic {
             game.actor.say("Happy Halloween!");
             break;
           case 'body':
-            game.actor.say("I used to be a Page Boy for the King."), 450, () => {
+            game.actor.say("I used to be a Page Boy for the King.", 450, () => {
               game.actor.say("Then the goblin did something to me.", 500);
-            };
+            });
             break;
           case 'goblin':
             game.actor.say("The Page Boy? Yes, I saw him.", 400, () => {
@@ -386,7 +386,7 @@ class Logic {
                 ego.say("They're asleep.");
               }
               break;
-            case 'syringe,body':
+            case 'body,syringe':
               if (game.hasItem('blood')) {
                 game.actor.say("You already have my blood.");
               } else {
