@@ -59,18 +59,15 @@ class Logic {
           case 'family':
             game.actor.say("Happy Halloween!");
             break;
-          case 'vampire':
+          case 'body':
             game.actor.say("I used to be a Page Boy for the King."), 450, () => {
-              game.actor.say("Then the goblin turned me into a vampire.", 500);
+              game.actor.say("Then the goblin did something to me.", 500);
             };
             break;
           case 'goblin':
             game.actor.say("The Page Boy? Yes, I saw him.", 400, () => {
               game.actor.say("Told me some bad news, so I taught him a lesson.");
             });
-            break;
-          case 'scientist':
-            game.actor.say("I specialise in the study of blood.", 400);
             break;
           case 'sheep':
             e.target.parentNode.say("Baaaaa!");
@@ -219,7 +216,7 @@ class Logic {
                   ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.x, 740, pickup));
                 } else {
                   // Inside room.
-                  if (obj.propData[0] == 12 || obj.propData[0] == 31 || obj.propData[0] == 28)  {
+                  if (obj.propData[0] == 31 || obj.propData[0] == 28)  {
                     // In my house, castle and the hospital ego can pick the items without constraint.
                     pickup();
                   }
@@ -346,9 +343,6 @@ class Logic {
               game.actor.say("Thanks. Take my mask.");
               game.getItem('mask');
               break;
-            case 'blood,doctor':
-              game.actor.say("I'm sorry, vampire blood isn't my thing.");
-              break;
             case 'cash,salesperson':
               if (game.hasItem('syringe')) {
                 game.actor.say("I have nothing to sell.");
@@ -392,18 +386,19 @@ class Logic {
                 ego.say("They're asleep.");
               }
               break;
-            case 'syringe,vampire':
+            case 'syringe,body':
               if (game.hasItem('blood')) {
                 game.actor.say("You already have my blood.");
               } else {
                 game.actor.say("Sure, take my blood. Please find a cure.");
-                game.getItem('blood', '🩸');
+                game.dropItem('syringe');
+                game.getItem('blood', '💉');
               }
               break;
-            case 'blood,scientist':
+            case 'blood,doctor':
               game.dropItem('blood');
               game.actor.say("Here, this is the cure.");
-              game.getItem('test tube', '🧪');
+              game.getItem('pill', '💊');
               break;
             case 'bellhop,moai statue':
               if (flags[3]) {
@@ -435,7 +430,7 @@ class Logic {
                 game.getItem('cash');
               }
               break;
-            case 'test tube,vampire':
+            case 'pill,body':
               // End game sequence.
               game.inputEnabled = false;
               game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
