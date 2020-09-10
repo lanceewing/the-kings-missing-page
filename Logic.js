@@ -45,7 +45,7 @@ class Logic {
             break;
           case 'moai statue':
             if (flags[3]) {
-              if (game.hasItem("amulet")) {
+              if (game.hasItem("magic ring")) {
                 ego.say("They're ignorning me now.");
               } else {
                 obj.say("We're hungry!");
@@ -160,7 +160,7 @@ class Logic {
               if ((thing == 'circus') && !game.hasItem('ticket')) {
                 ego.say("I need a ticket.");
               }
-              else if ((thing == 'coffin') && !game.hasItem('amulet')) {
+              else if ((thing == 'coffin') && !game.hasItem('magic ring')) {
                 ego.say("Magic is stopping me opening the coffin.");
               } 
               else {
@@ -394,8 +394,8 @@ class Logic {
             case 'candy,moai statue':
               if (flags[3]) { // Statues are awake.
                 game.dropItem('candy');
-                obj.say("Mmmm... yummy. Here, take this amulet.");
-                game.getItem('amulet', '🧿');
+                obj.say("Mmmm... yummy. Here, take this magic ring.");
+                game.getItem('magic ring', '💍');
               } else {
                 ego.say("They're asleep.");
               }
