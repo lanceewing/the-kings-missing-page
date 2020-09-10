@@ -106,7 +106,6 @@ span {
   transition: left 100ms ease-in-out;
 }
 #itemlist span {
-  background-color: #2d2022;
   width: 75px;
   margin: 1px;
   height: 80px;
@@ -454,4 +453,7 @@ x-sprite.bldg {
   top: 225px;
   height: 200px;
   cursor: var(--c, var(--🡲));
+}
+[data-name='syringe'] {
+  filter: grayscale();
 }
