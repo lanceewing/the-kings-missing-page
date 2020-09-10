@@ -430,7 +430,7 @@ class Logic {
                 game.getItem('cash');
               }
               break;
-            case 'pill,body':
+            case 'body,pill':
               // End game sequence.
               game.inputEnabled = false;
               game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
