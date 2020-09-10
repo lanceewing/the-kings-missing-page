@@ -239,8 +239,8 @@ class Game {
         // Room 29 - In coffin
         [ 29, 0, 'vampire',            '🧛', 200, 150,   380,  450, , 1002 ],
 
-        // Room 30 - In wizard's house
-        [ 30, 0, 'wizard',             '🧙', 200, 150,   860, 450, , 1002 ],
+        // Room 30 - In goblin's house
+        [ 30, 0, 'goblin',             '👺', 200, 150,   860, 450, , 1002 ],
         [ 30, 1, 'crystal_ball',       '🔮', 40,  40,    860, 670, , 1002 ],
 
         // Room 9 - Main street south east
@@ -385,7 +385,7 @@ class Game {
         this.ego.say("Hello!!", 100, () => {
             this.ego.say("I'm detective Pip.", 250, () => {
                 this.ego.say("The King has commissioned me to find his missing Page Boy.", 300, () => {
-                    this.ego.say("He was on his way to deliver a message to The Wizard...", 300, () => {
+                    this.ego.say("He was on his way to deliver a message to The Goblin...", 300, () => {
                         this.ego.moveTo(300, 740, () => {
                             this.ego.say("...but went missing in the woods to the west.", 300, () => {
                                 this.ego.moveTo(300, 800, () => {

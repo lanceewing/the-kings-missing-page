@@ -61,10 +61,10 @@ class Logic {
             break;
           case 'vampire':
             game.actor.say("I used to be a Page Boy for the King."), 450, () => {
-              game.actor.say("Then the wizard turned me into a vampire.", 500);
+              game.actor.say("Then the goblin turned me into a vampire.", 500);
             };
             break;
-          case 'wizard':
+          case 'goblin':
             game.actor.say("The Page Boy? Yes, I saw him.", 400, () => {
               game.actor.say("Told me some bad news, so I taught him a lesson.");
             });
