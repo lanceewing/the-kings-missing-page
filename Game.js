@@ -563,8 +563,6 @@ class Game {
      * Invoked when Ego is entering a room.  
      */
     newRoom() {
-        console.time('newRoom');
-
         // All main rooms are outside,
         this.inside = 0;
 
@@ -578,17 +576,14 @@ class Game {
         this.screen.style.setProperty('--screen-width', `${this.roomData[1]}px`);
 
         // Add props
-        console.time("addProps");
         this.props.forEach(prop => {
             // If prop is in the current room, or in room 0 (i.e. all rooms)...
             if ((prop[0] == this.room) || (prop[0] == 0)) this.addPropToRoom(prop);
         });
-        console.timeEnd("addProps");
 
         // Add tree row, if required.
         // TODO: Do we need to create the Sprite every time?
         if (this.roomData[0] & 2) {
-            console.time('buildTrees');
             let treeSize = this.roomData[0] & 4? 100 : 200;
             for (let x=0; x < this.roomData[1]; x += treeSize) {
                 this.addPropToRoom([ 0, 0x4A, 'trees', '🌲', treeSize, treeSize, x, 400 ]);
@@ -596,7 +591,6 @@ class Game {
             for (let x=-treeSize/2; x < this.roomData[1]; x += treeSize) {
                 this.addPropToRoom([ 0, 10, 'trees', '🌲', treeSize, treeSize, x, 450 ]);
             }
-            console.timeEnd('buildTrees');
         }
         if (this.roomData[0] & 8) {
             for (let x=0; x < this.roomData[1]; x += 300) {
@@ -626,8 +620,6 @@ class Game {
 
         this.fadeIn(this.wrap);
         this.fadeIn(this.ego);
-
-        console.timeEnd('newRoom');
     }
 
     /**
@@ -636,8 +628,6 @@ class Game {
      * @param {Array} prop 
      */
     addPropToRoom(prop) {
-        console.time('addProp_'+prop[2]);
-
         // Room type, room width, left, left path, road crossing, right path, right
 
         // We only add the wall if the room type says there is one.
@@ -718,8 +708,6 @@ class Game {
         this.add(obj);
 
         this.addObjEventListeners(obj);
-
-        console.timeEnd('addProp_'+prop[2]);
     }
 
     /**
