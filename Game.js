@@ -566,6 +566,11 @@ class Game {
         // All main rooms are outside,
         this.inside = 0;
 
+        // Reset command for new room.
+        this.thing = '';
+        this.command = this.verb = 'Walk to';
+        this.verbIcon = '🚶';
+
         // Remove the previous room's Objs from the screen.
         this.objs.forEach(obj => this.screen.removeChild(obj));
         this.objs = [];
