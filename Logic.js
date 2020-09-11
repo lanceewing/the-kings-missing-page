@@ -59,7 +59,7 @@ class Logic {
           case 'family':
             game.actor.say("Happy Halloween!");
             break;
-          case 'body':
+          case 'boy':
             game.actor.say("I used to be a Page Boy for the King.", 450, () => {
               game.actor.say("Then the goblin did something to me.", 500);
             });
@@ -386,7 +386,7 @@ class Logic {
                 ego.say("They're asleep.");
               }
               break;
-            case 'body,syringe':
+            case 'boy,syringe':
               if (game.hasItem('blood')) {
                 game.actor.say("You already have my blood.");
               } else {
@@ -430,7 +430,7 @@ class Logic {
                 game.getItem('cash');
               }
               break;
-            case 'body,pill':
+            case 'boy,pill':
               // End game sequence.
               game.inputEnabled = false;
               game.actor.say("An antidote? Really? Thank you so much!", 450, () => {
