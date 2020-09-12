@@ -62,7 +62,7 @@ span {
   font-size: 40px;
   height: 80px;
   width: 40px;
-  line-height: 90px;
+  line-height: 75px;
   text-align: center;
   background-color: #2d2022;
   margin: 1px;
@@ -79,7 +79,6 @@ span {
 #itemlist {
   position: absolute;
   left: 0px;
-  padding: 5px 4px 2px 0px;
   width: 2000px;
   transition: left 100ms ease-in-out;
 }
