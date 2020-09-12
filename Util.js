@@ -121,3 +121,4 @@ class Util {
 }
 
 Util.WIN = navigator.platform.indexOf('Win') > -1;
+Util.MAC = navigator.platform.indexOf('Mac') > -1;
