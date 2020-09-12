@@ -38,7 +38,6 @@ class Util {
         emojiCanvas.width = width;
         emojiCanvas.height = height;
         let emojiCtx = emojiCanvas.getContext('2d');
-        let exists = false;
         if (newWidth > 0 && newHeight > 0) {
             emojiCtx.shadowColor = "black";
             emojiCtx.shadowBlur = 3;
@@ -51,10 +50,9 @@ class Util {
                 minX-1, minY-1, newWidth, newHeight,
                 0, 0, width, height,
             );
-            exists = true;
         }
 
-        return [ emojiCanvas, emojiCtx.getImageData(0, 0, width, height), exists ];
+        return [ emojiCanvas, emojiCtx.getImageData(0, 0, width, height) ];
     }
 
     /**
@@ -131,10 +129,14 @@ class Util {
      * Detects what Emoji Unicode version is available by default.
      */
     static detectEmojiVersion() {
-        // These chars are from different Unicode version, starting at 6.
-        //let unicodeVersion = [...'🐄🙂🧀🥕🧛🧪🪓🛖'].reduce((a, c) =>  a + (Util.renderEmoji(c, 50, 50, 0, 0)[2]? 1 : 0), 5);
-        //if (Util.twemoji = unicodeVersion < 13) document.body.classList.add('twemoji');
-        if (Util.twemoji = !Util.renderEmoji('🩸', 100, 100, 0, 0)[2]) document.body.classList.add('twemoji');
+        // The game requires at least Unicode 9 to work without Twemoji. We work out whether
+        // it supports Unicode 9 by rendering a known unsupported char and then compare it
+        // to what is rendered for a Clown, which is part of Unicode 9.
+        let NO_EMOJI = Util.renderEmoji('\uffff', 100, 100, 0, 0)[0].toDataURL();
+        if (Util.twemoji = (Util.renderEmoji('🤡', 100, 100, 0, 0)[0].toDataURL() == NO_EMOJI)) {
+            document.body.classList.add('twemoji');
+        }
+        Util.twemoji = true;
         Util.WIN = navigator.platform.indexOf('Win') > -1;
     }
 }
