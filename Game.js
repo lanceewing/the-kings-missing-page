@@ -729,7 +729,15 @@ class Game {
         elem.onmousemove = e => this.objMouseMove(e);
     }
     
-    // TODO: Experimenting with testing pixels for transparency.
+    /**
+     * Handles mouse move events, primarily so that the 'thing' property is updated 
+     * when the mouse moves over objects on the screen. If the object has a canvas,
+     * then it uses the image data to determine when exactly the mouse is over the
+     * object. If the pixel is transparent at that position, then it falls back on
+     * whatever is underneath the object.
+     * 
+     * @param {MouseEvent} e The MouseEvent for the mouse move event.
+     */
     objMouseMove(e) {
         let target = e.currentTarget;
         if (target.canvas) {
@@ -788,6 +796,7 @@ class Game {
         let item = this.inventory[name];
         this.items.removeChild(item);
         delete this.inventory[name];
+        this.scrollInv(1);
     }
 
     /**
