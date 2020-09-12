@@ -201,12 +201,12 @@ x-sprite.bldg {
 .left_path {
   left: 0px;
   transform: scaleY(-1) rotateX(-60deg);
-  cursor: var(--c, var(--🡵));
+  cursor: var(--c, var(--🡵, var(--↗️)));
 }
 .right_path {
   right: 0px;
   transform: scaleY(-1) rotateX(-60deg) scaleX(-1);
-  cursor: var(--c, var(--🡴));
+  cursor: var(--c, var(--🡴, var(--↖️)));
 }
 .left_path.down {
   top: 273px;
@@ -214,7 +214,7 @@ x-sprite.bldg {
   background-position-y: -4px;
   border: none;
   transform: rotateX(-60deg) scaleX(-1);
-  cursor: var(--c, var(--🡷));
+  cursor: var(--c, var(--🡷, var(--↙️)));
 }
 .right_path.down {
   top: 273px;
@@ -222,13 +222,13 @@ x-sprite.bldg {
   background-position-y: -4px;
   border: none;
   transform: rotateX(-60deg);
-  cursor: var(--c, var(--🡶));
+  cursor: var(--c, var(--🡶, var(--↘️)));
 }
 .castle_path {
   border-bottom: 150px solid grey;
   border-left: 125px solid transparent;
   border-right: 125px solid transparent;
-  cursor: var(--c, var(--🡱));
+  cursor: var(--c, var(--🡱, var(--⬆️)));
 }
 .actor {
   width: 100%;
@@ -402,13 +402,13 @@ x-sprite.bldg {
   position: absolute;
 }
 .bldg {
-  cursor: var(--c, var(--🡱));
+  cursor: var(--c, var(--🡱, var(--⬆️)));
 }
 .road {
-  cursor: var(--c, var(--🡳));
+  cursor: var(--c, var(--🡳, var(--⬇️)));
 }
 .woods {
-  cursor: var(--c, var(--🡴));
+  cursor: var(--c, var(--🡴, var(--↖️)));
 }
 #screen.left:before {
   left: -20px;
@@ -417,7 +417,7 @@ x-sprite.bldg {
   width: 60px;
   top: 225px;
   height: 200px;
-  cursor: var(--c, var(--🡰));
+  cursor: var(--c, var(--🡰, var(--⬅️)));
 }
 #screen.right:after {
   right: -20px;
@@ -426,7 +426,7 @@ x-sprite.bldg {
   width: 60px;
   top: 225px;
   height: 200px;
-  cursor: var(--c, var(--🡲));
+  cursor: var(--c, var(--🡲, var(--➡️)));
 }
 [data-name='syringe'] {
   filter: grayscale();
