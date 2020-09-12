@@ -216,7 +216,7 @@ class Logic {
 
       case 'Pick up':
         if (game.hasItem(thing)) {
-          ego.say("I already have that.", 140);
+          ego.say("I already have that.");
         } else {
           switch (thing) {
             case 'jack-o-lantern':
@@ -248,7 +248,7 @@ class Logic {
                 }
               }
               else {
-                ego.say("I can't get that.", 220);
+                ego.say("I can't get that.");
               }
               break;
           }
@@ -303,9 +303,9 @@ class Logic {
           case 'shopping cart':
             ego.moveTo(ego.cx, 740, () => ego.moveTo(obj.cx, 740, () => {
               if (game.hasItem('water pistol')) {
-                ego.say("Nothing in there.", 250);
+                ego.say("Nothing in there.");
               } else {
-                ego.say("I found a water pistol.", 300);
+                ego.say("I found a water pistol.");
                 game.getItem('water pistol', '🔫');
               }
             }));
@@ -351,7 +351,7 @@ class Logic {
             break;
           default:
             if (thing != "") {
-              ego.say("It's just a " + thing + ".", 250);
+              ego.say("It's just a " + thing + ".");
             }
             break;
         }
@@ -381,7 +381,7 @@ class Logic {
               break;
             case 'fountain,water pistol':
               if (flags[2]) {
-                ego.say("It's already full.", 200);
+                ego.say("It's already full.");
               } else {
                 ego.say("The pistol now contains water.");
                 flags[2] = 1;
@@ -534,7 +534,7 @@ class Logic {
         break;
 
       default:
-        ego.say("Nothing happened.", 220);
+        ego.say("Nothing happened.");
         break;
     }
 
