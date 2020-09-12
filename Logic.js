@@ -255,6 +255,12 @@ class Logic {
 
       case 'Look at':
         switch (thing) {
+          case 'magic ring':
+            ego.say("The engraving says it negates other magic.");
+            break;
+          case 'boy':
+            ego.say("He's awake, but he doesn't look too good.");
+            break;
           case 'moai statue':
             if (flags[3]) { // Statues are awake.
               ego.say("They're wide awake now.");
@@ -262,6 +268,9 @@ class Logic {
               // Not awake yet. 
               ego.say("They seem to be sleeping.");
             }
+            break;
+          case 'bellhop':
+            ego.say("It makes a loud sound.");
             break;
           case 'ticket':
             ego.say("It's a ticket for the circus.");
