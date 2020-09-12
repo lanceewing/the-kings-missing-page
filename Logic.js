@@ -85,6 +85,9 @@ class Logic {
           case 'self service':
             game.actor.say("Does not compute!");
             break;
+          case 'clown':
+            game.actor.say("Do you like my makeup?");
+            break;
           default:
             if (obj && obj == game.actor) {
               game.actor.say("Hello!");
@@ -255,6 +258,10 @@ class Logic {
 
       case 'Look at':
         switch (thing) {
+          case 'left path':
+          case 'right path':
+            ego.say("The paths will take me to another part of town.");
+            break;
           case 'magic ring':
             ego.say("The engraving says it negates other magic.");
             break;
