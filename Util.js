@@ -1,17 +1,13 @@
 class Util {
 
     /**
-     * Whether the Twemoji font is active or not.
-     */
-    static twemoji = false;
-
-    /**
      * Renders the given emoji text at that given font size on a canvas. Returns that canvas.
      * 
      * @param {string} emojiText The emoji text to render.
      * @param {number} width The desired width of the canvas.
      * @param {number} height The desired height of the canvas.
      * @param {boolean} flip True to horizontally flip the image; otherwise false.
+     * @param {boolean} fill True to set the fill style to red; otherwise false.
      * 
      * @returns The created canvas with the rendered emoji text at the given font size.
      */
@@ -21,9 +17,7 @@ class Util {
         canvas.height = size + (size / 8) + 20;
         canvas.width = size * 1.4 + 10;
         let ctx = canvas.getContext('2d');
-        //ctx.font = `${size}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
-        // TODO: We could try once to render at actual size, then fall back on 250px.
-        ctx.font = `${!Util.twemoji || size < 250? size : 250}px ${Util.twemoji? 'twemoji' : 'Segoe UI Emoji'}`;
+        ctx.font = `${size}px 'Segoe UI Emoji'`;
         ctx.textBaseline = 'bottom';
         if (fill) ctx.fillStyle = 'red';
         ctx.fillText(emojiText, 5, canvas.height - 5);
@@ -93,13 +87,13 @@ class Util {
                 spread = true;
             }
             else if ((red == 0) && (green == 0) && (blue == 0)) {
-                if (Util.WIN && !Util.twemoji) {
+                if (Util.WIN) {
                     imgData.data[pos + 3] = 0;
                     spread = true;
                 }
             }
             else if (brightness < 70) {
-                if (Util.WIN && !Util.twemoji) {
+                if (Util.WIN) {
                     imgData.data[pos + 3] = Math.round(brightness * (255 / 70));
                     spread = true;
                 }
@@ -124,20 +118,6 @@ class Util {
 
         return [minX, minY, maxX, maxY];
     }
-
-    /**
-     * Detects what Emoji Unicode version is available by default.
-     */
-    static detectEmojiVersion() {
-        // The game requires at least Unicode 9 to work without Twemoji. We work out whether
-        // it supports Unicode 9 by rendering a known unsupported char and then compare it
-        // to what is rendered for a Clown, which is part of Unicode 9.
-        let NO_EMOJI = Util.renderEmoji('\uffff', 100, 100, 0, 0)[0].toDataURL();
-        if (Util.twemoji = (Util.renderEmoji('🤡', 100, 100, 0, 0)[0].toDataURL() == NO_EMOJI)) {
-            document.body.classList.add('twemoji');
-        }
-        Util.WIN = navigator.platform.indexOf('Win') > -1;
-    }
 }
 
-Util.detectEmojiVersion();
+Util.WIN = navigator.platform.indexOf('Win') > -1;

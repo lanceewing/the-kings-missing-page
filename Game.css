@@ -1,25 +1,3 @@
-/*
-  IMPORTANT: The font must be reference in an active CSS font-family declaration in order for canvas to use it.
-  * This works because it forces the browser to pre-load the font. If the canvas tries to use it before it has
-    been used elsewhere, it falls back on the default font. It is possible to listen for a font loaded event and
-    use that instead (see xem's sample code and:  document.fonts.load("12px MyFont", "ß").then(…);  )
-
-  Twemoji Mozilla, Segoe UI Emoji, and EmojiOne are all vector based (no Unicode 13 support)
-  Twemoji Mozilla and Segoe UI Emoji use the Microsoft COLR format that works in all browsers.
-  EmojiOne uses OpenType SVG, which will apparently never be supported by Chrome (Unicode 8/9?)
-  NotoColorEmoji is bitmap based, so doesn't scale well at bigger sizes (supports Unicode 13 though)
-  AppleColorEmoji is also bitmap based, so doesn't scale well at bigger sizes.
-  Segoe UI Emoji should work in all. Supports Unicode 12.
-*/
-/* Twemoji COLR vector format. Works on Windows Chrome, Firefox and Edge. */
-@font-face { 
-  font-family: "twemoji";
-  src: url('https://lanceewing.github.io/twemoji.ttf');
-}
-/* The browser will not download the twemoji font unless the twemoji class is present. */
-.twemoji #controls {
-  font-family: "twemoji";
-}
 *, *::before, *::after {
   box-sizing: border-box;
   user-select: none;
@@ -187,9 +165,6 @@ x-sprite canvas {
 }
 x-sprite.bldg {
   overflow: hidden;
-}
-.twemoji x-sprite.bldg canvas {
-  height: 105%;
 }
 .dark {
   filter: brightness(0.4) saturate(3);
