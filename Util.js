@@ -93,13 +93,13 @@ class Util {
                 spread = true;
             }
             else if ((red == 0) && (green == 0) && (blue == 0)) {
-                if (Util.WIN) {
+                if (Util.WIN && !Util.twemoji) {
                     imgData.data[pos + 3] = 0;
                     spread = true;
                 }
             }
             else if (brightness < 70) {
-                if (Util.WIN) {
+                if (Util.WIN && !Util.twemoji) {
                     imgData.data[pos + 3] = Math.round(brightness * (255 / 70));
                     spread = true;
                 }
