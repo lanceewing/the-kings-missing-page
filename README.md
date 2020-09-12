@@ -11,8 +11,11 @@ Control Pip by using the Walk to, Look at, Pick up, and Talk to icons at the bot
 It's a classic Point and Click adventure game interface.
 
 **Walk to:** Used for moving around and to enter buildings.
+
 **Look at:** Used for examining an item or something in the current scene.
+
 **Pick up:** Used for picking up items that you find.
+
 **Talk to:** Used for talking to other characters in the game.
 
 You can also use the items in your inventory by clicking on them and then clicking on the thing you want to use it on.
