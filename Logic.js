@@ -75,6 +75,16 @@ class Logic {
           case 'cow':
             e.target.parentNode.say("Mooooo!");
             break;
+          case 'office worker':
+            if (game.hasItem('ticket')) {
+              game.actor.say("Hello!");
+            } else {
+              game.actor.say("I've lost my briefcase!");
+            }
+            break;
+          case 'self service':
+            game.actor.say("Does not compute!");
+            break;
           default:
             if (obj && obj == game.actor) {
               game.actor.say("Hello!");
@@ -207,6 +217,9 @@ class Logic {
           ego.say("I already have that.", 140);
         } else {
           switch (thing) {
+            case 'jack-o-lantern':
+              ego.say("No, I shouldn't.");
+              break;
             default:
               // Is item in the current room?
               if (obj && obj.propData[1] & 1) {
@@ -242,6 +255,25 @@ class Logic {
 
       case 'Look at':
         switch (thing) {
+          case 'ticket':
+            ego.say("It's a ticket for the circus.");
+            break;
+          case 'bank card':
+            ego.say("It has my name on it.");
+            break;
+          case 'circus':
+            ego.say("The circus is in town.");
+            break;
+          case 'road':
+            ego.say("Maybe I should cross the road?");
+            break;
+          case 'halloween house':
+          case 'jack-o-lantern':
+            ego.say("Someone is celebrating Halloween.");
+            break;
+          case 'mailbox':
+            ego.say("This is my mailbox.");
+            break;
           case 'letter':
             ego.say("It's a commission from the King asking me to find his missing page boy.");
             break;
@@ -310,6 +342,9 @@ class Logic {
           let thing1 = cmd.substring(4, cmd.indexOf(' with '));
           let things = [thing, thing1].sort().join();
           switch (things) {
+            case 'bank,bank card':
+              ego.say("The ATM is broken. I should go inside.");
+              break;
             case 'rose,tulip':
               if (game.hasItem('rose') && game.hasItem('tulip')) {
                 game.getItem('bouquet', '💐');

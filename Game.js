@@ -119,7 +119,7 @@ class Game {
         [ 17, 1, 'banana',             '🍌', 40,  40,    1340,  670, , 1002 ], 
 
         // Room 18 - In post office
-        [ 18, 0, 'selfservice',        '🖥️',  200, 150,   2300,  450, , 1002 ], 
+        [ 18, 0, 'self_service',        '🖥️',  200, 150,   2300,  450, , 1002 ], 
 
         // Room 19 - In hotel
         [ 19, 1, 'bellhop',            '🛎️',  40,  40,    3260,  670, , 1002 ],
@@ -389,8 +389,10 @@ class Game {
                             this.ego.say("...but went missing in the woods to the west.", 300, () => {
                                 this.ego.moveTo(300, 800, () => {
                                     this.ego.say("Please help me to find him.", 200, () => {
-                                        this.inputEnabled = true;
-                                        this.fadeOut(this.status);
+                                        this.ego.say("Use the Walk, Look, Pick up, and Talk icons below.", 300, () => {
+                                            this.inputEnabled = true;
+                                            this.fadeOut(this.status);
+                                        });
                                     });
                                 });
                             });
