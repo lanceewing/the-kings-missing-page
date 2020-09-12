@@ -255,6 +255,14 @@ class Logic {
 
       case 'Look at':
         switch (thing) {
+          case 'moai statue':
+            if (flags[3]) { // Statues are awake.
+              ego.say("They're wide awake now.");
+            } else {
+              // Not awake yet. 
+              ego.say("They seem to be sleeping.");
+            }
+            break;
           case 'ticket':
             ego.say("It's a ticket for the circus.");
             break;
@@ -344,6 +352,10 @@ class Logic {
           switch (things) {
             case 'bank,bank card':
               ego.say("The ATM is broken. I should go inside.");
+              break;
+            case 'bride,tulip':
+            case 'bride,rose':
+              game.actor.say("I'd prefer a bouquet.");
               break;
             case 'rose,tulip':
               if (game.hasItem('rose') && game.hasItem('tulip')) {
