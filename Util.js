@@ -136,7 +136,6 @@ class Util {
         if (Util.twemoji = (Util.renderEmoji('🤡', 100, 100, 0, 0)[0].toDataURL() == NO_EMOJI)) {
             document.body.classList.add('twemoji');
         }
-        Util.twemoji = true;
         Util.WIN = navigator.platform.indexOf('Win') > -1;
     }
 }
