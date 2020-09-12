@@ -156,7 +156,6 @@ class Sprite extends HTMLElement {
             this.style.setProperty('--sprite-top', `${this.top}px`);
             this.style.setProperty('--sprite-left', `${this.x}px`);
         } else {
-            // TODO: Can we make this work the same as ego?
             this.style.top = this.top + 'px';
             this.style.left = this.x + 'px';
         }
@@ -313,7 +312,6 @@ class Sprite extends HTMLElement {
         let game = this.game;
         let elem = this;
 
-        // TODO: Decide whether to keep this calculation.
         width = width? width : Math.min(350, text.length * 15);
 
         game.inputEnabled = false;
@@ -355,7 +353,6 @@ class Sprite extends HTMLElement {
             }
 
             if (next) {
-                // TODO: An attempt to fix double speech bubble issue.
                 let nextFn = next;
                 setTimeout(nextFn, 200);
                 next = null;

@@ -115,7 +115,6 @@ class Logic {
           case 'left path':
           case 'right path': {
               let left = thing.includes('left');
-              // TODO: This is a bit hacky. Would be nice if this method had the actual target sprite.
               let down = document.querySelectorAll('.down').length > 0; 
               let endY = (down? 1000 : 490);
               let endX = (left? (down? -70 : 70) : game.roomData[1] - (down? -70 : 70));
@@ -297,9 +296,6 @@ class Logic {
             break;
           case 'mailbox':
             ego.say("This is my mailbox.");
-            break;
-          case 'letter':
-            ego.say("It's a commission from the King asking me to find his missing page boy.");
             break;
           case 'water pistol':
             ego.say(flags[2]? "It contains water." : "It is empty.");

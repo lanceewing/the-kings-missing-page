@@ -171,7 +171,6 @@ class Game {
         [ 4,   2, 'tractor',           '🚜', 200, 200,   5900, 950 ],
         [ 4,  30, 'barn',              '🏚️',  400, 400,   6100, 540, , , 24 ],
         [ 4,   2, 'cow',               '🐄', 100, 100,   5800, 500 ],
-        [ 4,   2, 'cow',               '🐄', 100, 100,   6500, 500 ],
         [ 4,   2, 'sheep',             '🐏', 100, 100,   6000, 620 ],
         [ 4,   2, 'sheep',             '🐑', 100, 100,   6350, 620 ],
         [ 4,   2, 'sheep',             '🐑', 100, 100,   5600, 560 ],
@@ -204,8 +203,6 @@ class Game {
         [ 6,   2, 'pump',              '⛽', 120, 120,   1090, 825 ],
         [ 6,  30, 'factory',           '🏭', 350, 350,   350,  600, , 499, 26 ],
         [ 6,  30, 'factory',           '🏭', 350, 350,   800,  600, , 499, 26 ],
-        [ 6,   6, 'oil_drum',          '🛢️', 100, 100,   600,  680 ],
-        [ 6,   6, 'oil_drum',          '🛢️', 100, 100,   710,  680 ],
         [ 6,   6, 'oil_drum',          '🛢️', 100, 100,   820,  680 ],
         [ 6,   6, 'oil_drum',          '🛢️', 100, 100,   930,  680 ],
         [ 6,   2, 'car',               '🚙', 200, 200,  350,   950 ],
@@ -291,27 +288,16 @@ class Game {
         this.commands = document.getElementById('commands');
         this.status = document.getElementById('status');
         this.msg = document.getElementById('msg');
-        this.defineCustomElements();
-        this.logic = new Logic(this);
-        this.sound = new Sound();
-        this.emojiMap = new Map();
-        this.start();
-    }
 
-    /**
-     * Defines the custom HTML elements that we use in the game.
-     */
-    defineCustomElements() {
         customElements.define('x-sprite', Sprite);
         customElements.define('x-ego', Ego);
         customElements.define('x-shadow', class Shadow extends HTMLElement {});
         customElements.define('x-wall', class Shadow extends HTMLElement {});
-    }
+        
+        this.logic = new Logic(this);
+        this.sound = new Sound();
+        this.emojiMap = new Map();
 
-    /**
-     * Starts the game.
-     */
-    start() {
         this.resizeScreen();
         onresize = e => this.resizeScreen(e);
 
@@ -373,9 +359,6 @@ class Game {
         this.ego.init(this, 50, 150);
         this.ego.setPosition(450, 750);
         this.screen.appendChild(this.ego);
-    
-        // Letter from the King.
-        this.getItem('letter', '📄');
 
         // Enter the starting room.
         this.newRoom();
@@ -590,7 +573,6 @@ class Game {
         });
 
         // Add tree row, if required.
-        // TODO: Do we need to create the Sprite every time?
         if (this.roomData[0] & 2) {
             let treeSize = this.roomData[0] & 4? 100 : 200;
             for (let x=0; x < this.roomData[1]; x += treeSize) {

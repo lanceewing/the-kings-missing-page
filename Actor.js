@@ -117,7 +117,6 @@ class Actor extends Sprite {
    * @param obj The Sprite that the Actor has hit.
    */
   hit(obj) {
-    // TODO: The input disabled case could be used for all if it can detect horizontal vs vertical adjustments.
     if (!this.game.inputEnabled) {
       // Reset to last position where we weren't touching the other Sprite.
       for (;this.reset() && this.touching(obj););
