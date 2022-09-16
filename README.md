@@ -27,4 +27,4 @@ You can also use the items in your inventory by clicking on them and then clicki
 
 **Original Music By:** Lance Ewing  
 
-**Music Synth Library:** [SoundBox] (http://sb.bitsnbites.eu/) by Marcus Geelnard  
+**Music Synth Library:** [SoundBox] (https://sb.bitsnbites.eu/) by Marcus Geelnard  
