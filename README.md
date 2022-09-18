@@ -1,6 +1,8 @@
 # The King's Missing Page
 "The King's Missing Page" is a point and click animated adventure game written for the 2020 js13kGames contest.
 
+![Screenshot](img/win11_outside_school.png)
+
 You control Detective Pip who has been given the assignment of finding the King's missing page boy, who went missing in the woods whilst delivering a message for the King. 
 
 Explore 31 locations and discover over 20 characters and 18 items. 
@@ -21,6 +23,13 @@ It's a classic Point and Click adventure game interface.
 **Talk to:** Used for talking to other characters in the game.
 
 You can also use the items in your inventory by clicking on them and then clicking on the thing you want to use it on.
+
+# Screenshots
+
+![](img/outside_bank.png)           |  ![](img/outside_house.png)
+:-------------------------:|:-------------------------:
+![](img/twemoji_outside_house.png)  |  ![](img/win10_outside_school.png)
+![](img/macos_inside_hotel.jpg)     |  ![](img/macos_outside_house.jpg)
 
 # Credits
 **Created By:** Lance Ewing  
