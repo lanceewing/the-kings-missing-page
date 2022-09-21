@@ -1,5 +1,5 @@
 # The King's Missing Page
-"The King's Missing Page" is a point and click animated adventure game written for the 2020 js13kGames contest.
+"The King's Missing Page" is a point and click animated adventure game written for the [2020 js13kGames](https://js13kgames.com/entries/2020) contest.
 
 ![Screenshot](img/win11_outside_school.png)
 
